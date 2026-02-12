@@ -1,0 +1,112 @@
+/* THEME VARIABLES */
+:root {
+    --bg: white;
+    --text: black;
+    --card: #f0f0f0;
+    --accent: #d0eaff;
+}
+
+/* Default Theme */
+.theme-default {
+    --bg: white;
+    --text: black;
+    --card: #f0f0f0;
+    --accent: #d0eaff;
+}
+
+/* Dark Theme */
+.theme-dark {
+    --bg: #121212;
+    --text: #e0e0e0;
+    --card: #1f1f1f;
+    --accent: #333;
+}
+
+/* Blue Theme */
+.theme-blue {
+    --bg: #e8f1ff;
+    --text: #003366;
+    --card: #d6e6ff;
+    --accent: #bcd4ff;
+}
+
+/* Sunset Theme */
+.theme-sunset {
+    --bg: #fff1e6;
+    --text: #5a2a00;
+    --card: #ffe0c2;
+    --accent: #ffb38a;
+}
+
+.theme-invert {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+.theme-invertG {
+    filter: invert(1) hue-rotate(90deg);
+}
+
+.theme-Dark3 {
+    filter: invert(1) hue-rotate(20deg);
+}
+
+.theme-Dark4 {
+    filter: invert(1) hue-rotate(0deg);
+}
+
+.theme-Dark5 {
+    filter: invert(1) hue-rotate(250deg);
+}
+
+.theme-Dark6 {
+    filter: invert(1) hue-rotate(320deg);
+}
+
+/* Global */
+html, body {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+}
+
+/* Compass UI */
+.MuiPaper-root,
+.MuiCard-root,
+.MuiBox-root,
+.MuiAccordion-root,
+.MuiContainer-root {
+    background-color: var(--card) !important;
+    color: var(--text) !important;
+    border-radius: 8px !important;
+}
+
+.DayViewEvent-event,
+.EventTile-root,
+.CalendarEvent {
+    background-color: var(--card) !important;
+    color: var(--text) !important;
+    border-left: 4px solid var(--accent) !important;
+}
+
+/* Floating button */
+#betterCompassFloatingBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--accent);
+    color: var(--text);
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 999999;
+    transition: 0.2s;
+}
+
+#betterCompassFloatingBtn:hover {
+    transform: scale(1.1);
+    filter: brightness(0.9);
+}
+
