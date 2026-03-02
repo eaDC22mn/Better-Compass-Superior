@@ -1,19 +1,35 @@
 {
   "manifest_version": 3,
   "name": "Better Compass Superior",
-  "version": "1.4.1",
-  
+  "version": "1.4.2",
   "icons": {
     "128": "icon-128.png"
   },
-  
   "description": "Custom themes (partial, located in extensions options) Various dark themes. Color Pickers for subjects. (Modifyed version of Ashton20271's better Compass extension color picker function. -----> https://github.com/Ashton20271/better-compass ) Next up: fixing color picker or other bugs. Auto log in. Color picker for background/themes. Icon by Laura",
-  "permissions": ["storage", "scripting"],
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://*.compass.education/*"],
-      "js": ["content.js"],
-      "css": ["styles.css"]
+      "matches": [
+        "https://*.compass.education/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ]
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "saml-autoclick.js"
+      ],
+      "run_at": "document_idle"
     }
   ],
   "options_page": "options.html"
