@@ -2,4 +2,4 @@
 An extension that makes compass better, but it's superior to its counterparts. Timetable colours and colour themes. including dark themes. Themes and timetable colour backups located in extensions options.
 Now with autologin, merged in by github.com/Ashton20271 
 
-[![views](https://komarev.com/ghpvc/?username=eaDC22mn&color=brightgreen)](https://github.com/eaDC22mn)
+
