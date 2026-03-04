@@ -1,6 +1,3 @@
-// ---------------------------
-// APPLY THEME
-// ---------------------------
 function applyTheme() {
     chrome.storage.sync.get(["theme"], (settings) => {
         const theme = settings.theme || "default";
@@ -199,7 +196,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
             sendResponse({ backup });
         });
 
-        return true; // async
+        return true;
     }
 
     if (msg.action === "importColors") {
@@ -216,11 +213,10 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
             sendResponse({ ok: true });
         });
 
-        return true; // async
+        return true;
     }
 });
 
-// Inject a script into the page that can dispatch events
 function injectBridge() {
     const script = document.createElement("script");
     script.textContent = `

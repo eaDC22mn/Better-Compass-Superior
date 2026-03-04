@@ -1,11 +1,9 @@
-// Load theme
 chrome.storage.sync.get(["theme"], (settings) => {
     if (settings.theme) {
         document.getElementById("themeSelect").value = settings.theme;
     }
 });
 
-// Load subject colours
 chrome.storage.sync.get(["subjectColors"], (data) => {
     const subjectColors = data.subjectColors || {};
     const container = document.getElementById("subjectColors");
@@ -32,7 +30,6 @@ chrome.storage.sync.get(["subjectColors"], (data) => {
     });
 });
 
-// Save settings
 document.getElementById("save").onclick = () => {
     const theme = document.getElementById("themeSelect").value;
 
