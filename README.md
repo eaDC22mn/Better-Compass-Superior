@@ -8,7 +8,7 @@ To change theme, you must go into "extension options" and select the chosen them
 you can load/save (recall) colour configs for your timetable in extension options (to copy/reload configs, copy/paste the json from the config (backup) box.
 Timetable colours are changed on the actuall Compass page.
 
-![Downloads](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total)
+![Downloads](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total?cacheSeconds=60)
 ![Stars](https://img.shields.io/github/stars/eaDC22mn/Better-Compass-Superior?style=social)
 
 
