@@ -19,4 +19,4 @@ Timetable colours are changed on the actuall Compass page.
 5. load the folder for better-compass-superior
 
 Download latest release from here:
-[![Download](https://img.shields.io/github/v/release/eaDC22mn/Better-Compass-Superior?label=Download)](https://github.com/eaDC22mn/Better-Compass-Superior/releases/latest)
+[![Download](https://img.shields.io/github/v/release/eaDC22mn/Better-Compass-Superior?label=Download)](https://github.com/eaDC22mn/Better-Compass-Superior)
