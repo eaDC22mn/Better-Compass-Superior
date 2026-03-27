@@ -11,7 +11,6 @@ Timetable colours are changed on the actuall Compass page.
 ![Downloads](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total)
 ![Stars](https://img.shields.io/github/stars/eaDC22mn/Better-Compass-Superior?style=social)
 
-## Installation
 
 1. Download the ZIP
 2. Extract the files into a folder of choice
@@ -20,4 +19,4 @@ Timetable colours are changed on the actuall Compass page.
 5. Select the Better-Compass-Superior folder
 
 Download latest release:
-[![Download](https://img.shields.io/github/v/release/eaDC22mn/Better-Compass-Superior?label=Download)](https://github.com/eaDC22mn/Better-Compass-Superior/releases/latest)
+[![Download](https://img.shields.io/github/v/release/eaDC22mn/Better-Compass-Superior?label=Download&cacheSeconds=60)](https://github.com/eaDC22mn/Better-Compass-Superior/releases/latest)
