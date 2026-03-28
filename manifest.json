@@ -5,7 +5,7 @@
   "icons": {
     "128": "icon-128.png"
   },
-  "description": "Custom themes (partial, located in extensions options) Various dark themes. Color Pickers for subjects. (Modifyed version of Ashton20271's better Compass extension color picker function. -----> https://github.com/Ashton20271/better-compass ) Autologin function merged in by Ashton20271. Extension by www.github.com/eaDC22mn",
+  "description": "Custom themes (partial, located in extensions options) Various dark themes. Color Pickers for subjects. ( and a color config manager) (Modifyed version of Ashton20271's better Compass extension color picker function. -----> https://github.com/Ashton20271/better-compass ) Autologin function merged in by Ashton20271. Extension by www.github.com/eaDC22mn",
   "permissions": [
     "storage",
     "scripting"
