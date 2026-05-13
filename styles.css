@@ -33,6 +33,20 @@
     --accent: #ffb38a;
 }
 
+.theme-pastelpink {
+    --bg: #ffffff;
+    --text: #ab80a7;
+    --card: #ebbee0;
+    --accent: #f2d2ee;
+}
+
+.theme-forest {
+    --bg: #148b1e;
+    --text: #0e5808;
+    --card: #07712a;
+    --accent: #0c542a;
+}
+
 .theme-invert {
     filter: invert(1) hue-rotate(180deg);
 }
