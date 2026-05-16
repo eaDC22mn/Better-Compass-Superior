@@ -2,10 +2,10 @@
 
 
 An extension that makes compass better, but it's superior to its counterparts. Timetable colours and colour themes. including dark themes. Themes and timetable colour backups located in extensions options.
-Now with autologin, merged in by github.com/Ashton20271 
+Now with autologin, merged in by https://github.com/Ashton20271 
 
 To change theme, you must go into "extension options" and select the chosen theme. Click "save" at the bottom of the page.
-you can load/save (recall) colour configs for your timetable in extension options (to copy/reload configs, copy/paste the json from the config (backup) box.
+you can load/save (recall) colour configs for your timetable in extension options (to copy/reload configs, copy/paste the json from the configs (backup) box.
 Timetable colours are changed on the actuall Compass page.
 
 (downloads badge very new lmao)

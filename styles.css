@@ -116,3 +116,17 @@ html, body {
     filter: brightness(0.9);
 }
 
+.theme-invert .home-schoolLogo,
+.theme-invert .MuiAvatar-img.css-1hy9t21,
+.theme-invertG .home-schoolLogo,
+.theme-invertG .MuiAvatar-img.css-1hy9t21,
+.theme-Dark3 .home-schoolLogo,
+.theme-Dark3 .MuiAvatar-img.css-1hy9t21,
+.theme-Dark4 .home-schoolLogo,
+.theme-Dark4 .MuiAvatar-img.css-1hy9t21,
+.theme-Dark5 .home-schoolLogo,
+.theme-Dark5 .MuiAvatar-img.css-1hy9t21,
+.theme-Dark6 .home-schoolLogo,
+.theme-Dark6 .MuiAvatar-img.css-1hy9t21 {
+    filter: invert(1) hue-rotate(180deg) !important;
+}
