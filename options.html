@@ -7,31 +7,37 @@
 <body>
     <h2>Theme</h2>
 	<h5>Theme picker. Will be incorporated into the actual website/linked at some point. Various dark color themes. Want a certain theme? tell me and I'll add it. May make a custom color picker theme maker at some point.</h5>
-	
-    <select id="themeSelect">
-        <option value="default">Default</option>
-        <option value="blue">Blue</option>
-        <option value="sunset">Sunset</option>
-        <option value="pastelpink">Pastel_Pink</option>
-        <option value="forest">Forest</option>
-        <option value="invert">Invert</option>
-		<option value="invertG">Invert Green</option>
-		<option value="Dark3">Dark 3</option>
-		<option value="Dark4">Dark 4</option>
-		<option value="Dark5">Dark 5</option>
-		<option value="Dark6">Dark 6</option>
-		
-    </select>
+  <div id="theme-row">
+        <select id="themeSelect">
+            <option value="default">Default</option>
+            <option value="blue">Blue</option>
+            <option value="blue2">Blue Expanded</option>
+            <option value="sunset">Sunset</option>
+            <option value="sunset2">Sunset Expanded</option>
+            <option value="pastelpink">Pastel_Pink</option>
+            <option value="pastelpink2">Pastel_Pink Expanded</option>
+            <option value="forest">Forest</option>
+            <option value="forest2">Forest Expanded</option>
+            <option value="invert">Invert</option>
+        	<option value="invertG">Invert Green</option>
+	    	<option value="Dark3">Dark 3</option>
+	    	<option value="Dark4">Dark 4</option>
+	    	<option value="Dark5">Dark 5</option>
+	    	<option value="Dark6">Dark 6</option>
+       </select>
+       <button id="save">Save</button>
+  </div>
 
-   <button id="backupColors">Backup Colours</button>
-   <button id="restoreColors">Restore Colours</button>
+</body>
+   <button id="backupColors">Pull colours (cfg)</button>
+   <button id="restoreColors">Push colours (cfg)</button>
 
-   <textarea id="colorBackupBox" placeholder="Backup data appears here..." style="width:100%;height:120px;margin-top:10px;"></textarea>
+   <textarea id="colorBackupBox" placeholder="This is the timetable config box. Colours pulled from the site will appear here, or paste colours here to push to the site. Uses JSON." style="width:100%;height:120px;margin-top:10px;"></textarea>
     <h5>Made your own timettable colors? Merge them here, or find full timetable colour presets to use! --> https://github.com/eaDC22mn/Better-Compass-Timetable-Colour-Configs</h5>
-    <h2>Save Theme</h2>
+    
     <div id="subjectColors"></div>
 
-    <button id="save">Save</button>
+    
 
     <script src="options.js"></script>
 </body>
