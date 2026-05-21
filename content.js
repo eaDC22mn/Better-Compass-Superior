@@ -210,6 +210,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         }
 
         chrome.storage.local.set(toStore, () => {
+            applySavedColors();
             sendResponse({ ok: true });
         });
 
@@ -241,24 +242,114 @@ function addOpenOptionsButton() {
 
     const btn = document.createElement("button");
     btn.id = "openOptionsBtn";
-    btn.textContent = "BCS Settings";
+    btn.textContent = "BCS Options";
 
-    btn.style.position = "fixed";
-    btn.style.bottom = "20px";
-    btn.style.right = "20px";
     btn.style.zIndex = "999999";
-    btn.style.padding = "8px 12px";
+    btn.style.padding = "6px 12px";
     btn.style.borderRadius = "6px";
-    btn.style.background = "#333";
+    btn.style.background = "rgba(112, 112, 112, 0.7)";
     btn.style.color = "white";
     btn.style.border = "none";
     btn.style.cursor = "pointer";
+    btn.style.fontSize = "12px";
+    btn.style.fontFamily = "system-ui, sans-serif";
+    btn.style.maxWidth = "120px";
+    btn.style.whiteSpace = "nowrap";
 
-    btn.addEventListener("click", () => {
-        window.dispatchEvent(new CustomEvent("BCS_OPEN_OPTIONS"));
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        chrome.runtime.sendMessage({ action: "openOptions" });
     });
 
-    document.body.appendChild(btn);
+    const topBarSelectors = [
+        '#productNavBar.newLNF',
+        '.newLNF #c_bar',
+        '.x-toolbar',
+        '.topbar',
+        '.header',
+        '.masthead',
+        'header',
+        '.navbar',
+        '.navigation',
+        '.app-bar'
+    ];
+
+    const topBar = topBarSelectors
+        .map(sel => document.querySelector(sel))
+        .find(el => el !== null);
+
+    const rightGroupSelectors = [
+        '#mnuMenuContainer.newLNF > #mnu_right',
+        '#mnu_right',
+        '.mnu-right',
+        '.nav-right',
+        '.topbar-right',
+        '.header-right',
+        '.actions-right',
+        '.right-menu',
+        '.toolbar-right'
+    ];
+
+    const rightGroup = rightGroupSelectors
+        .map(sel => document.querySelector(sel))
+        .find(el => el !== null);
+
+    const profileSelectors = [
+        '.user-avatar',
+        '.avatar',
+        '.profile',
+        '.profile-menu',
+        '.account',
+        '.userMenu',
+        '[aria-label*="Profile"]',
+        '[aria-label*="Account"]',
+        '[data-testid*="profile"]',
+        '[data-test*="profile"]',
+        '[title*="Profile"]',
+        '[title*="Account"]',
+        '.x-icon-button',
+        '.menu-svg-icon'
+    ];
+
+    const profileButton = (rightGroup || topBar)
+        ? profileSelectors
+            .map(sel => (rightGroup || topBar).querySelector(sel))
+            .find(el => el !== null)
+        : null;
+
+    const buttonContainer = rightGroup || topBar;
+
+    btn.style.position = "relative";
+    btn.style.marginLeft = "10px";
+    btn.style.marginRight = "8px";
+    btn.style.display = "inline-flex";
+    btn.style.alignItems = "center";
+    btn.style.justifyContent = "center";
+    btn.style.flexShrink = "0";
+
+    if (buttonContainer) {
+        buttonContainer.style.display = buttonContainer.style.display || "flex";
+        buttonContainer.style.alignItems = buttonContainer.style.alignItems || "center";
+        buttonContainer.style.flexWrap = buttonContainer.style.flexWrap || "nowrap";
+
+        if (profileButton && profileButton.parentElement) {
+            const parent = profileButton.parentElement;
+            const style = window.getComputedStyle(parent);
+            if (style.display === 'flex' || style.display === 'inline-flex') {
+                parent.insertBefore(btn, profileButton);
+            } else {
+                buttonContainer.appendChild(btn);
+            }
+        } else {
+            buttonContainer.appendChild(btn);
+        }
+    } else {
+        btn.style.position = "fixed";
+        btn.style.bottom = "20px";
+        btn.style.right = "20px";
+        document.body.appendChild(btn);
+    }
 }
 
 addOpenOptionsButton();
