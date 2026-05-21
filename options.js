@@ -1,3 +1,5 @@
+
+
 chrome.storage.sync.get(["theme"], (settings) => {
     if (settings.theme) {
         document.getElementById("themeSelect").value = settings.theme;
@@ -79,14 +81,19 @@ document.getElementById("restoreColors").onclick = () => {
         return;
     }
 
-    chrome.tabs.query({}, tabs => {
+    chrome.tabs.query({ url: ["https://*.compass.education/*"] }, tabs => {
+        if (!tabs.length) {
+            alert("No Compass tab found. Open Compass and try again.");
+            return;
+        }
+
         tabs.forEach(tab => {
             chrome.tabs.sendMessage(tab.id, {
                 action: "importColors",
                 data
             });
         });
-    });
 
-    alert("Colours restored! Refresh Compass.");
+        alert("Colours restored!");
+    });
 };
