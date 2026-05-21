@@ -12,12 +12,6 @@
     --accent: #d0eaff;
 }
 
-.theme-dark {
-    --bg: #121212;
-    --text: #e0e0e0;
-    --card: #1f1f1f;
-    --accent: #333;
-}
 
 .theme-blue {
     --bg: #e8f1ff;
@@ -26,6 +20,49 @@
     --accent: #bcd4ff;
 }
 
+
+.theme-blue2 {
+    --bg: #e8f1ff;
+    --text: #003366;
+    --card: #d6e6ff;
+    --accent: #bcd4ff;
+}
+
+body.theme-blue2 .newLNF #c_bar,
+body.theme-blue2 #productNavBar.newLNF,
+body.theme-blue2 .css-1dpvdu2,
+body.theme-blue2 .newLNF .home-schoolNameContainer,
+body.theme-blue2 #mnuMenuContainer.newLNF > #mnu_left > li > a > span.menu-sprite.menu-sprite-house,
+body.theme-blue2 .x-calendar-list,
+body.theme-blue2 .x-panel-body,
+body.theme-blue2 .newLNF body.greyBody,
+body.theme-blue2 .css-szig0z .css-dt2n38 {
+    color: #003366 !important;   /* body text colour */
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --card: #d6e6ff;
+    --accent: #d6e6ff;
+    --branding-main-color: #738eb8 !important; /* icons */
+    --branding-newsfeed-main-color: #71f8ff !important;
+    --newsfeed-banner-color: #d6e6ff !important;
+    --branding-page-text-color: #003366 !important;
+    --branding-page-background-color: #d6e6ff!important;
+    --branding-background-color: #d6e6ff !important;
+    --branding-community-banner-color: #d6e6ff !important;
+    --branding-community-banner-font-color: #d6e6ff !important;
+    --c-bar-background-color: #d6e6ff !important;
+    --c-bar-shadow: none !important;
+    --text-accent: #003366 !important;
+    background-color: #d6e6ff !important;
+    background: #d6e6ff !important;
+    -webkit-tap-highlight-color: #b5b0ff;
+}
+
+
+
+
+
+
+
 .theme-sunset {
     --bg: #fff1e6;
     --text: #5a2a00;
@@ -33,19 +70,142 @@
     --accent: #ffb38a;
 }
 
+body.theme-sunset2 {
+    --bg: #fff1e6;
+    --text: #5a2a00;
+    --card: #ffe0c2;
+    --accent: #ffb38a;
+}
+
+body.theme-sunset2 .newLNF #c_bar,
+body.theme-sunset2 #productNavBar.newLNF,
+body.theme-sunset2 .css-1dpvdu2,
+body.theme-sunset2 .newLNF .home-schoolNameContainer,
+body.theme-sunset2 #mnuMenuContainer.newLNF > #mnu_left > li > a > span.menu-sprite.menu-sprite-house,
+body.theme-sunset2 .x-calendar-list,
+body.theme-sunset2 .x-panel-body,
+body.theme-sunset2 .newLNF body.greyBody,
+body.theme-sunset2 .css-szig0z .css-dt2n38 {
+    color: rgb(255, 255, 255) !important;
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --card: #ffe0c2;
+    --accent: #ffb38a;
+    --branding-main-color: #f0a843 !important;  /* icons */
+    --branding-newsfeed-main-color: #71f8ff !important;
+    --newsfeed-banner-color: #eed882 !important;
+    --branding-page-text-color: #765c06 !important;
+    --branding-page-background-color: #e8c593 !important;
+    --branding-background-color: #eacf8d !important;
+    --branding-community-banner-color: #f5dc5f !important;
+    --branding-community-banner-font-color: #8c6502 !important;
+    --c-bar-background-color: #f7d391 !important;
+    --c-bar-shadow: none !important;
+    --text-accent: #958103 !important;
+    background-color: #c09f7d !important;
+    background: #bd9e80 !important;
+    -webkit-tap-highlight-color: #b5b0ff;
+}
+
+
 .theme-pastelpink {
     --bg: #ffffff;
     --text: #ab80a7;
     --card: #ebbee0;
     --accent: #f2d2ee;
 }
+ 
 
-.theme-forest {
-    --bg: #148b1e;
-    --text: #0e5808;
-    --card: #07712a;
-    --accent: #0c542a;
+
+
+.theme-pastelpink2 {
+    --bg: #ffffff;
+    --text: #ab80a7;
+    --card: #ebbee0;
+    --accent: #f2d2ee;
 }
+
+body.theme-pastelpink2 .newLNF #c_bar,
+body.theme-pastelpink2 #productNavBar.newLNF,
+body.theme-pastelpink2 .css-1dpvdu2,
+body.theme-pastelpink2 .newLNF .home-schoolNameContainer,
+body.theme-pastelpink2 #mnuMenuContainer.newLNF > #mnu_left > li > a > span.menu-sprite.menu-sprite-house,
+body.theme-pastelpink2 .x-calendar-list,
+body.theme-pastelpink2 .x-panel-body,
+body.theme-pastelpink2 .newLNF body.greyBody,
+body.theme-pastelpink2 .css-szig0z .css-dt2n38 {
+    color: rgb(255, 255, 255) !important;
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --card: #e6b2ed !important;
+    --accent: #e6b2ed !important;
+    --branding-main-color: #da5cd5 !important;
+    --branding-newsfeed-main-color: #e6b2ed !important;
+    --newsfeed-banner-color: #e6b2ed !important;
+    --branding-page-text-color: #e6b2ed !important;
+    --branding-page-background-color: #e6b2ed !important;
+    --branding-background-color: #e6b2ed !important;
+    --branding-community-banner-color: #e6b2ed !important;
+    --branding-community-banner-font-color: #e6b2ed !important;
+    --background-color: #e6b2ed !important;
+    --c-bar-background-color: #e6b2ed !important;
+    --c-bar-shadow: none !important;
+    --text-accent: #e6b2ed !important;
+    background-color: #e6b2ed !important;
+    background: #e6b2ed !important;
+    -webkit-tap-highlight-color: #e6b2ed;
+
+}
+   
+
+
+
+
+
+
+
+
+body.theme-forest2 {
+    --bg: #148b1e !important;
+    --text: rgb(131, 155, 180) !important;
+    --card: #07712a !important;
+    --accent: #0c542a !important;
+}
+
+body.theme-forest2 .newLNF #c_bar,
+body.theme-forest2 #productNavBar.newLNF,
+body.theme-forest2 .css-1dpvdu2,
+body.theme-forest2 .newLNF .home-schoolNameContainer,
+body.theme-forest2 #mnuMenuContainer.newLNF > #mnu_left > li > a > span.menu-sprite.menu-sprite-house,
+body.theme-forest2 .x-calendar-list,
+body.theme-forest2 .x-panel-body,
+body.theme-forest2 .newLNF body.greyBody,
+body.theme-forest2 .css-szig0z .css-dt2n38 {
+    color: rgb(255, 255, 255) !important;
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --card: #07712a !important;
+    --accent: #0c542a !important;
+    --branding-main-color: #e9dac5 !important;
+    --branding-newsfeed-main-color: #689267 !important;
+    --newsfeed-banner-color: #66bc7a !important;
+    --branding-page-text-color: #13521d !important;
+    --branding-page-background-color: #2b7740 !important;
+    --branding-background-color: #6b8668 !important;
+    --branding-community-banner-color: #5e8768 !important;
+    --branding-community-banner-font-color: #42664d !important;
+    --background-color: #0a4a98 !important;
+    --c-bar-background-color: #0a4a98 !important;
+    --c-bar-shadow: none !important;
+    --text-accent: #2a8a5f !important;
+    background-color: #715609 !important;
+    background: #715609 !important;
+    -webkit-tap-highlight-color: #b5b0ff;
+
+}
+   
+
+
+
+   
+
 
 .theme-invert {
     filter: invert(1) hue-rotate(180deg);
@@ -114,5 +274,40 @@ html, body {
 #betterCompassFloatingBtn:hover {
     transform: scale(1.1);
     filter: brightness(0.9);
+}
+
+.theme-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    background-color: #8eff97 !important;
+}
+
+/* Overrides for Forest2 theme */
+
+body.theme-forest2 #productNavBar.newLNF ~ #c_bar {
+  background-color: #715609 !important;
+}
+body.theme-forest2 .home-schoolNameContainer {
+  background-color: #2c7f39 !important;
+}
+
+/* Overrrides for Sunset2 theme */
+
+body.theme-sunset2 #productNavBar.newLNF ~ #c_bar {
+  background-color: #0b9b9b !important;
+}
+body.theme-sunset2 .home-schoolNameContainer {
+  background-color: #f7d391 !important;
+}
+
+/* Overrides for Blue2 theme */
+
+body.theme-blue2 #productNavBar.newLNF ~ #c_bar {
+  background-color: #b1c2de !important;
+}
+body.theme-blue2 .home-schoolNameContainer {
+  background-color: #bcd4ff !important;
 }
 
