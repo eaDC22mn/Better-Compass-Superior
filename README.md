@@ -12,7 +12,9 @@ Now with a on-site options/settings button!
 
 
 To change theme, you must go into "extension options", or now, use the button "BCS settings" in the top right of the website. and select the chosen theme. Click "save" (button next to the theme picker).
+
 You can load/save (recall) colour configs for your timetable in extension options (to copy/reload configs, copy/paste the json from the config (backup) box, in JSON.
+
 Timetable colours are changed on the actuall Compass page using sliders.
 
 
