@@ -311,3 +311,11 @@ body.theme-blue2 .home-schoolNameContainer {
   background-color: #bcd4ff !important;
 }
 
+/* Overrides for Pastel pink2 theme */
+
+body.theme-pastelpink2 #productNavBar.newLNF ~ #c_bar {
+  background-color: #ebbff9 !important;
+}
+body.theme-blue2 .home-schoolNameContainer {
+  background-color: #fbe3fd !important;
+}
