@@ -1,14 +1,20 @@
 # Better-Compass-Superior
 
 
-An extension that makes compass better, but it's superior to its counterparts. Timetable colours and colour themes. including dark themes. Themes and timetable colour backups located in extensions options.
-Now with autologin, merged in by github.com/Ashton20271 
+An extension that makes compass better, but it's superior to its counterparts. 
 
-To change theme, you must go into "extension options" and select the chosen theme. Click "save" at the bottom of the page.
-you can load/save (recall) colour configs for your timetable in extension options (to copy/reload configs, copy/paste the json from the config (backup) box.
-Timetable colours are changed on the actuall Compass page.
+Now with a on-site options/settings button!
 
-(downloads badge very new lmao)
+-Customisable timetable colours
+-Timetable Colour loader/saver (json)
+-Many site colour themes (and more coming)
+-Autologin, merged in by github.com/Ashton20271 
+
+
+To change theme, you must go into "extension options", or now, use the button "BCS settings" in the top right of the website. and select the chosen theme. Click "save" (button next to the theme picker).
+You can load/save (recall) colour configs for your timetable in extension options (to copy/reload configs, copy/paste the json from the config (backup) box, in JSON.
+Timetable colours are changed on the actuall Compass page using sliders.
+
 
 ![Downloads](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total?cacheSeconds=60)
 ![Stars](https://img.shields.io/github/stars/eaDC22mn/Better-Compass-Superior?style=social)
