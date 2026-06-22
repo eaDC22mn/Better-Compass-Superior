@@ -13,13 +13,6 @@
 }
 
 
-.theme-blue {
-    --bg: #e8f1ff;
-    --text: #003366;
-    --card: #d6e6ff;
-    --accent: #bcd4ff;
-}
-
 
 .theme-blue2 {
     --bg: #e8f1ff;
@@ -63,12 +56,6 @@ body.theme-blue2 .css-szig0z .css-dt2n38 {
 
 
 
-.theme-sunset {
-    --bg: #fff1e6;
-    --text: #5a2a00;
-    --card: #ffe0c2;
-    --accent: #ffb38a;
-}
 
 body.theme-sunset2 {
     --bg: #fff1e6;
@@ -107,14 +94,6 @@ body.theme-sunset2 .css-szig0z .css-dt2n38 {
 }
 
 
-.theme-pastelpink {
-    --bg: #ffffff;
-    --text: #ab80a7;
-    --card: #ebbee0;
-    --accent: #f2d2ee;
-}
- 
-
 
 
 .theme-pastelpink2 {
@@ -133,7 +112,7 @@ body.theme-pastelpink2 .x-calendar-list,
 body.theme-pastelpink2 .x-panel-body,
 body.theme-pastelpink2 .newLNF body.greyBody,
 body.theme-pastelpink2 .css-szig0z .css-dt2n38 {
-    color: rgb(255, 255, 255) !important;
+    color: rgb(149, 73, 138) !important;
     font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
     --card: #e6b2ed !important;
     --accent: #e6b2ed !important;
@@ -149,8 +128,8 @@ body.theme-pastelpink2 .css-szig0z .css-dt2n38 {
     --c-bar-background-color: #e6b2ed !important;
     --c-bar-shadow: none !important;
     --text-accent: #e6b2ed !important;
-    background-color: #e6b2ed !important;
-    background: #e6b2ed !important;
+    background-color: #ebbee0 !important;
+    background: #ebbee0 !important;
     -webkit-tap-highlight-color: #e6b2ed;
 
 }
@@ -204,7 +183,92 @@ body.theme-forest2 .css-szig0z .css-dt2n38 {
 
 
 
-   
+   .theme-blue2 {
+    --bg: #e8f1ff;
+    --text: #003366;
+    --card: #d6e6ff;
+    --accent: #bcd4ff;
+}
+
+body.theme-blue2 .newLNF #c_bar,
+body.theme-blue2 #productNavBar.newLNF,
+body.theme-blue2 .css-1dpvdu2,
+body.theme-blue2 .newLNF .home-schoolNameContainer,
+body.theme-blue2 .x-calendar-list,
+body.theme-blue2 .x-panel-body,
+body.theme-blue2 .newLNF body.greyBody,
+body.theme-blue2 .css-szig0z .css-dt2n38 {
+
+    color: #003366 !important;   /* body text colour */
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --card: #d6e6ff;
+    --accent: #d6e6ff;
+    --branding-main-color: #738eb8 !important; /* icons */
+    --branding-newsfeed-main-color: #71f8ff !important;
+    --newsfeed-banner-color: #d6e6ff !important;
+    --branding-page-text-color: #003366 !important;
+    --branding-page-background-color: #d6e6ff!important;
+    --branding-background-color: #d6e6ff !important;
+    --branding-community-banner-color: #d6e6ff !important;
+    --branding-community-banner-font-color: #d6e6ff !important;
+    --c-bar-background-color: #d6e6ff !important;
+    --c-bar-shadow: none !important;
+    --text-accent: #003366 !important;
+    background-color: #d6e6ff !important;
+    background: #d6e6ff !important;
+    -webkit-tap-highlight-color: #b5b0ff;
+}
+
+   .theme-tdark {
+    --bg: #000000;
+    --text: #99ed84;
+    --card: #000000;
+    --accent: #000000;
+}
+
+body.theme-tdark .newLNF #c_bar,
+body.theme-tdark #productNavBar.newLNF,
+body.theme-tdark .css-1dpvdu2,
+body.theme-tdark .newLNF .home-schoolNameContainer,
+body.theme-tdark .x-calendar-list,
+body.theme-tdark .x-panel-body,
+body.theme-tdark .newLNF body.greyBody,
+body.theme-tdark .css-szig0z .css-dt2n38 {
+color: #58b655 !important;   /* body text colour */
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --card: #000000;
+    --accent: #000000;
+    --branding-main-color: #7ae66a !important; /* icons */
+    --branding-newsfeed-main-color: #000000 !important;
+    --newsfeed-banner-color: #000000 !important;
+    --branding-page-text-color: #7de37d !important;
+    --branding-page-background-color: #000000!important;
+    --branding-background-color: #000000 !important;
+    --branding-community-banner-color: #000000 !important;
+    --branding-community-banner-font-color: #000000 !important;
+    --c-bar-background-color: #000000 !important;
+    --c-bar-shadow: none !important;
+    --text-accent: #000000 !important;
+    background-color: #000000 !important;
+    background: #000000 !important;
+    -webkit-tap-highlight-color: #b5b0ff;
+}
+
+
+
+
+
+
+
+
+s
+
+
+
+
+
+
+
 
 
 .theme-invert {
@@ -319,3 +383,13 @@ body.theme-pastelpink2 #productNavBar.newLNF ~ #c_bar {
 body.theme-pastelpink2 .home-schoolNameContainer {
   background-color: #fbe3fd !important;
 }
+
+/* Overrides for Pastel tdark theme */
+
+body.theme-tdark #productNavBar.newLNF ~ #c_bar {
+  background-color: #000000 !important;
+}
+body.theme-tdark .home-schoolNameContainer {
+  background-color: #3b3b3b !important;
+}
+
