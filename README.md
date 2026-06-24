@@ -18,7 +18,7 @@ You can load/save (recall) colour configs for your timetable in extension option
 Timetable colours are changed on the actuall Compass page using sliders.
 
 
-![Downloads](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total?cacheSeconds=60)
+![Downloads](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total?cacheSeconds=30)
 ![Stars](https://img.shields.io/github/stars/eaDC22mn/Better-Compass-Superior?style=social)
 
 
