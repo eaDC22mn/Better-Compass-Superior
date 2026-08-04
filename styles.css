@@ -254,23 +254,6 @@ color: #58b655 !important;   /* body text colour */
     -webkit-tap-highlight-color: #b5b0ff;
 }
 
-
-
-
-
-
-
-
-s
-
-
-
-
-
-
-
-
-
 .theme-invert {
     filter: invert(1) hue-rotate(180deg);
 }
