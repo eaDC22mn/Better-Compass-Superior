@@ -1,8 +1,24 @@
 
 
-chrome.storage.sync.get(["theme"], (settings) => {
+let pendingBackgroundImage = "";
+
+chrome.storage.sync.get(["theme", "colorPickerEnabled"], (settings) => {
     if (settings.theme) {
         document.getElementById("themeSelect").value = settings.theme;
+    }
+
+    const disableToggle = document.getElementById("disableTimetableColourPicker");
+    if (disableToggle) {
+        disableToggle.checked = settings.colorPickerEnabled === false;
+    }
+});
+
+chrome.storage.local.get(["backgroundImage"], (localSettings) => {
+    if (localSettings.backgroundImage) {
+        pendingBackgroundImage = localSettings.backgroundImage;
+        const input = document.getElementById("backgroundImage");
+        input.value = localSettings.backgroundImage;
+        updatePreview(localSettings.backgroundImage);
     }
 });
 
@@ -34,6 +50,8 @@ chrome.storage.sync.get(["subjectColors"], (data) => {
 
 document.getElementById("save").onclick = () => {
     const theme = document.getElementById("themeSelect").value;
+    const urlValue = document.getElementById("backgroundImage").value.trim();
+    const disableTimetableColourPicker = document.getElementById("disableTimetableColourPicker").checked;
 
     const inputs = document.querySelectorAll("#subjectColors input");
     const subjectColors = {};
@@ -42,13 +60,70 @@ document.getElementById("save").onclick = () => {
         subjectColors[input.dataset.subject] = input.value;
     });
 
-    chrome.storage.sync.set({
+    const savePayload = {
         theme,
-        subjectColors
-    }, () => {
-        alert("Theme settings saved.");
+        subjectColors,
+        colorPickerEnabled: !disableTimetableColourPicker
+    };
+
+    chrome.storage.sync.set(savePayload, () => {
+        if (pendingBackgroundImage) {
+            chrome.storage.local.set({ backgroundImage: pendingBackgroundImage }, () => {
+                alert("Theme settings saved.");
+            });
+        } else if (urlValue) {
+            chrome.storage.local.set({ backgroundImage: urlValue }, () => {
+                alert("Theme settings saved.");
+            });
+        } else {
+            chrome.storage.local.remove("backgroundImage", () => {
+                alert("Theme settings saved.");
+            });
+        }
     });
 };
+
+document.getElementById("backgroundImage").addEventListener("input", (event) => {
+    pendingBackgroundImage = "";
+    updatePreview(event.target.value.trim());
+});
+
+document.getElementById("backgroundFile").addEventListener("change", (event) => {
+    const file = event.target.files && event.target.files[0];
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+        pendingBackgroundImage = reader.result;
+        document.getElementById("backgroundImage").value = "";
+        updatePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+});
+
+document.getElementById("clearBackground").onclick = () => {
+    document.getElementById("backgroundImage").value = "";
+    document.getElementById("backgroundFile").value = "";
+    pendingBackgroundImage = "";
+    updatePreview("");
+    chrome.storage.local.remove("backgroundImage", () => {
+        alert("Background image cleared.");
+    });
+};
+
+function updatePreview(url) {
+    const preview = document.getElementById("backgroundPreview");
+    if (url) {
+        preview.src = url;
+        preview.style.display = "block";
+    } else {
+        preview.src = "";
+        preview.style.display = "none";
+    }
+}
+
 document.getElementById("backupColors").onclick = () => {
     chrome.tabs.query({}, tabs => {
         let responded = false;
