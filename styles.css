@@ -5,54 +5,29 @@
     --accent: #d0eaff;
 }
 
+body[class*="theme-"] {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+}
+
+
+body[class*="theme-"] :where(.MuiPaper-root, .MuiCard-root, .MuiBox-root, .MuiAccordion-root, .MuiContainer-root, .x-panel-body, .x-calendar-list, .newLNF .home-schoolNameContainer, .css-szig0z .css-dt2n38) {
+    background-color: var(--card) !important;
+    color: var(--text) !important;
+}
+
+body[class*="theme-"] :where(.DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+    background-color: var(--card) !important;
+    color: var(--text) !important;
+    border-left: 4px solid var(--accent) !important;
+}
+
 .theme-default {
     --bg: white;
     --text: black;
     --card: #f0f0f0;
     --accent: #d0eaff;
 }
-
-
-
-.theme-blue2 {
-    --bg: #e8f1ff;
-    --text: #003366;
-    --card: #d6e6ff;
-    --accent: #bcd4ff;
-}
-
-body.theme-blue2 .newLNF #c_bar,
-body.theme-blue2 #productNavBar.newLNF,
-body.theme-blue2 .css-1dpvdu2,
-body.theme-blue2 .newLNF .home-schoolNameContainer,
-body.theme-blue2 #mnuMenuContainer.newLNF > #mnu_left > li > a > span.menu-sprite.menu-sprite-house,
-body.theme-blue2 .x-calendar-list,
-body.theme-blue2 .x-panel-body,
-body.theme-blue2 .newLNF body.greyBody,
-body.theme-blue2 .css-szig0z .css-dt2n38 {
-    color: #003366 !important;   /* body text colour */
-    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
-    --card: #d6e6ff;
-    --accent: #d6e6ff;
-    --branding-main-color: #738eb8 !important; /* icons */
-    --branding-newsfeed-main-color: #71f8ff !important;
-    --newsfeed-banner-color: #d6e6ff !important;
-    --branding-page-text-color: #003366 !important;
-    --branding-page-background-color: #d6e6ff!important;
-    --branding-background-color: #d6e6ff !important;
-    --branding-community-banner-color: #d6e6ff !important;
-    --branding-community-banner-font-color: #d6e6ff !important;
-    --c-bar-background-color: #d6e6ff !important;
-    --c-bar-shadow: none !important;
-    --text-accent: #003366 !important;
-    background-color: #d6e6ff !important;
-    background: #d6e6ff !important;
-    -webkit-tap-highlight-color: #b5b0ff;
-}
-
-
-
-
 
 
 
@@ -136,16 +111,10 @@ body.theme-pastelpink2 .css-szig0z .css-dt2n38 {
    
 
 
-
-
-
-
-
-
 body.theme-forest2 {
     --bg: #148b1e !important;
     --text: rgb(131, 155, 180) !important;
-    --card: #07712a !important;
+    --card: #148b1e !important;
     --accent: #0c542a !important;
 }
 
@@ -180,14 +149,82 @@ body.theme-forest2 .css-szig0z .css-dt2n38 {
 
 }
    
+/* Z-Index Panel Styles */
+.bcs-zindex-panel {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(20, 20, 20, 0.95);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    font-family: system-ui, sans-serif;
+    font-size: 12px;
+    min-width: 170px;
+}
 
+.bcs-zindex-title {
+    font-weight: 700;
+    font-size: 13px;
+}
 
+.bcs-zindex-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bcs-zindex-button,
+.bcs-zindex-pick {
+    border: none;
+    border-radius: 6px;
+    padding: 6px 8px;
+    cursor: pointer;
+    background: #2f6fed;
+    color: white;
+}
+
+.bcs-zindex-input {
+    width: 70px;
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid #5a5a5a;
+}
+
+.bcs-zindex-status {
+    font-size: 11px;
+    opacity: 0.9;
+}
+
+.bcs-zindex-panel.is-picking {
+    outline: 2px solid #7bdcff;
+}
+/* End of Z-Index Panel Styles */
 
    .theme-blue2 {
     --bg: #e8f1ff;
     --text: #003366;
     --card: #d6e6ff;
     --accent: #bcd4ff;
+}
+
+body.theme-blue2 #productNavBar.newLNF ~ #c_bar {
+  background-color: transparent !important;
+}
+body.theme-blue2 .home-schoolNameContainer {
+  background-color: transparent !important;
+}
+
+body.theme-blue2 #aspnetForm {
+  background-color: transparent !important;
+}
+body.theme-blue2 #c_bar {
+  background-color: transparent !important;
 }
 
 body.theme-blue2 .newLNF #c_bar,
@@ -197,13 +234,16 @@ body.theme-blue2 .newLNF .home-schoolNameContainer,
 body.theme-blue2 .x-calendar-list,
 body.theme-blue2 .x-panel-body,
 body.theme-blue2 .newLNF body.greyBody,
-body.theme-blue2 .css-szig0z .css-dt2n38 {
-
-    color: #003366 !important;   /* body text colour */
+body.theme-blue2 .css-szig0z .css-dt2n38 
+body.theme-blue2 .newLNF #c_bar,
+body.theme-blue2 .newLNF .home-schoolNameContainer,
+body.theme-blue2 #mnuMenuContainer.newLNF > #mnu_left > li > a > span.menu-sprite.menu-sprite-house,
+body.theme-blue2 .x-panel-body,
+body.theme-blue2 .newLNF body.greyBody {
+    color: #003366;   /* body text colour */
     font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
-    --card: #d6e6ff;
     --accent: #d6e6ff;
-    --branding-main-color: #738eb8 !important; /* icons */
+    --branding-main-color: #738eb8 ; /* icons */
     --branding-newsfeed-main-color: #71f8ff !important;
     --newsfeed-banner-color: #d6e6ff !important;
     --branding-page-text-color: #003366 !important;
@@ -254,6 +294,129 @@ color: #58b655 !important;   /* body text colour */
     -webkit-tap-highlight-color: #b5b0ff;
 }
 
+
+   .theme-clear {
+    --bg: transparent;
+    --text: #000407;
+    --card:  transparent !important; /* one that needs to be transparented*/
+    --accent: #6040ff;
+}
+
+body.theme-clear #productNavBar.newLNF ~ #c_bar {
+  background-color: transparent !important;
+}
+body.theme-clear .home-schoolNameContainer {
+  background-color: transparent !important;
+}
+
+body.theme-clear #aspnetForm {
+  background-color: transparent !important;
+}
+body.theme-clear #c_bar {
+  background-color: transparent !important;
+}
+
+body.theme-clear .newLNF #c_bar,
+body.theme-clear #productNavBar.newLNF,
+body.theme-clear .css-1dpvdu2,
+body.theme-clear .newLNF .home-schoolNameContainer,
+body.theme-clear .x-calendar-list,
+body.theme-clear .x-panel-body,
+html.newLNF.newLNFActivity.x-strict
+body.theme-clear .newLNF body.greyBody,
+body.theme-clear .css-szig0z .css-dt2n38 {
+
+    color: #000000;   /* body text colour */
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --accent: #000000;
+    --branding-main-color: #000000 ; /* icons */
+    --branding-newsfeed-main-color: #000000 !important;
+    --newsfeed-banner-color: #000000 !important;
+    --branding-page-text-color: #000000 !important;
+    --branding-page-background-color: #000000!important;
+    --branding-background-color: #000000 !important;
+    --branding-community-banner-color: #000000 !important;
+    --branding-community-banner-font-color: #000000 !important;
+    --c-bar-background-color: #000000 !important;
+    --c-bar-shadow: #000000 !important;
+    --text-accent: #000000 !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    -webkit-tap-highlight-color: #000000;
+}
+
+
+
+
+
+   .theme-red1 {
+    --bg: #bb1111c1;
+    --text: #000407;
+    --card:  transparent !important; /* one that needs to be transparented*/
+    --accent: #ff0d0d;
+}
+
+body.theme-red1 #productNavBar.newLNF ~ #c_bar {
+  background-color: transparent !important;
+}
+body.theme-red1 .home-schoolNameContainer {
+  background-color: #970000 !important;
+}
+
+body.theme-red1 #aspnetForm {
+  background-color: transparent !important;
+}
+body.theme-red1 #c_bar {
+  background-color: transparent !important;
+}
+
+body.theme-red1 .newLNF #c_bar,
+body.theme-red1 #productNavBar.newLNF,
+body.theme-red1 .css-1dpvdu2,
+body.theme-red1 .newLNF .home-schoolNameContainer,
+body.theme-red1 .x-calendar-list,
+body.theme-red1 .x-panel-body,
+html.newLNF.newLNFActivity.x-strict
+body.theme-red1 .newLNF body.greyBody,
+body.theme-red1 .css-szig0z .css-dt2n38 {
+
+    color: #9b0000;   /* body text colour */
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --accent: #b72c2c;
+    --branding-main-color: #6f0c0c ; /* icons */
+    --branding-newsfeed-main-color: #871212 !important;
+    --newsfeed-banner-color: #e03030 !important;
+    --branding-page-text-color: #000000 !important;
+    --branding-page-background-color: #e03030!important;
+    --branding-background-color: #e03030 !important;
+    --branding-community-banner-color: #e03030 !important;
+    --branding-community-banner-font-color: #e03030 !important;
+    --c-bar-background-color: #e03030 !important;
+    --c-bar-shadow: #7a0101 !important;
+    --text-accent: #000000 !important;
+    background-color: #e03030 !important;
+    background: transparent !important;
+    -webkit-tap-highlight-color: #e03030;
+}
+
+
+
+
+
+
+
+html {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+html::before,
+html::after {
+    background: transparent !important;
+    content: none !important;
+}
+
+
 .theme-invert {
     filter: invert(1) hue-rotate(180deg);
 }
@@ -277,12 +440,56 @@ color: #58b655 !important;   /* body text colour */
 .theme-Dark6 {
     filter: invert(1) hue-rotate(320deg);
 }
+/*
+.has-custom-background {
+    --bg: transparent !important;
+    --card: transparent !important;
+    --accent: transparent !important;
+}
 
+#betterCompassBackgroundLayer {
+    mix-blend-mode: normal;
+}
+*/
+/*
+/* body.has-custom-background .newLNF, */
+/* body.has-custom-background .newLNF #c_bar,*/
+/*body.has-custom-background #productNavBar.newLNF,*/
+/*body.has-custom-background .css-1dpvdu2,*/
+/*body.has-custom-background .newLNF .home-schoolNameContainer,*/
+/*body.has-custom-background .x-calendar-list,*/
+/*body.has-custom-background .x-panel-body,*/
+/*body.has-custom-background .newLNF body.greyBody,*/
+/*body.has-custom-background .css-szig0z .css-dt2n38,*/
+/*body.has-custom-background .MuiPaper-root,*/
+/*body.has-custom-background .MuiCard-root,*/
+/*body.has-custom-background .MuiBox-root,*/
+/*body.has-custom-background .MuiAccordion-root,*/
+/*body.has-custom-background .MuiContainer-root,*/
+/*body.has-custom-background .DayViewEvent-event,*/
+/*body.has-custom-background .EventTile-root,*/
+/*
+body.has-custom-background .CalendarEvent {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+*/
+/*body.has-custom-background .MuiPaper-root,*/
+/*body.has-custom-background .MuiCard-root,*/
+/*body.has-custom-background .MuiBox-root,*/
+/*body.has-custom-background .MuiAccordion-root,*/
+/*body.has-custom-background .MuiContainer-root,*/
+/*body.has-custom-background .DayViewEvent-event,*/
+/*body.has-custom-background .EventTile-root,*/
+/*body.has-custom-background .CalendarEvent {
+    border-left-color: transparent !important;
+}
+*/
 html, body {
     background-color: var(--bg) !important;
     color: var(--text) !important;
 }
-
+/*
 .MuiPaper-root,
 .MuiCard-root,
 .MuiBox-root,
@@ -292,7 +499,7 @@ html, body {
     color: var(--text) !important;
     border-radius: 8px !important;
 }
-
+*/
 .DayViewEvent-event,
 .EventTile-root,
 .CalendarEvent {
@@ -322,42 +529,21 @@ html, body {
     transform: scale(1.1);
     filter: brightness(0.9);
 }
+/* Keep the background layer but avoid forcing transparency on many elements.
+    Restoring default element backgrounds so the site remains usable. If you
+    want specific areas to be slightly translucent so the image shows, add
+    targeted rules here rather than broad selectors. */
+/* Keep the background layer but avoid forcing transparency on many elements.
+   Restoring default element backgrounds so the site remains usable. If you
+   want specific areas to be slightly translucent so the image shows, add
+   targeted rules here rather than broad selectors. */
 
-.theme-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-    background-color: #8eff97 !important;
+/* Example light translucency for top bar (uncomment & adjust if desired):
+body.has-custom-background #productNavBar.newLNF ~ #c_bar,
+body.has-custom-background .newLNF .home-schoolNameContainer {
+    background-color: rgba(255,255,255,0.85) !important;
 }
-
-/* Overrides for Forest2 theme */
-
-body.theme-forest2 #productNavBar.newLNF ~ #c_bar {
-  background-color: #715609 !important;
-}
-body.theme-forest2 .home-schoolNameContainer {
-  background-color: #2c7f39 !important;
-}
-
-/* Overrrides for Sunset2 theme */
-
-body.theme-sunset2 #productNavBar.newLNF ~ #c_bar {
-  background-color: #0b9b9b !important;
-}
-body.theme-sunset2 .home-schoolNameContainer {
-  background-color: #f7d391 !important;
-}
-
-/* Overrides for Blue2 theme */
-
-body.theme-blue2 #productNavBar.newLNF ~ #c_bar {
-  background-color: #b1c2de !important;
-}
-body.theme-blue2 .home-schoolNameContainer {
-  background-color: #bcd4ff !important;
-}
-
+*/
 /* Overrides for Pastel pink2 theme */
 
 body.theme-pastelpink2 #productNavBar.newLNF ~ #c_bar {
@@ -375,4 +561,6 @@ body.theme-tdark #productNavBar.newLNF ~ #c_bar {
 body.theme-tdark .home-schoolNameContainer {
   background-color: #3b3b3b !important;
 }
+
+
 
