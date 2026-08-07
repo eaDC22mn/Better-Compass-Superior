@@ -17,6 +17,7 @@ You can load/save (recall) colour configs for your timetable in extension option
 Timetable colours are changed on the actuall Compass page using sliders.
 
 [![Github All Releases](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total.svg)]()
+
 ![Stars](https://img.shields.io/github/stars/eaDC22mn/Better-Compass-Superior?style=social)
 
 
@@ -29,6 +30,8 @@ Timetable colours are changed on the actuall Compass page using sliders.
 Download latest release:
 [![Download](https://img.shields.io/github/v/release/eaDC22mn/Better-Compass-Superior?label=Download&cacheSeconds=60)](https://github.com/eaDC22mn/Better-Compass-Superior/releases/latest?cacheSeconds=60)
 Or from releases, the latest release.
+
+
 Discord -->
 [![Discord](https://shields.io)](https://discord.gg/GY58mMGYjw)
 
