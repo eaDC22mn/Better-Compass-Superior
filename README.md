@@ -5,11 +5,11 @@ An extension that makes compass better, but it's superior to its counterparts.
 
 Now with a on-site options/settings button!
 
-- Customisable timetable colours 
+- Customisable timetable colours (disablable)
 - Timetable Colour loader/saver (json) 
 - Many site colour themes (and more coming) 
 - Autologin, merged in by https://github.com/Ashton20271  
-
+- Custom background images (Works best with the "clear" theme)
 
 To change theme, you must go into "extension options", or now, use the button "BCS settings" in the top right of the website. and select the chosen theme. Click "save" (button next to the theme picker).
 
