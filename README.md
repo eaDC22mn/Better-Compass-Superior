@@ -9,8 +9,7 @@ Now with a on-site options/settings button!
 - Timetable Colour loader/saver (json) 
 - Many site colour themes (and more coming) 
 - Autologin, merged in by https://github.com/Ashton20271  (Who keeps stealing all my code)
-- Custom background images (Works best with the "clear" theme)
-
+- Custom background images (Works best with the light or Dark Clear themes)
 To change theme, you must go into "extension options", or now, use the button "BCS settings" in the top right of the website. and select the chosen theme. Click "save" (button next to the theme picker).
 
 You can load/save (recall) colour configs for your timetable in extension options (to copy/reload configs, copy/paste the json from the config (backup) box, in JSON.
