@@ -345,6 +345,60 @@ body.theme-clear .css-szig0z .css-dt2n38 {
     -webkit-tap-highlight-color: #000000;
 }
 
+ .theme-clearl {
+    --bg: transparent;
+    --text: #89caff!important;
+    --card:  transparent !important; /* one that needs to be transparented*/
+    --accent: #b4a5fc;
+}
+
+body.theme-clearl #productNavBar.newLNF ~ #c_bar {
+  background-color: transparent !important;
+}
+body.theme-clearl .home-schoolNameContainer {
+  background-color: transparent !important;
+}
+
+body.theme-clearl #aspnetForm {
+  background-color: transparent !important;
+}
+body.theme-clearl #c_bar {
+  background-color: transparent !important;
+}
+
+body.theme-clearl .newLNF #c_bar,
+body.theme-clearl #productNavBar.newLNF,
+body.theme-clearl .css-1dpvdu2,
+body.theme-clearl .newLNF .home-schoolNameContainer,
+body.theme-clearl .x-calendar-list,
+body.theme-clearl .x-panel-body,
+body.theme-clearl.css-iqppun,
+html.newLNF.newLNFActivity.x-strict,
+body.theme-clearl .newLNF body.greyBody,
+body.theme-clearl .MuiTypography-root.MuiTypography-bodyMD,
+body.theme-clearl .MuiTypography-root.MuiTypography,
+body.theme-clearl .MuiTypography-root,
+body.theme-clearl .css-szig0z .css-dt2n38 {
+
+    color: #86beff !important;   /* body text colour */
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --accent: #6bb0ff;
+    --branding-main-color: #c4e0ff ; /* icons */
+    --branding-newsfeed-main-color: #c4e0ff !important;
+    --newsfeed-banner-color: #c4e0ff !important;
+    --branding-page-text-color: #7fb9fb !important;
+    --branding-page-background-color: #c4e0ff!important;
+    --branding-background-color: #c4e0ff !important;
+    --branding-community-banner-color: #c4e0ff !important;
+    --branding-community-banner-font-color: #c4e0ff !important;
+    --c-bar-background-color: transparent !important;
+    --c-bar-shadow: #0d0d0e !important;
+    --text-accent: #6bb0ff !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    -webkit-tap-highlight-color: #c4e0ff;
+}
+
 
 
 
