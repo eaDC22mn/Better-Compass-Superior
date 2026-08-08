@@ -15,7 +15,7 @@ To change theme, you must go into "extension options", or now, use the button "B
 You can load/save (recall) colour configs for your timetable in extension options (to copy/reload configs, copy/paste the json from the config (backup) box, in JSON.
 
 Timetable colours are changed on the actuall Compass page using sliders.
-
+downloads counter stopped counting (just stopped at 182 ages ago :(  )
 [![Github All Releases](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total.svg)]()
 
 ![Stars](https://img.shields.io/github/stars/eaDC22mn/Better-Compass-Superior?style=social)
