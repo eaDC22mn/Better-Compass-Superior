@@ -11,7 +11,8 @@ function applyThemeAndBackground() {
         document.body.classList.add("theme-" + theme);
     });
 
-    chrome.storage.local.get(["backgroundImage"], (localSettings) => {
+    chrome.storage.local.get(["backgroundImage", "backgroundBlur"], (localSettings) => {
+        backgroundBlur = Number(localSettings.backgroundBlur) || 0;
         applyBackgroundImage(localSettings.backgroundImage);
     });
 }
@@ -154,11 +155,21 @@ function applyBackgroundTransparencyState(isActive) {
     });
 }
 
+let backgroundBlur = 0;
+
+function applyBackgroundBlur(value) {
+    backgroundBlur = Number(value) || 0;
+    if (customBackgroundLayer) {
+        customBackgroundLayer.style.filter = `blur(${backgroundBlur}px)`;
+    }
+}
+
 function applyBackgroundImage(url) {
     const imageUrl = url?.trim();
     if (imageUrl) {
         const layer = ensureBackgroundLayer();
         layer.style.backgroundImage = `url("${imageUrl}")`;
+        applyBackgroundBlur(backgroundBlur);
         document.body.classList.add("has-custom-background");
         applyBackgroundTransparencyState(true);
         // Do NOT clear page backgrounds (breaks site). If any backgrounds
@@ -167,6 +178,7 @@ function applyBackgroundImage(url) {
     } else {
         if (customBackgroundLayer) {
             customBackgroundLayer.style.backgroundImage = "";
+            customBackgroundLayer.style.filter = "";
         }
         document.body.classList.remove("has-custom-background");
         applyBackgroundTransparencyState(false);
@@ -383,13 +395,83 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 /*end of z-index selection changes*/
 
 
+const TIMETABLE_BLOCK_SELECTORS = '[class*="timetable"], [class*="calendar"], .event';
+
 let timetableColorPickerEnabled = true;
+let timetableEditorModeEnabled = true;
 let colorPickerInitialized = false;
 let colorPickerElement = null;
-let applySavedColors = null;
+let savedTimetableColors = null;
+
+function getKey(el) {
+    if (!el) return null;
+    const text = el.innerText?.trim();
+    return text ? `compass-color-${text}` : null;
+}
+
+function loadSavedTimetableColors(callback) {
+    chrome.storage.sync.get(null, syncAll => {
+        chrome.storage.local.get(null, localAll => {
+            savedTimetableColors = {};
+            const keys = new Set([...Object.keys(localAll), ...Object.keys(syncAll)]);
+            keys.forEach(key => {
+                if (!key.startsWith("compass-color-")) return;
+                savedTimetableColors[key] = syncAll[key] !== undefined ? syncAll[key] : localAll[key];
+            });
+            callback?.();
+        });
+    });
+}
+
+function applySavedColors() {
+    if (!timetableColorPickerEnabled || !savedTimetableColors) return;
+
+    const blocks = document.querySelectorAll(TIMETABLE_BLOCK_SELECTORS);
+    if (!blocks.length) return;
+
+    blocks.forEach(block => {
+        const key = getKey(block);
+        if (!key) return;
+        const saved = savedTimetableColors[key];
+        if (saved) {
+            block.style.backgroundColor = saved;
+        }
+    });
+}
+
+function scheduleSavedColorRestore() {
+    if (!savedTimetableColors) {
+        loadSavedTimetableColors(() => scheduleSavedColorRestore());
+        return;
+    }
+
+    applySavedColors();
+
+    const observer = new MutationObserver(() => {
+        if (document.querySelector(TIMETABLE_BLOCK_SELECTORS)) {
+            applySavedColors();
+            observer.disconnect();
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+    setTimeout(() => observer.disconnect(), 5000);
+}
 
 function setTimetableColorPickerEnabled(enabled) {
     timetableColorPickerEnabled = enabled;
+
+    if (!enabled && colorPickerElement) {
+        colorPickerElement.style.display = "none";
+    }
+
+    if (enabled && !colorPickerInitialized) {
+        initTimetableColorPicker();
+    }
+}
+
+function setTimetableEditorModeEnabled(enabled) {
+    timetableEditorModeEnabled = enabled;
 
     if (!enabled && colorPickerElement) {
         colorPickerElement.style.display = "none";
@@ -470,17 +552,35 @@ function initTimetableColorPicker() {
         return text ? `compass-color-${text}` : null;
     }
 
+    function setColorStorage(key, value) {
+        const item = { [key]: value };
+        chrome.storage.local.set(item);
+        chrome.storage.sync.set(item);
+    }
+
+    function getColorStorage(key, callback) {
+        chrome.storage.sync.get([key], syncResult => {
+            if (syncResult && syncResult[key] !== undefined) {
+                callback(syncResult[key]);
+            } else {
+                chrome.storage.local.get([key], localResult => {
+                    callback(localResult[key]);
+                });
+            }
+        });
+    }
+
     function applyColor() {
         if (!timetableColorPickerEnabled || !currentBlock) return;
         const color = hsl();
         preview.style.background = color;
         if (currentBlock) currentBlock.style.backgroundColor = color;
         const key = getKey(currentBlock);
-        if (key) chrome.storage.local.set({ [key]: color });
+        if (key) setColorStorage(key, color);
     }
 
     function show(block) {
-        if (!timetableColorPickerEnabled || !block) return;
+        if (!timetableColorPickerEnabled || !timetableEditorModeEnabled || !block) return;
         clearTimeout(hideTimeout);
         currentBlock = block;
 
@@ -513,7 +613,7 @@ function initTimetableColorPicker() {
     }
 
     function hideDelayed() {
-        if (!timetableColorPickerEnabled) return;
+        if (!timetableColorPickerEnabled || !timetableEditorModeEnabled) return;
         if (currentBlock === pinnedBlock) return;
         hideTimeout = setTimeout(() => {
             picker.style.display = "none";
@@ -521,25 +621,8 @@ function initTimetableColorPicker() {
         }, 8000);
     }
 
-    applySavedColors = function () {
-        if (!timetableColorPickerEnabled) return;
-        chrome.storage.local.get(null, all => {
-            const blocks = document.querySelectorAll('[class*="timetable"], [class*="calendar"], .event');
-
-            blocks.forEach(block => {
-                const key = getKey(block);
-                if (!key) return;
-
-                const saved = all[key];
-                if (saved) {
-                    block.style.backgroundColor = saved;
-                }
-            });
-        });
-    };
-
     document.addEventListener("mouseover", e => {
-        if (!timetableColorPickerEnabled || !e.target) return;
+        if (!timetableColorPickerEnabled || !timetableEditorModeEnabled || !e.target) return;
         if (
             e.target.closest(".x-box-inner, .x-box-target") ||
             e.target.closest(".menu-svg-icon.menu-svg-icon-calendar")
@@ -550,14 +633,14 @@ function initTimetableColorPicker() {
     });
 
     document.addEventListener("mouseout", e => {
-        if (!timetableColorPickerEnabled) return;
+        if (!timetableColorPickerEnabled || !timetableEditorModeEnabled) return;
         if (!e.relatedTarget || !e.relatedTarget.closest?.('[class*="timetable"], [class*="calendar"], .event')) {
             hideDelayed();
         }
     });
 
     document.addEventListener("contextmenu", e => {
-        if (!timetableColorPickerEnabled || !e.target) return;
+        if (!timetableColorPickerEnabled || !timetableEditorModeEnabled || !e.target) return;
         if (
             e.target.closest(".x-box-inner, .x-box-target") ||
             e.target.closest(".menu-svg-icon.menu-svg-icon-calendar")
@@ -580,7 +663,7 @@ function initTimetableColorPicker() {
     const style = document.createElement("style");
     style.id = "avatar-style";
     style.textContent = `
-    .MuiAvatar-root.MuiAvatar-circular.box-content.border-white.border-16.border-solid.w-\\[120px\\].h-\\[120px\\].css-zawysc {
+    .MuiAvatar-root.MuiAvatar-circular.box-content.border-white.border-16.border-solid.w-\[120px\].h-\[120px\].css-zawysc {
       filter: none !important;
       background-color: initial !important;
     }
@@ -588,13 +671,49 @@ function initTimetableColorPicker() {
     document.head.appendChild(style);
 }
 
-chrome.storage.sync.get(["colorPickerEnabled"], (settings) => {
+function applySavedColors() {
+    if (!timetableColorPickerEnabled) return;
+
+    chrome.storage.sync.get(null, syncAll => {
+        chrome.storage.local.get(null, localAll => {
+            const blocks = document.querySelectorAll('[class*="timetable"], [class*="calendar"], .event');
+
+            blocks.forEach(block => {
+                const key = getKey(block);
+                if (!key) return;
+
+                const saved = syncAll[key] !== undefined ? syncAll[key] : localAll[key];
+                if (saved) {
+                    block.style.backgroundColor = saved;
+                }
+            });
+        });
+    });
+}
+
+chrome.storage.sync.get(["colorPickerEnabled", "editorModeEnabled"], (settings) => {
     setTimetableColorPickerEnabled(settings.colorPickerEnabled !== false);
+    setTimetableEditorModeEnabled(settings.editorModeEnabled !== false);
+    scheduleSavedColorRestore();
 });
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (areaName === "sync" && changes.colorPickerEnabled) {
-        setTimetableColorPickerEnabled(changes.colorPickerEnabled.newValue !== false);
+    if (areaName === "sync") {
+        if (changes.colorPickerEnabled) {
+            setTimetableColorPickerEnabled(changes.colorPickerEnabled.newValue !== false);
+        }
+        if (changes.editorModeEnabled) {
+            setTimetableEditorModeEnabled(changes.editorModeEnabled.newValue !== false);
+        }
+    }
+
+    if (areaName === "local") {
+        if (changes.backgroundBlur) {
+            applyBackgroundBlur(changes.backgroundBlur.newValue);
+        }
+        if (changes.backgroundImage) {
+            applyBackgroundImage(changes.backgroundImage.newValue);
+        }
     }
 });
 
@@ -654,12 +773,10 @@ window.addEventListener("message", (event) => {
     }
 });
 
-function addOpenOptionsButton() {
-    if (document.getElementById("openOptionsBtn")) return;
-
+function createCompassActionButton(id, label, onClick) {
     const btn = document.createElement("button");
-    btn.id = "openOptionsBtn";
-    btn.textContent = "BCS Options";
+    btn.id = id;
+    btn.textContent = label;
 
     btn.style.zIndex = "999999";
     btn.style.padding = "6px 12px";
@@ -673,12 +790,49 @@ function addOpenOptionsButton() {
     btn.style.maxWidth = "120px";
     btn.style.whiteSpace = "nowrap";
 
+    btn.style.position = "relative";
+    btn.style.marginLeft = "10px";
+    btn.style.marginRight = "8px";
+    btn.style.display = "inline-flex";
+    btn.style.alignItems = "center";
+    btn.style.justifyContent = "center";
+    btn.style.flexShrink = "0";
+
     btn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        chrome.runtime.sendMessage({ action: "openOptions" });
+        onClick();
     });
 
+    return btn;
+}
+
+function insertCompassActionButton(button, buttonContainer, anchorElement) {
+    if (buttonContainer) {
+        buttonContainer.style.display = buttonContainer.style.display || "flex";
+        buttonContainer.style.alignItems = buttonContainer.style.alignItems || "center";
+        buttonContainer.style.flexWrap = buttonContainer.style.flexWrap || "nowrap";
+
+        if (anchorElement && anchorElement.parentElement) {
+            const parent = anchorElement.parentElement;
+            const style = window.getComputedStyle(parent);
+            if (style.display === "flex" || style.display === "inline-flex") {
+                parent.insertBefore(button, anchorElement.nextSibling);
+            } else {
+                buttonContainer.appendChild(button);
+            }
+        } else {
+            buttonContainer.appendChild(button);
+        }
+    } else {
+        button.style.position = "fixed";
+        button.style.bottom = "20px";
+        button.style.right = "20px";
+        document.body.appendChild(button);
+    }
+}
+
+function addOpenOptionsButton() {
     const topBarSelectors = [
         '#productNavBar.newLNF',
         '.newLNF #c_bar',
@@ -736,36 +890,13 @@ function addOpenOptionsButton() {
         : null;
 
     const buttonContainer = rightGroup || topBar;
+    const anchorElement = profileButton && profileButton.parentElement ? profileButton : null;
 
-    btn.style.position = "relative";
-    btn.style.marginLeft = "10px";
-    btn.style.marginRight = "8px";
-    btn.style.display = "inline-flex";
-    btn.style.alignItems = "center";
-    btn.style.justifyContent = "center";
-    btn.style.flexShrink = "0";
-
-    if (buttonContainer) {
-        buttonContainer.style.display = buttonContainer.style.display || "flex";
-        buttonContainer.style.alignItems = buttonContainer.style.alignItems || "center";
-        buttonContainer.style.flexWrap = buttonContainer.style.flexWrap || "nowrap";
-
-        if (profileButton && profileButton.parentElement) {
-            const parent = profileButton.parentElement;
-            const style = window.getComputedStyle(parent);
-            if (style.display === 'flex' || style.display === 'inline-flex') {
-                parent.insertBefore(btn, profileButton);
-            } else {
-                buttonContainer.appendChild(btn);
-            }
-        } else {
-            buttonContainer.appendChild(btn);
-        }
-    } else {
-        btn.style.position = "fixed";
-        btn.style.bottom = "20px";
-        btn.style.right = "20px";
-        document.body.appendChild(btn);
+    if (!document.getElementById("openOptionsBtn")) {
+        const btn = createCompassActionButton("openOptionsBtn", "BCS Options", () => {
+            chrome.runtime.sendMessage({ action: "openOptions" });
+        });
+        insertCompassActionButton(btn, buttonContainer, anchorElement);
     }
 }
 
