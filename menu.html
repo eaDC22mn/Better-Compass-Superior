@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Better Compass Superior</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 16px;
+            font-family: system-ui, sans-serif;
+            color: #018512;
+            background: #1d1d1d;
+            width: 280px;
+        }
+        h1 {
+            margin: 0 0 12px;
+            font-size: 18px;
+        }
+        .row {
+            margin-bottom: 14px;
+        }
+        label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .help {
+            font-size: 12px;
+            color: #16bb00;
+            margin-top: -8px;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+        button {
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #3f51b5;
+            color: #1d1d1d;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #3644a8;
+        }
+        .slider {
+            width: 100%;
+            margin-top: 8px;
+        }
+        #blurValue {
+            margin-left: 6px;
+            color: #16bb00;
+        }
+        #status {
+            font-size: 13px;
+            color: #16bb00;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Better Compass Superior</h1>
+    <div class="row">
+        <label>
+            <input id="editorModeToggle" type="checkbox" />
+            Enable/disable timetable editor mode
+        </label>
+        <div id="status">Loading…</div>
+    </div>
+    <div class="help">
+        You can toggle the timetable colour editor here
+    </div>
+    <button id="openOptions">Open full settings</button>
+    <div class="row">
+        <label for="backgroundBlur">
+            Background blur: <span id="blurValue">0px</span>
+        </label>
+        <input id="backgroundBlur" class="slider" type="range" min="0" max="20" step="1" value="0" />
+    </div>
+    <script src="menu.js"></script>
+</body>
+</html>

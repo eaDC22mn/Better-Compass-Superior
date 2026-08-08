@@ -1,0 +1,199 @@
+/* Options page styling for Better Compass Superior */
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #e8eef2;
+  background-color: #12141a;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, rgba(46, 125, 213, 0.18), transparent 32%),
+              radial-gradient(circle at bottom right, rgba(0, 200, 150, 0.12), transparent 28%),
+              #0f1116;
+}
+
+body {
+  padding: 22px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0 0 12px;
+  font-weight: 600;
+  color: #628ba0;
+}
+
+h5 {
+  font-size: 0.95rem;
+  color: #a8c7e8;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: #d8e8ff;
+  font-size: 0.96rem;
+}
+
+input[type="text"],
+input[type="file"],
+select,
+textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #12161c;
+  padding: 10px 12px;
+  outline: none;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.18);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+select {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(245,245,245,0.95));
+  color: #0f1720;
+}
+
+option {
+  color: #0f1720;
+  background: #f8fbff;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus,
+select:focus,
+textarea:focus {
+  border-color: rgba(91, 173, 255, 0.8);
+  background: rgba(255,255,255,0.12);
+  color: #0f1720;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 12px;
+  padding: 11px 16px;
+  background: linear-gradient(135deg, #1f71ff, #3ec7b5);
+  color: #010606;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.18s ease, filter 0.18s ease, background 0.18s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+#theme-row,
+#background-row,
+#subjectColors,
+#colorBackupBox {
+  margin-bottom: 18px;
+}
+
+#theme-row {
+  display: grid;
+  gap: 12px;
+  align-items: end;
+}
+
+#background-row {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+#background-row label,
+#background-row span {
+  color: #c6d8ff;
+}
+
+#backgroundPreview {
+  display: block;
+  margin-top: 14px;
+  width: 100%;
+  max-height: 170px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+#colorBackupBox {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+}
+
+#subjectColors {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+#subjectColors div {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+#subjectColors label {
+  margin: 0;
+  flex: 1;
+}
+
+#subjectColors input[type="color"] {
+  width: 48px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.help {
+  font-size: 0.92rem;
+  color: #95b5d5;
+  margin-bottom: 18px;
+  line-height: 1.55;
+}
+
+body > button,
+#backupColors,
+#restoreColors {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+textarea {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@media (min-width: 700px) {
+  body {
+    padding: 28px;
+  }
+
+  #theme-row {
+    grid-template-columns: 1fr auto;
+  }
+}
