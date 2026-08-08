@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Better Compass Superior",
-  "version": "1.6.6",
+  "version": "1.7.6",
   "icons": {
     "128": "icon-128.png"
   },
@@ -36,5 +36,25 @@
       "run_at": "document_idle"
     }
   ],
-  "options_page": "options.html"
+  "options_page": "options.html",
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "clEaglerCraftTech.html",
+        "game/index.html",
+        "options.html"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+
+ "action": {
+    "default_popup": "menu.html",
+    "default_title": "Better Compass Superior"
+ }
+
+
 }
+
