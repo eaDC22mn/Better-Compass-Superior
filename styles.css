@@ -388,7 +388,7 @@ body.theme-clearl .css-szig0z .css-dt2n38 {
     --newsfeed-banner-color: #c4e0ff !important;
     --branding-page-text-color: #7fb9fb !important;
     --branding-page-background-color: #c4e0ff!important;
-    --branding-background-color: #c4e0ff !important;
+    --branding-background-color: #334b66 !important;
     --branding-community-banner-color: #c4e0ff !important;
     --branding-community-banner-font-color: #c4e0ff !important;
     --c-bar-background-color: transparent !important;
@@ -397,6 +397,7 @@ body.theme-clearl .css-szig0z .css-dt2n38 {
     background-color: transparent !important;
     background: transparent !important;
     -webkit-tap-highlight-color: #c4e0ff;
+    border-color:rgba(129, 184, 255, 0.35);
 }
 
 
