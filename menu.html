@@ -37,13 +37,13 @@
             padding: 10px 12px;
             border: none;
             border-radius: 6px;
-            background: #3f51b5;
-            color: #1d1d1d;
+            background: linear-gradient(135deg, #0a211e, #061633);
+            color: #ffffff;
             cursor: pointer;
             font-size: 14px;
         }
         button:hover {
-            background: #3644a8;
+            background: linear-gradient(135deg, #0a211e, #061633);
         }
         .slider {
             width: 100%;
@@ -57,6 +57,41 @@
             font-size: 13px;
             color: #16bb00;
             margin-top: 4px;
+        }
+        .subject-rule-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .subject-rule-row input[type="text"] {
+            flex: 1 1 100%;
+            min-width: 110px;
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: linear-gradient(135deg, #09184a, #061633);
+            color: white;
+        }
+        .subject-rule-row input[type="color"] {
+            width: 40px;
+            height: 32px;
+            border: none;
+            padding: 0;
+            background: transparent;
+        }
+        .subject-rule-row button {
+            flex: 0 0 auto;
+            padding: 8px 10px;
+            font-size: 12px;
+            background: linear-gradient(135deg, #1e0a0a, #570707);
+            color: white;
+        }
+        .subject-rules-section h2 {
+            margin: 0 0 8px;
+            font-size: 16px;
+            color: #018512;
         }
     </style>
 </head>
@@ -73,6 +108,14 @@
         You can toggle the timetable colour editor here
     </div>
     <button id="openOptions">Open full settings</button>
+    <div class="row subject-rules-section">
+        <h2>Subject rules</h2>
+        <div class="help" style="margin-top:0;">Add a keyword and color to style matching timetable blocks.</div>
+        <div id="subjectRuleList"></div>
+        <button id="addRule" type="button" style="margin-top:8px;">Add rule</button>
+        <button id="saveRules" type="button" style="margin-top:8px;">Save rules</button>
+        <div id="rulesStatus" style="margin-top:6px;font-size:12px;color:#16bb00;"></div>
+    </div>
     <div class="row">
         <label for="backgroundBlur">
             Background blur: <span id="blurValue">0px</span>
