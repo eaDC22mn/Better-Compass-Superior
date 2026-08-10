@@ -48,16 +48,20 @@
       <img id="backgroundPreview" style="margin-top:12px;max-width:250px;max-height:150px;object-fit:cover;display:none;border:1px solid #ccc;border-radius:6px;" />
   </div>
 
-</body>
    <button id="backupColors">Pull colours (cfg)</button>
    <button id="restoreColors">Push colours (cfg)</button>
 
    <textarea id="colorBackupBox" placeholder="This is the timetable config box. Colours pulled from the site will appear here, or paste colours here to push to the site. Uses JSON." style="width:100%;height:120px;margin-top:10px;"></textarea>
-    <h5>Made your own timettable colors? Merge them here, or find full timetable colour presets to use! --> https://github.com/eaDC22mn/Better-Compass-Timetable-Colour-Configs</h5>
+  
     
-    <div id="subjectColors"></div>
-
-    
+    <div id="subjectPatternRulesSection" style="margin-top:16px;">
+      <h5 style="margin-bottom:8px;">Subject keyword color rules</h5>
+      <div style="font-size:12px;color:#555;margin-bottom:8px;">
+          Enter the Name (e.g "9ENGX2") of a subject, or a keyword in the subject name, then assign it a colour.
+      </div>
+      <div id="subjectPatternRules"></div>
+      <button id="addSubjectPatternRule" type="button" style="padding:6px 12px;margin-top:8px;">Add rule</button>
+    </div>
 
     <script src="options.js"></script>
 </body>
