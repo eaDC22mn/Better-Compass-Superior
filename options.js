@@ -22,47 +22,89 @@ chrome.storage.local.get(["backgroundImage"], (localSettings) => {
     }
 });
 
-chrome.storage.sync.get(["subjectColors"], (data) => {
-    const subjectColors = data.subjectColors || {};
-    const container = document.getElementById("subjectColors");
+const subjectPatternRulesContainer = document.getElementById("subjectPatternRules");
+const addSubjectPatternRuleButton = document.getElementById("addSubjectPatternRule");
 
-    chrome.runtime.sendMessage({ action: "getSubjects" }, (response) => {
-        if (!response || !response.subjects) return;
+function createSubjectRuleRow(rule = {}) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "subject-pattern-rule";
+    wrapper.style.display = "flex";
+    wrapper.style.alignItems = "center";
+    wrapper.style.gap = "8px";
+    wrapper.style.marginBottom = "10px";
 
-        response.subjects.forEach(sub => {
-            const wrapper = document.createElement("div");
-            wrapper.style.marginBottom = "10px";
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Keyword or phrase";
+    input.value = rule.pattern || "";
+    input.className = "subject-rule-input";
+    input.style.flex = "1";
+    input.style.padding = "6px";
 
-            const label = document.createElement("label");
-            label.textContent = sub;
+    const color = document.createElement("input");
+    color.type = "color";
+    color.value = rule.color || "#ff8c00";
+    color.className = "subject-rule-color";
 
-            const input = document.createElement("input");
-            input.type = "color";
-            input.value = subjectColors[sub] || "#cccccc";
-            input.dataset.subject = sub;
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.textContent = "Remove";
+    remove.style.padding = "6px 10px";
+    remove.addEventListener("click", () => wrapper.remove());
 
-            wrapper.appendChild(label);
-            wrapper.appendChild(input);
-            container.appendChild(wrapper);
-        });
-    });
+    wrapper.appendChild(input);
+    wrapper.appendChild(color);
+    wrapper.appendChild(remove);
+    return wrapper;
+}
+
+function addSubjectPatternRule(rule = {}) {
+    if (!subjectPatternRulesContainer) return;
+    const row = createSubjectRuleRow(rule);
+    subjectPatternRulesContainer.appendChild(row);
+}
+
+function loadSubjectPatternRules(rules = []) {
+    if (!Array.isArray(rules) || !subjectPatternRulesContainer) return;
+    subjectPatternRulesContainer.innerHTML = "";
+    if (rules.length === 0) {
+        addSubjectPatternRule();
+        return;
+    }
+    rules.forEach(rule => addSubjectPatternRule(rule));
+}
+
+chrome.storage.sync.get(["subjectColorRules"], (data) => {
+    const subjectColorRules = data.subjectColorRules || [];
+    loadSubjectPatternRules(subjectColorRules);
 });
+
+if (addSubjectPatternRuleButton) {
+    addSubjectPatternRuleButton.addEventListener("click", () => addSubjectPatternRule());
+}
 
 document.getElementById("save").onclick = () => {
     const theme = document.getElementById("themeSelect").value;
     const urlValue = document.getElementById("backgroundImage").value.trim();
     const disableTimetableColourPicker = document.getElementById("disableTimetableColourPicker").checked;
 
-    const inputs = document.querySelectorAll("#subjectColors input");
-    const subjectColors = {};
+    const ruleRows = document.querySelectorAll("#subjectPatternRules .subject-pattern-rule");
+    const subjectColorRules = [];
+    ruleRows.forEach(row => {
+        const patternInput = row.querySelector(".subject-rule-input");
+        const colorInput = row.querySelector(".subject-rule-color");
+        if (!patternInput || !colorInput) return;
 
-    inputs.forEach(input => {
-        subjectColors[input.dataset.subject] = input.value;
+        const pattern = patternInput.value.trim();
+        const colorValue = colorInput.value;
+        if (pattern && colorValue) {
+            subjectColorRules.push({ pattern, color: colorValue });
+        }
     });
 
     const savePayload = {
         theme,
-        subjectColors,
+        subjectColorRules,
         colorPickerEnabled: !disableTimetableColourPicker
     };
 
