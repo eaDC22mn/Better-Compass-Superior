@@ -324,12 +324,28 @@ body.theme-blueD .newLNF body.greyBody {
 }
 
 
+body.theme-tdark #productNavBar.newLNF ~ #c_bar {
+  background-color: #000000 !important;
+}
+body.theme-tdark .home-schoolNameContainer {
+  background-color: transparent !important;
+}
 
+body.theme-tdark #aspnetForm {
+  background-color:  linear-gradient(135deg, #000000, #106a00)!important;
+}
+body.theme-tdark #c_bar {
+  background-color:  linear-gradient(135deg, #000000, #106a00)!important;
+}
 
-
+body.theme-tdark .MuiTypography-root.MuiTypography-bodyMD,
+body.theme-tdark .MuiTypography-root.MuiTypography,
+body.theme-tdark .MuiTypography-root {
+    color: #00ab17 !important;
+}
 
    .theme-tdark {
-    --bg: #000000;
+    --bg: linear-gradient(135deg, #000000, #106a00)!important;
     --text: #99ed84;
     --card: #000000;
     --accent: #000000;
@@ -359,7 +375,7 @@ color: #58b655 !important;   /* body text colour */
     --c-bar-shadow: none !important;
     --text-accent: #000000 !important;
     background-color: #000000 !important;
-    background: #000000 !important;
+    background: linear-gradient(135deg, #000000, #106a00)!important;
     -webkit-tap-highlight-color: #b5b0ff;
 }
 
