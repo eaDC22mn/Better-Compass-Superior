@@ -214,7 +214,7 @@ body.theme-forest2 .css-szig0z .css-dt2n38 {
 }
 
 body.theme-blue2 #productNavBar.newLNF ~ #c_bar {
-  background-color: transparent !important;
+  background-color: #d6e6ff !important;
 }
 body.theme-blue2 .home-schoolNameContainer {
   background-color: transparent !important;
@@ -258,6 +258,75 @@ body.theme-blue2 .newLNF body.greyBody {
     background: #d6e6ff !important;
     -webkit-tap-highlight-color: #b5b0ff;
 }
+
+
+
+
+
+   .theme-blueD {
+    --bg: linear-gradient(135deg, #030a2f, #122d8f)!important;
+    --text: #003366;
+    --card: #153260;
+    --accent: #bcd4ff;
+}
+
+body.theme-blueD #productNavBar.newLNF ~ #c_bar {
+  background-color: #153260 !important;
+}
+body.theme-blueD .home-schoolNameContainer {
+  background-color: transparent !important;
+}
+
+body.theme-blueD #aspnetForm {
+  background-color: linear-gradient(135deg, #030a2f, #122d8f)!important;
+}
+body.theme-blueD #c_bar {
+  background-color: linear-gradient(135deg, #030a2f, #122d8f)!important;
+}
+
+
+body.theme-blueD .MuiTypography-root.MuiTypography-bodyMD,
+body.theme-blueD .MuiTypography-root.MuiTypography,
+body.theme-blueD .MuiTypography-root {
+    color: #69a1e5 !important;
+}
+
+body.theme-blueD .newLNF #c_bar,
+body.theme-blueD #productNavBar.newLNF,
+body.theme-blueD .css-1dpvdu2,
+body.theme-blueD .newLNF .home-schoolNameContainer,
+body.theme-blueD .x-calendar-list,
+body.theme-blueD .x-panel-body,
+body.theme-blueD .newLNF body.greyBody,
+body.theme-blueD .css-szig0z .css-dt2n38 
+body.theme-blueD .newLNF #c_bar,
+body.theme-blueD .newLNF .home-schoolNameContainer,
+body.theme-blueD #mnuMenuContainer.newLNF > #mnu_left > li > a > span.menu-sprite.menu-sprite-house,
+body.theme-blueD .x-panel-body,
+body.theme-blueD .newLNF body.greyBody {
+    color: #003366;   /* body text colour */
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --accent: #1e355b;
+    --branding-main-color: #738eb8 ; /* icons */
+    --branding-newsfeed-main-color: #194169 !important;
+    --newsfeed-banner-color: #1e355b !important;
+    --branding-page-text-color: #003366 !important;
+    --branding-page-background-color: #1e355b!important;
+    --branding-background-color: #1e355b !important;
+    --branding-community-banner-color: #1e355b !important;
+    --branding-community-banner-font-color: #1e355b !important;
+    --c-bar-background-color: #395481 !important;
+    --c-bar-shadow: none !important;
+    --text-accent: #003366 !important;
+    background-color: #263f68 !important;
+    background: linear-gradient(135deg, #030a2f, #122d8f)!important;
+    -webkit-tap-highlight-color: #b5b0ff;
+}
+
+
+
+
+
 
    .theme-tdark {
     --bg: #000000;
