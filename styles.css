@@ -465,13 +465,13 @@ body.theme-clearl .MuiTypography-root.MuiTypography,
 body.theme-clearl .MuiTypography-root,
 body.theme-clearl .css-szig0z .css-dt2n38 {
 
-    color: #86beff !important;   /* body text colour */
+    color: #dcdcdc !important;   /* body text colour */
     font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
     --accent: #6bb0ff;
     --branding-main-color: #c4e0ff ; /* icons */
     --branding-newsfeed-main-color: #c4e0ff !important;
     --newsfeed-banner-color: #c4e0ff !important;
-    --branding-page-text-color: #7fb9fb !important;
+    --branding-page-text-color: #dedede !important;
     --branding-page-background-color: #c4e0ff!important;
     --branding-background-color: #334b66 !important;
     --branding-community-banner-color: #c4e0ff !important;
