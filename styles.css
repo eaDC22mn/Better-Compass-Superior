@@ -407,22 +407,27 @@ body.theme-clearl .css-szig0z .css-dt2n38 {
    .theme-red1 {
     --bg: #bb1111c1;
     --text: #000407;
-    --card:  transparent !important; /* one that needs to be transparented*/
+    --card: #4d0b0b!important;
     --accent: #ff0d0d;
 }
 
 body.theme-red1 #productNavBar.newLNF ~ #c_bar {
-  background-color: transparent !important;
+  background-color:#4d0b0b!important;
 }
 body.theme-red1 .home-schoolNameContainer {
-  background-color: #970000 !important;
+  background-color: linear-gradient(135deg, #2f0303, #8f1212)!important;
 }
-
 body.theme-red1 #aspnetForm {
-  background-color: transparent !important;
+  background-color: linear-gradient(135deg, #2f0303, #8f1212)!important;
 }
 body.theme-red1 #c_bar {
-  background-color: transparent !important;
+  background-color: linear-gradient(135deg, #2f0303, #8f1212)!important;
+}
+
+body.theme-red1 .MuiTypography-root.MuiTypography-bodyMD,
+body.theme-red1 .MuiTypography-root.MuiTypography,
+body.theme-red1 .MuiTypography-root {
+    color: #9b0000 !important;
 }
 
 body.theme-red1 .newLNF #c_bar,
@@ -450,7 +455,7 @@ body.theme-red1 .css-szig0z .css-dt2n38 {
     --c-bar-shadow: #7a0101 !important;
     --text-accent: #000000 !important;
     background-color: #e03030 !important;
-    background: transparent !important;
+    background: linear-gradient(135deg, #2f0303, #8f1212)!important;
     -webkit-tap-highlight-color: #e03030;
 }
 
