@@ -402,6 +402,7 @@ let timetableEditorModeEnabled = true;
 let colorPickerInitialized = false;
 let colorPickerElement = null;
 let savedTimetableColors = null;
+let subjectColorRules = null;
 
 function getKey(el) {
     if (!el) return null;
@@ -423,16 +424,48 @@ function loadSavedTimetableColors(callback) {
     });
 }
 
+function loadSubjectColorRules(callback) {
+    chrome.storage.sync.get(["subjectColorRules"], (data) => {
+        subjectColorRules = Array.isArray(data.subjectColorRules)
+            ? data.subjectColorRules
+            : [];
+        callback?.();
+    });
+}
+
+function getPatternRuleColor(block) {
+    if (!block || !subjectColorRules?.length) return null;
+    const text = block.innerText?.trim().toLowerCase();
+    if (!text) return null;
+
+    for (const rule of subjectColorRules) {
+        if (!rule || !rule.pattern) continue;
+        const pattern = rule.pattern.trim().toLowerCase();
+        if (!pattern) continue;
+        if (text.includes(pattern)) {
+            return rule.color || null;
+        }
+    }
+
+    return null;
+}
+
 function applySavedColors() {
-    if (!timetableColorPickerEnabled || !savedTimetableColors) return;
+    if (!timetableColorPickerEnabled) return;
 
     const blocks = document.querySelectorAll(TIMETABLE_BLOCK_SELECTORS);
     if (!blocks.length) return;
 
     blocks.forEach(block => {
+        const ruleColor = getPatternRuleColor(block);
+        if (ruleColor) {
+            block.style.backgroundColor = ruleColor;
+            return;
+        }
+
         const key = getKey(block);
         if (!key) return;
-        const saved = savedTimetableColors[key];
+        const saved = savedTimetableColors?.[key];
         if (saved) {
             block.style.backgroundColor = saved;
         }
@@ -440,8 +473,8 @@ function applySavedColors() {
 }
 
 function scheduleSavedColorRestore() {
-    if (!savedTimetableColors) {
-        loadSavedTimetableColors(() => scheduleSavedColorRestore());
+    if (!savedTimetableColors || subjectColorRules === null) {
+        loadSavedTimetableColors(() => loadSubjectColorRules(() => scheduleSavedColorRestore()));
         return;
     }
 
@@ -671,26 +704,6 @@ function initTimetableColorPicker() {
     document.head.appendChild(style);
 }
 
-function applySavedColors() {
-    if (!timetableColorPickerEnabled) return;
-
-    chrome.storage.sync.get(null, syncAll => {
-        chrome.storage.local.get(null, localAll => {
-            const blocks = document.querySelectorAll('[class*="timetable"], [class*="calendar"], .event');
-
-            blocks.forEach(block => {
-                const key = getKey(block);
-                if (!key) return;
-
-                const saved = syncAll[key] !== undefined ? syncAll[key] : localAll[key];
-                if (saved) {
-                    block.style.backgroundColor = saved;
-                }
-            });
-        });
-    });
-}
-
 chrome.storage.sync.get(["colorPickerEnabled", "editorModeEnabled"], (settings) => {
     setTimetableColorPickerEnabled(settings.colorPickerEnabled !== false);
     setTimetableEditorModeEnabled(settings.editorModeEnabled !== false);
@@ -750,6 +763,17 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
             sendResponse({ ok: true });
         });
 
+        return true;
+    }
+
+    if (msg.action === "getSubjectsFromPage") {
+        const blocks = Array.from(document.querySelectorAll(TIMETABLE_BLOCK_SELECTORS));
+        const subjects = Array.from(new Set(blocks
+            .map(block => block.innerText?.trim())
+            .filter(Boolean)
+        ));
+
+        sendResponse({ subjects });
         return true;
     }
 });
