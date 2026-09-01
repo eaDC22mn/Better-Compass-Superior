@@ -6,6 +6,9 @@ https://chromewebstore.google.com/detail/njaifefbcpkgcokocfheeafogibmhnbf?utm_so
 
 ![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/:njaifefbcpkgcokocfheeafogibmhnbf)
 
+![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/:njaifefbcpkgcokocfheeafogibmhnbf)
+
+
 An extension that makes compass better, but it's superior to its counterparts. 
 
 Now with a on-site options/settings button, and popup extension menu!
