@@ -4,11 +4,11 @@ Now on the Chrome webstore!
 
 https://chromewebstore.google.com/detail/njaifefbcpkgcokocfheeafogibmhnbf?utm_source=item-share-cb
 
-![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/:njaifefbcpkgcokocfheeafogibmhnbf)]
+![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/:njaifefbcpkgcokocfheeafogibmhnbf)
 
-![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/:njaifefbcpkgcokocfheeafogibmhnbf)]
+![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/:njaifefbcpkgcokocfheeafogibmhnbf)
 
-[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/njaifefbcpkgcokocfheeafogibmhnbf)]
+[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/njaifefbcpkgcokocfheeafogibmhnbf)
 
 An extension that makes compass better, but it's superior to its counterparts. 
 
