@@ -8,6 +8,7 @@ https://chromewebstore.google.com/detail/njaifefbcpkgcokocfheeafogibmhnbf?utm_so
 
 ![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/:njaifefbcpkgcokocfheeafogibmhnbf)
 
+[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/njaifefbcpkgcokocfheeafogibmhnbf)](https://chromewebstore.google.com/detail/better-compass/njaifefbcpkgcokocfheeafogibmhnbf/reviews)
 
 An extension that makes compass better, but it's superior to its counterparts. 
 
