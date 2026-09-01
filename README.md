@@ -4,7 +4,8 @@ Now on the Chrome webstore!
 
 https://chromewebstore.google.com/detail/njaifefbcpkgcokocfheeafogibmhnbf?utm_source=item-share-cb
 
-
+[![Available on the Chrome Web Store]([https://chrome.com](https://chromewebstore.google.com/detail/njaifefbcpkgcokocfheeafogibmhnbf?utm_source=item-share-cb
+))]
 An extension that makes compass better, but it's superior to its counterparts. 
 
 Now with a on-site options/settings button, and popup extension menu!
