@@ -1,8 +1,42 @@
 :root {
-    --bg: white;
-    --text: black;
-    --card: #f0f0f0;
-    --accent: #d0eaff;
+    --branding-main-color: #545F73;
+    --branding-newsfeed-main-color: #FFFFFF;
+    --newsfeed-banner-color: #395885;
+    --branding-page-text-color: #203249;
+    --branding-page-background-color: #F0F2F5;
+    --branding-background-color: #F0F2F5;
+    --branding-community-banner-color: #006DCE;
+    --branding-community-banner-font-color: #FFFFFF;
+}
+
+
+.theme-Default
+body.theme-Default .newLNF
+body.theme-Default .newLNF.newLNFActivity.x-strict
+body.theme-Default .newLNF #c_bar,
+body.theme-Default #productNavBar.newLNF,
+body.theme-Default .css-1dpvdu2,
+body.theme-Default .newLNF .home-schoolNameContainer,
+body.theme-Default .x-calendar-list,
+body.theme-Default .x-panel-body, 
+:root
+body.theme-Default .css-1yh08u7 {
+    --branding-main-color: #545F73!important;
+    --branding-newsfeed-main-color: #FFFFFF!important;
+    --newsfeed-banner-color: #395885!important;
+    --branding-page-text-color: #203249!important;
+    --branding-page-background-color: #F0F2F5!important;
+    --branding-background-color: #F0F2F5!important;
+    --branding-community-banner-color: #006DCE!important;
+    --branding-community-banner-font-color: #FFFFFF!important;
+  
+}
+
+
+body.bcs-custom-text-colour,
+body.bcs-custom-text-colour * {
+    color: var(--bcs-custom-text-colour) !important;
+    -webkit-text-fill-color: var(--bcs-custom-text-colour) !important;
 }
 
 body[class*="theme-"] {
@@ -11,7 +45,7 @@ body[class*="theme-"] {
 }
 
 
-body[class*="theme-"] :where(.MuiPaper-root, .MuiCard-root, .MuiBox-root, .MuiAccordion-root, .MuiContainer-root, .x-panel-body, .x-calendar-list, .newLNF .home-schoolNameContainer, .css-szig0z .css-dt2n38) {
+body[class*="theme-"] :where(.MuiPaper-root, .MuiCard-root, .MuiAccordion-root, .MuiContainer-root, .x-panel-body, .x-calendar-list, .newLNF .home-schoolNameContainer, .css-szig0z .css-dt2n38) {
     background-color: var(--card) !important;
     color: var(--text) !important;
 }
@@ -22,17 +56,34 @@ body[class*="theme-"] :where(.DayViewEvent-event, .EventTile-root, .CalendarEven
     border-left: 4px solid var(--accent) !important;
 }
 
-.theme-default {
-    --bg: white;
-    --text: black;
-    --card: #f0f0f0;
-    --accent: #d0eaff;
+.theme-Default
+body.theme-Default .newLNF #c_bar,
+body.theme-Default #productNavBar.newLNF,
+body.theme-Default .css-1dpvdu2,
+body.theme-Default .newLNF .home-schoolNameContainer,
+body.theme-Default .x-calendar-list,
+body.theme-Default .x-panel-body,
+body.theme-Default .css-iqppun,
+body.theme-Default html.newLNF.newLNFActivity.x-strict,
+body.theme-Default .newLNF body.greyBody,
+body.theme-Default .MuiTypography-root.MuiTypography-bodyMD,
+body.theme-Default .MuiTypography-root.MuiTypography,
+body.theme-Default .MuiTypography-root,
+body.theme-Default .css-szig0z .css-dt2n38 {
+    --branding-main-color: #545F73;
+    --branding-newsfeed-main-color: #FFFFFF;
+    --newsfeed-banner-color: #395885;
+    --branding-page-text-color: #203249;
+    --branding-page-background-color: #F0F2F5;
+    --branding-background-color: #F0F2F5;
+    --branding-community-banner-color: #006DCE;
+    --branding-community-banner-font-color: #FFFFFF;
+    
 }
 
 
 
-
-body.theme-sunset2 {
+.theme-sunset2 {
     --bg: #fff1e6;
     --text: #5a2a00;
     --card: #ffe0c2;
@@ -111,7 +162,7 @@ body.theme-pastelpink2 .css-szig0z .css-dt2n38 {
    
 
 
-body.theme-forest2 {
+body.theme-forest2  {
     --bg: #148b1e !important;
     --text: rgb(131, 155, 180) !important;
     --card: #148b1e !important;
@@ -206,7 +257,7 @@ body.theme-forest2 .css-szig0z .css-dt2n38 {
 }
 /* End of Z-Index Panel Styles */
 
-   .theme-blue2 {
+   body.theme-blue2 {
     --bg: #e8f1ff;
     --text: #003366;
     --card: #d6e6ff;
@@ -236,6 +287,7 @@ body.theme-blue2 .x-panel-body,
 body.theme-blue2 .newLNF body.greyBody,
 body.theme-blue2 .css-szig0z .css-dt2n38 
 body.theme-blue2 .newLNF #c_bar,
+body.theme-blue2 .MuiTouchRipple-root.css-w0pj6f 
 body.theme-blue2 .newLNF .home-schoolNameContainer,
 body.theme-blue2 #mnuMenuContainer.newLNF > #mnu_left > li > a > span.menu-sprite.menu-sprite-house,
 body.theme-blue2 .x-panel-body,
@@ -258,8 +310,6 @@ body.theme-blue2 .newLNF body.greyBody {
     background: #d6e6ff !important;
     -webkit-tap-highlight-color: #b5b0ff;
 }
-
-
 
 
 
@@ -298,7 +348,10 @@ body.theme-blueD .newLNF .home-schoolNameContainer,
 body.theme-blueD .x-calendar-list,
 body.theme-blueD .x-panel-body,
 body.theme-blueD .newLNF body.greyBody,
-body.theme-blueD .css-szig0z .css-dt2n38 
+body.theme-blueD .css-szig0z .css-dt2n38,
+body.theme-blueD .DayViewEvent-event,
+body.theme-blueD .EventTile-root,
+body.theme-blueD .CalendarEvent,
 body.theme-blueD .newLNF #c_bar,
 body.theme-blueD .newLNF .home-schoolNameContainer,
 body.theme-blueD #mnuMenuContainer.newLNF > #mnu_left > li > a > span.menu-sprite.menu-sprite-house,
@@ -357,6 +410,9 @@ body.theme-tdark .css-1dpvdu2,
 body.theme-tdark .newLNF .home-schoolNameContainer,
 body.theme-tdark .x-calendar-list,
 body.theme-tdark .x-panel-body,
+body.theme-tdark .DayViewEvent-event,
+body.theme-tdark .EventTile-root,
+body.theme-tdark .CalendarEvent,
 body.theme-tdark .newLNF body.greyBody,
 body.theme-tdark .css-szig0z .css-dt2n38 {
 color: #58b655 !important;   /* body text colour */
@@ -405,9 +461,12 @@ body.theme-clear .newLNF #c_bar,
 body.theme-clear #productNavBar.newLNF,
 body.theme-clear .css-1dpvdu2,
 body.theme-clear .newLNF .home-schoolNameContainer,
+body.theme-clear .DayViewEvent-event,
+body.theme-clear .EventTile-root,
+body.theme-clear .CalendarEvent,
 body.theme-clear .x-calendar-list,
-body.theme-clear .x-panel-body,
-html.newLNF.newLNFActivity.x-strict
+body.theme-clear .x-panel-body 
+html.newLNF.newLNFActivity.x-strict,
 body.theme-clear .newLNF body.greyBody,
 body.theme-clear .css-szig0z .css-dt2n38 {
 
@@ -451,6 +510,7 @@ body.theme-clearl #c_bar {
   background-color: transparent !important;
 }
 
+
 body.theme-clearl .newLNF #c_bar,
 body.theme-clearl #productNavBar.newLNF,
 body.theme-clearl .css-1dpvdu2,
@@ -458,7 +518,7 @@ body.theme-clearl .newLNF .home-schoolNameContainer,
 body.theme-clearl .x-calendar-list,
 body.theme-clearl .x-panel-body,
 body.theme-clearl.css-iqppun,
-html.newLNF.newLNFActivity.x-strict,
+body.theme-clearl html.newLNF.newLNFActivity.x-strict,
 body.theme-clearl .newLNF body.greyBody,
 body.theme-clearl .MuiTypography-root.MuiTypography-bodyMD,
 body.theme-clearl .MuiTypography-root.MuiTypography,
@@ -525,7 +585,7 @@ html.newLNF.newLNFActivity.x-strict
 body.theme-red1 .newLNF body.greyBody,
 body.theme-red1 .css-szig0z .css-dt2n38 {
 
-    color: #9b0000;   /* body text colour */
+    color:  #9b0000;   /* body text colour */
     font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
     --accent: #b72c2c;
     --branding-main-color: #6f0c0c ; /* icons */
@@ -546,20 +606,6 @@ body.theme-red1 .css-szig0z .css-dt2n38 {
 
 
 
-
-
-
-
-html {
-    background: transparent !important;
-    background-color: transparent !important;
-}
-
-html::before,
-html::after {
-    background: transparent !important;
-    content: none !important;
-}
 
 
 .theme-invert {
@@ -630,29 +676,6 @@ body.has-custom-background .CalendarEvent {
     border-left-color: transparent !important;
 }
 */
-html, body {
-    background-color: var(--bg) !important;
-    color: var(--text) !important;
-}
-/*
-.MuiPaper-root,
-.MuiCard-root,
-.MuiBox-root,
-.MuiAccordion-root,
-.MuiContainer-root {
-    background-color: var(--card) !important;
-    color: var(--text) !important;
-    border-radius: 8px !important;
-}
-*/
-.DayViewEvent-event,
-.EventTile-root,
-.CalendarEvent {
-    background-color: var(--card) !important;
-    color: var(--text) !important;
-    border-left: 4px solid var(--accent) !important;
-}
-
 #betterCompassFloatingBtn {
     position: fixed;
     bottom: 20px;
@@ -674,22 +697,7 @@ html, body {
     transform: scale(1.1);
     filter: brightness(0.9);
 }
-/* Keep the background layer but avoid forcing transparency on many elements.
-    Restoring default element backgrounds so the site remains usable. If you
-    want specific areas to be slightly translucent so the image shows, add
-    targeted rules here rather than broad selectors. */
-/* Keep the background layer but avoid forcing transparency on many elements.
-   Restoring default element backgrounds so the site remains usable. If you
-   want specific areas to be slightly translucent so the image shows, add
-   targeted rules here rather than broad selectors. */
 
-/* Example light translucency for top bar (uncomment & adjust if desired):
-body.has-custom-background #productNavBar.newLNF ~ #c_bar,
-body.has-custom-background .newLNF .home-schoolNameContainer {
-    background-color: rgba(255,255,255,0.85) !important;
-}
-*/
-/* Overrides for Pastel pink2 theme */
 
 body.theme-pastelpink2 #productNavBar.newLNF ~ #c_bar {
   background-color: #ebbff9 !important;
@@ -707,5 +715,14 @@ body.theme-tdark .home-schoolNameContainer {
   background-color: #3b3b3b !important;
 }
 
+/*
+table#ext-gen1200.ext-cal-bg-tbl > tbody,
+table#ext-gen1200.ext-cal-bg-tbl > tbody > tr,
+table#ext-gen1200.ext-cal-bg-tbl > tbody > tr > th,
+table#ext-gen1200.ext-cal-bg-tbl > tbody > tr > td {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+*/
 
 

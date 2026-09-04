@@ -1,6 +1,9 @@
 const editorModeToggle = document.getElementById("editorModeToggle");
 const status = document.getElementById("status");
 const openOptions = document.getElementById("openOptions");
+const textColourToggle = document.getElementById("textColourToggle");
+const textColourPicker = document.getElementById("textColourPicker");
+const textColourValue = document.getElementById("textColourValue");
 const backgroundBlur = document.getElementById("backgroundBlur");
 const blurValue = document.getElementById("blurValue");
 const subjectRuleList = document.getElementById("subjectRuleList");
@@ -88,16 +91,31 @@ function updateBlurValue(value) {
     blurValue.textContent = `${value}px`;
 }
 
+function updateTextColourValue(value) {
+    if (!textColourValue) return;
+    textColourValue.textContent = value || "#000000";
+}
+
 chrome.storage.sync.get(["editorModeEnabled"], (settings) => {
     const enabled = settings.editorModeEnabled !== false;
     editorModeToggle.checked = enabled;
     updateStatus(enabled);
 });
 
-chrome.storage.local.get(["backgroundBlur"], (settings) => {
+chrome.storage.local.get(["backgroundBlur", "customTextColourEnabled", "customTextColour"], (settings) => {
     const blur = Number(settings.backgroundBlur) || 0;
     backgroundBlur.value = blur;
     updateBlurValue(blur);
+
+    const textEnabled = settings.customTextColourEnabled === true;
+    const textColour = settings.customTextColour || "#000000";
+    if (textColourToggle) {
+        textColourToggle.checked = textEnabled;
+    }
+    if (textColourPicker) {
+        textColourPicker.value = textColour;
+    }
+    updateTextColourValue(textColour);
 });
 
 editorModeToggle.addEventListener("change", () => {
@@ -106,6 +124,20 @@ editorModeToggle.addEventListener("change", () => {
         updateStatus(enabled);
     });
 });
+
+if (textColourToggle) {
+    textColourToggle.addEventListener("change", () => {
+        chrome.storage.local.set({ customTextColourEnabled: textColourToggle.checked });
+    });
+}
+
+if (textColourPicker) {
+    textColourPicker.addEventListener("input", () => {
+        const value = textColourPicker.value || "#000000";
+        updateTextColourValue(value);
+        chrome.storage.local.set({ customTextColour: value });
+    });
+}
 
 backgroundBlur.addEventListener("input", () => {
     const value = Number(backgroundBlur.value) || 0;

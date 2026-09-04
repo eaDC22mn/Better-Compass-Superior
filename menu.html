@@ -9,7 +9,7 @@
             padding: 16px;
             font-family: system-ui, sans-serif;
             color: #018512;
-            background: linear-gradient(135deg, #0b295c, #10342f);
+            background: linear-gradient(135deg, #071b3d, #061412);
             width: 280px;
         }
         h1 {
@@ -25,6 +25,50 @@
             gap: 8px;
             font-size: 14px;
         }
+        .switch {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            width: 42px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+        .switch .slider {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: 0.2s ease;
+            width: 42px;
+            height: 24px;
+            margin: 0;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+        }
+        .switch .slider::before {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 3px;
+            top: 3px;
+            border-radius: 50%;
+            background: white;
+            transition: 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+        .switch input:checked + .slider {
+            background: linear-gradient(135deg, #1e8f4d, #2ecb6e);
+        }
+        .switch input:checked + .slider::before {
+            transform: translateX(18px);
+        }
         .help {
             font-size: 12px;
             color: #16bb00;
@@ -37,7 +81,7 @@
             padding: 10px 12px;
             border: none;
             border-radius: 6px;
-            background: linear-gradient(135deg, #0a211e, #061633);
+            background: linear-gradient(135deg, #336222, #03240a);
             color: #ffffff;
             cursor: pointer;
             font-size: 14px;
@@ -49,9 +93,24 @@
             width: 100%;
             margin-top: 8px;
         }
+        .color-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        #textColourPicker {
+            width: 42px;
+            height: 28px;
+            border: none;
+            padding: 0;
+            background: transparent;
+        }
+        #textColourValue,
         #blurValue {
             margin-left: 6px;
             color: #16bb00;
+            font-size: 12px;
         }
         #status {
             font-size: 13px;
@@ -99,7 +158,10 @@
     <h1>Better Compass Superior</h1>
     <div class="row">
         <label>
-            <input id="editorModeToggle" type="checkbox" />
+            <span class="switch">
+                <input id="editorModeToggle" type="checkbox" />
+                <span class="slider"></span>
+            </span>
             Enable/disable timetable editor mode
         </label>
         <div id="status">Loading…</div>
@@ -107,20 +169,33 @@
     <div class="help">
         You can toggle the timetable colour editor here
     </div>
-    <button id="openOptions">Open full settings</button>
-    <div class="row subject-rules-section">
-        <h2>Subject rules</h2>
-        <div class="help" style="margin-top:0;">Add a keyword and color to style matching timetable blocks.</div>
-        <div id="subjectRuleList"></div>
-        <button id="addRule" type="button" style="margin-top:8px;">Add rule</button>
-        <button id="saveRules" type="button" style="margin-top:8px;">Save rules</button>
-        <div id="rulesStatus" style="margin-top:6px;font-size:12px;color:#16bb00;"></div>
+    <div class="row">
+        <label>
+            <span class="switch">
+                <input id="textColourToggle" type="checkbox" />
+                <span class="slider"></span>
+            </span>
+            Enable custom text colour
+        </label>
+        <div class="color-row">
+            <input id="textColourPicker" type="color" value="#000000" />
+            <span id="textColourValue">#000000</span>
+        </div>
     </div>
     <div class="row">
         <label for="backgroundBlur">
             Background blur: <span id="blurValue">0px</span>
         </label>
         <input id="backgroundBlur" class="slider" type="range" min="0" max="20" step="1" value="0" />
+    </div>
+    <button id="openOptions">Open full settings</button>
+    <div class="row subject-rules-section">
+        <h2>Subject rules</h2>
+        <div class="help" style="margin-top:0;">Add a keyword or subject code (e.g. 9ENGX2) to apply colours to all blocks of a subject..</div>
+        <div id="subjectRuleList"></div>
+        <button id="addRule" type="button" style="margin-top:8px;">Add rule</button>
+        <button id="saveRules" type="button" style="margin-top:8px;">Save rules</button>
+        <div id="rulesStatus" style="margin-top:6px;font-size:12px;color:#16bb00;"></div>
     </div>
     <script src="menu.js"></script>
 </body>
