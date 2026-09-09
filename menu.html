@@ -8,8 +8,8 @@
             margin: 0;
             padding: 16px;
             font-family: system-ui, sans-serif;
-            color: #018512;
-            background: linear-gradient(135deg, #071b3d, #061412);
+            color: #00a116;
+            background: linear-gradient(135deg, #0d2537, #000000);
             width: 280px;
         }
         h1 {
@@ -44,7 +44,7 @@
             inset: 0;
             cursor: pointer;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #100606, #7c0707);
             transition: 0.2s ease;
             width: 42px;
             height: 24px;
@@ -64,7 +64,7 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.25);
         }
         .switch input:checked + .slider {
-            background: linear-gradient(135deg, #1e8f4d, #2ecb6e);
+            background: linear-gradient(135deg, #0c311c, #23cb66);
         }
         .switch input:checked + .slider::before {
             transform: translateX(18px);
@@ -87,7 +87,7 @@
             font-size: 14px;
         }
         button:hover {
-            background: linear-gradient(135deg, #0a211e, #061633);
+            background: linear-gradient(135deg, #265a14, #014b11);
         }
         .slider {
             width: 100%;
@@ -106,8 +106,17 @@
             padding: 0;
             background: transparent;
         }
+        #navbarColourPicker {
+            width: 42px;
+            height: 28px;
+            border: none;
+            padding: 0;
+            background: transparent;
+        }
         #textColourValue,
-        #blurValue {
+        #navbarColourValue,
+        #blurValue,
+        #zoomValue {
             margin-left: 6px;
             color: #16bb00;
             font-size: 12px;
@@ -130,8 +139,8 @@
             padding: 6px;
             border-radius: 6px;
             border: 1px solid rgba(255,255,255,0.2);
-            background: linear-gradient(135deg, #09184a, #061633);
-            color: white;
+            background: linear-gradient(135deg, #112460, #040f25);
+            color: rgb(250, 251, 251);
         }
         .subject-rule-row input[type="color"] {
             width: 40px;
@@ -148,9 +157,9 @@
             color: white;
         }
         .subject-rules-section h2 {
-            margin: 0 0 8px;
-            font-size: 16px;
-            color: #018512;
+            margin: 0 8 10px;
+            font-size: 18px;
+            color: #02b019;
         }
     </style>
 </head>
@@ -175,7 +184,7 @@
                 <input id="textColourToggle" type="checkbox" />
                 <span class="slider"></span>
             </span>
-            Enable custom text colour
+            Custom text colour
         </label>
         <div class="color-row">
             <input id="textColourPicker" type="color" value="#000000" />
@@ -183,10 +192,33 @@
         </div>
     </div>
     <div class="row">
+        <label>
+            <span class="switch">
+                <input id="navbarColourToggle" type="checkbox" />
+                <span class="slider"></span>
+            </span>
+            Custom navigation bar colour
+        </label>
+        <div class="color-row">
+            <input id="navbarColourPicker" type="color" value="#000000" />
+            <span id="navbarColourValue">#000000</span>
+        </div>
+    </div>
+    <div class="row">
         <label for="backgroundBlur">
-            Background blur: <span id="blurValue">0px</span>
+            Background image blur: <span id="blurValue">0px</span>
         </label>
         <input id="backgroundBlur" class="slider" type="range" min="0" max="20" step="1" value="0" />
+    </div>
+    <div class="row">
+        <label>
+            <span class="switch">
+                <input id="pageZoomToggle" type="checkbox" />
+                <span class="slider"></span>
+            </span>
+            Browser page zoom: <span id="zoomValue">100%</span>
+        </label>
+        <input id="pageZoom" class="slider" type="range" min="50" max="150" step="5" value="100" disabled />
     </div>
     <button id="openOptions">Open full settings</button>
     <div class="row subject-rules-section">
@@ -195,7 +227,7 @@
         <div id="subjectRuleList"></div>
         <button id="addRule" type="button" style="margin-top:8px;">Add rule</button>
         <button id="saveRules" type="button" style="margin-top:8px;">Save rules</button>
-        <div id="rulesStatus" style="margin-top:6px;font-size:12px;color:#16bb00;"></div>
+        <div id="rulesStatus" style="margin-top:6px;font-size:12px;color:#0d6f00;"></div>
     </div>
     <script src="menu.js"></script>
 </body>

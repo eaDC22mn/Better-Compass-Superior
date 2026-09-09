@@ -5,11 +5,13 @@
     <link rel="stylesheet" href="options.css">
 </head>
 <body>
-	<h5>Theme picker. Will be incorporated into the actual website/linked at some point. Various dark color themes. Want a certain theme? tell me and I'll add it. May make a custom color picker theme maker at some point. DISCORD!: https://discord.gg/NA2CWz3EC4</h5>
+	<h5>Themes.                              </h5>
+    <h5>                              DISCORD!: https://discord.gg/NA2CWz3EC4</h5>
+    <h5>Better Compass looks really good with a page zoom of 75% or less</h5>
   <div style="margin-bottom:12px;">
       <label for="disableTimetableColourPicker" style="display:flex;align-items:center;gap:8px;">
           <input id="disableTimetableColourPicker" type="checkbox" />
-          Disable timetable colour picker
+          Disable custom timetable colours?
       </label>
       <div style="font-size:12px;color:#88adca;margin-top:4px;">When using a custom background, It is recommended you use the "Transparent Light" or "Transparent Dark" Themes, which are optimised for custom background images.</div>
   </div>
@@ -21,7 +23,8 @@
             <option value="blueD">Dark Blue</option>
             <option value="sunset2">Sunset Expanded</option>
             <option value="pastelpink2">Pastel_Pink Expanded</option>
-            <option value="forest2">Forest Expanded</option>
+            <option value="forest2">Forest</option>
+            <option value="aus">Gold & Green</option>
             <option value="red1">Red</option>
             <option value="clear">Transparent Dark</option>
             <option value="clearl">Transparent Light</option>
@@ -32,8 +35,7 @@
 	    	<option value="Dark4">Dark 4</option>
 	    	<option value="Dark5">Dark 5</option>
 	    	<option value="Dark6">Dark 6</option>
-       </select>
-       <button id="save">Save</button>
+    </select>
   </div>
 
   <div id="background-row" style="margin-top:16px;">
@@ -43,7 +45,7 @@
       <input id="backgroundFile" type="file" accept="image/*" style="width:100%;margin-top:4px;" />
       <div style="display:flex;gap:10px;align-items:center;margin-top:8px;">
           <button id="clearBackground" style="padding:6px 12px;">Clear image</button>
-          <span style="font-size:12px;color:#555;">Choose a file or paste a URL and save.</span>
+          <span style="font-size:12px;color:#555;">Choose a file or paste a URL; changes apply automatically.</span>
       </div>
       <img id="backgroundPreview" style="margin-top:12px;max-width:250px;max-height:150px;object-fit:cover;display:none;border:1px solid #ccc;border-radius:6px;" />
   </div>

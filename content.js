@@ -13,6 +13,19 @@ function applyTextColourOverride() {
     });
 }
 
+function applyNavbarColourOverride() {
+    chrome.storage.local.get(["customNavbarColourEnabled", "customNavbarColour"], (settings) => {
+        const navbar = document.querySelector("#productNavBar.newLNF");
+        if (!navbar) return;
+
+        if (settings.customNavbarColourEnabled === true) {
+            navbar.style.setProperty("background-color", settings.customNavbarColour || "#000000", "important");
+        } else {
+            navbar.style.removeProperty("background-color");
+        }
+    });
+}
+
 function disableAllThemeClasses() {
     document.body.classList.forEach((cls) => {
         if (cls.startsWith("theme-")) {
@@ -43,6 +56,7 @@ function applyThemeAndBackground() {
     });
 
     applyTextColourOverride();
+    applyNavbarColourOverride();
 }
 
 let customBackgroundLayer;
@@ -403,7 +417,7 @@ createZIndexControl();
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
     if ((areaName === "sync" && changes.theme) ||
-        (areaName === "local" && (changes.backgroundImage || changes.customTextColourEnabled || changes.customTextColour))) {
+        (areaName === "local" && (changes.backgroundImage || changes.customTextColourEnabled || changes.customTextColour || changes.customNavbarColourEnabled || changes.customNavbarColour))) {
         applyThemeAndBackground();
     }
     if (areaName === "local" && changes.backgroundBlur) {
@@ -497,12 +511,15 @@ function applySavedColors() {
     if (!timetableColorPickerEnabled) return;
 
     const blocks = document.querySelectorAll(TIMETABLE_BLOCK_SELECTORS);
-    if (!blocks.length) return;
+    if (!blocks.length) return 0;
+
+    let appliedCount = 0;
 
     blocks.forEach(block => {
         const ruleColor = getPatternRuleColor(block);
         if (ruleColor) {
             block.style.setProperty("background-color", ruleColor, "important");
+            appliedCount += 1;
             return;
         }
 
@@ -511,8 +528,11 @@ function applySavedColors() {
         const saved = savedTimetableColors?.[key];
         if (saved) {
             block.style.setProperty("background-color", saved, "important");
+            appliedCount += 1;
         }
     });
+
+    return appliedCount;
 }
 
 function scheduleSavedColorRestore() {
@@ -543,17 +563,26 @@ function scheduleSavedColorRestore() {
         return;
     }
 
-    applySavedColors();
-
+    let applyTimer = null;
     const observer = new MutationObserver(() => {
-        if (document.querySelector(TIMETABLE_BLOCK_SELECTORS)) {
+        clearTimeout(applyTimer);
+        applyTimer = setTimeout(() => {
             applySavedColors();
-            observer.disconnect();
-        }
+        }, 75);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-    setTimeout(() => observer.disconnect(), 5000);
+    applySavedColors();
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ["class"]
+    });
+    setTimeout(() => {
+        clearTimeout(applyTimer);
+        observer.disconnect();
+    }, 30000);
 }
 
 chrome.storage.sync.get(["colorPickerEnabled", "editorModeEnabled"], (settings) => {
@@ -777,11 +806,17 @@ function initTimetableColorPicker() {
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "sync") {
+        if (changes.theme) {
+            applyThemeAndBackground();
+        }
         if (changes.colorPickerEnabled) {
             setTimetableColorPickerEnabled(changes.colorPickerEnabled.newValue !== false);
         }
         if (changes.editorModeEnabled) {
             setTimetableEditorModeEnabled(changes.editorModeEnabled.newValue !== false);
+        }
+        if (changes.subjectColorRules) {
+            loadSubjectColorRules(() => applySavedColors());
         }
     }
 
@@ -792,8 +827,9 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
         if (changes.backgroundImage) {
             applyBackgroundImage(changes.backgroundImage.newValue);
         }
-        if (changes.customTextColourEnabled || changes.customTextColour) {
+        if (changes.customTextColourEnabled || changes.customTextColour || changes.customNavbarColourEnabled || changes.customNavbarColour) {
             applyTextColourOverride();
+            applyNavbarColourOverride();
         }
     }
 });

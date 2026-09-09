@@ -466,7 +466,7 @@ body.theme-clear .EventTile-root,
 body.theme-clear .CalendarEvent,
 body.theme-clear .x-calendar-list,
 body.theme-clear .x-panel-body 
-html.newLNF.newLNFActivity.x-strict,
+body.theme-clear .html.newLNF.newLNFActivity.x-strict,
 body.theme-clear .newLNF body.greyBody,
 body.theme-clear .css-szig0z .css-dt2n38 {
 
@@ -510,9 +510,11 @@ body.theme-clearl #c_bar {
   background-color: transparent !important;
 }
 
+body.theme-clearl #productNavBar.newLNF {
+    background: transparent !important;
+}
 
 body.theme-clearl .newLNF #c_bar,
-body.theme-clearl #productNavBar.newLNF,
 body.theme-clearl .css-1dpvdu2,
 body.theme-clearl .newLNF .home-schoolNameContainer,
 body.theme-clearl .x-calendar-list,
@@ -581,7 +583,7 @@ body.theme-red1 .css-1dpvdu2,
 body.theme-red1 .newLNF .home-schoolNameContainer,
 body.theme-red1 .x-calendar-list,
 body.theme-red1 .x-panel-body,
-html.newLNF.newLNFActivity.x-strict
+body.theme-red1 .html.newLNF.newLNFActivity.x-strict
 body.theme-red1 .newLNF body.greyBody,
 body.theme-red1 .css-szig0z .css-dt2n38 {
 
@@ -603,6 +605,83 @@ body.theme-red1 .css-szig0z .css-dt2n38 {
     background: linear-gradient(135deg, #2f0303, #8f1212)!important;
     -webkit-tap-highlight-color: #e03030;
 }
+
+
+
+
+
+
+
+
+
+
+ .theme-aus {
+    --bg: transparent;
+    --text: #ffffff!important;
+    --card:  rgb(2, 95, 2) !important; /* one that needs to be transparented*/
+    --accent: #b4a5fc;
+}
+
+body.theme-aus #productNavBar.newLNF ~ #c_bar {
+  background-color: transparent !important;
+}
+body.theme-aus .home-schoolNameContainer {
+  background-color: transparent !important;
+}
+
+body.theme-aus #aspnetForm {
+  background-color: rgb(0, 75, 0) !important;
+}
+body.theme-aus #c_bar {
+  background-color: transparent !important;
+}
+
+body.theme-aus #productNavBar.newLNF {
+    background: green !important;
+}
+
+body.theme-aus .newLNF #c_bar,
+body.theme-aus .css-1dpvdu2,
+body.theme-aus .newLNF .home-schoolNameContainer,
+body.theme-aus .x-calendar-list,
+body.theme-aus .x-panel-body,
+body.theme-aus.css-iqppun,
+body.theme-aus html.newLNF.newLNFActivity.x-strict,
+body.theme-aus .newLNF body.greyBody,
+body.theme-aus .MuiTypography-root.MuiTypography-bodyMD,
+body.theme-aus .MuiTypography-root.MuiTypography,
+body.theme-aus .MuiTypography-root,
+body.theme-aus #container-1052-outerCt, 
+body.theme-aus#productNavBar.newLNF,
+body.theme-aus .css-szig0z .css-dt2n38 {
+
+    color: #ffd332 !important;   /* body text colour */
+    font-family: Cabin, Roboto, Arial, Helvetica, sans-serif;
+    --accent: #d5b232;
+    --branding-main-color: #d3c331 ; /* icons */
+    --branding-newsfeed-main-color: #d3c336 !important;
+    --newsfeed-banner-color: #bbaf21 !important;
+    --branding-page-text-color: #dedede !important;
+    --branding-page-background-color: #958a24!important;
+    --branding-background-color: #958a24 !important;
+    --branding-community-banner-color: #c2b32a !important;
+    --branding-community-banner-font-color: #bbad2b !important;
+    --c-bar-background-color: transparent !important;
+    --c-bar-shadow: #958a24 !important;
+    --text-accent: #958a24 !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    -webkit-tap-highlight-color: #c4e0ff;
+    border-color:rgba(129, 184, 255, 0.35);
+}
+
+
+
+
+
+
+
+
 
 
 

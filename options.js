@@ -24,6 +24,7 @@ chrome.storage.local.get(["backgroundImage"], (localSettings) => {
 
 const subjectPatternRulesContainer = document.getElementById("subjectPatternRules");
 const addSubjectPatternRuleButton = document.getElementById("addSubjectPatternRule");
+let saveTimer;
 
 function createSubjectRuleRow(rule = {}) {
     const wrapper = document.createElement("div");
@@ -50,7 +51,13 @@ function createSubjectRuleRow(rule = {}) {
     remove.type = "button";
     remove.textContent = "Remove";
     remove.style.padding = "6px 10px";
-    remove.addEventListener("click", () => wrapper.remove());
+    remove.addEventListener("click", () => {
+        wrapper.remove();
+        saveSettings();
+    });
+
+    input.addEventListener("input", scheduleSaveSettings);
+    color.addEventListener("input", scheduleSaveSettings);
 
     wrapper.appendChild(input);
     wrapper.appendChild(color);
@@ -80,10 +87,13 @@ chrome.storage.sync.get(["subjectColorRules"], (data) => {
 });
 
 if (addSubjectPatternRuleButton) {
-    addSubjectPatternRuleButton.addEventListener("click", () => addSubjectPatternRule());
+    addSubjectPatternRuleButton.addEventListener("click", () => {
+        addSubjectPatternRule();
+        saveSettings();
+    });
 }
 
-document.getElementById("save").onclick = () => {
+function getSettingsPayload() {
     const theme = document.getElementById("themeSelect").value;
     const urlValue = document.getElementById("backgroundImage").value.trim();
     const disableTimetableColourPicker = document.getElementById("disableTimetableColourPicker").checked;
@@ -102,32 +112,43 @@ document.getElementById("save").onclick = () => {
         }
     });
 
-    const savePayload = {
-        theme,
-        subjectColorRules,
-        colorPickerEnabled: !disableTimetableColourPicker
+    return {
+        sync: {
+            theme,
+            subjectColorRules,
+            colorPickerEnabled: !disableTimetableColourPicker
+        },
+        backgroundImage: pendingBackgroundImage || urlValue
     };
+}
 
-    chrome.storage.sync.set(savePayload, () => {
-        if (pendingBackgroundImage) {
-            chrome.storage.local.set({ backgroundImage: pendingBackgroundImage }, () => {
-                alert("Theme settings saved.");
-            });
-        } else if (urlValue) {
-            chrome.storage.local.set({ backgroundImage: urlValue }, () => {
-                alert("Theme settings saved.");
-            });
+function saveSettings() {
+    const payload = getSettingsPayload();
+
+    chrome.storage.sync.set(payload.sync, () => {
+        const finish = () => {
+        };
+
+        if (payload.backgroundImage) {
+            chrome.storage.local.set({ backgroundImage: payload.backgroundImage }, finish);
         } else {
-            chrome.storage.local.remove("backgroundImage", () => {
-                alert("Theme settings saved.");
-            });
+            chrome.storage.local.remove("backgroundImage", finish);
         }
     });
-};
+}
+
+function scheduleSaveSettings() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => saveSettings(), 200);
+}
+
+document.getElementById("themeSelect").addEventListener("change", saveSettings);
+document.getElementById("disableTimetableColourPicker").addEventListener("change", saveSettings);
 
 document.getElementById("backgroundImage").addEventListener("input", (event) => {
     pendingBackgroundImage = "";
     updatePreview(event.target.value.trim());
+    scheduleSaveSettings();
 });
 
 document.getElementById("backgroundFile").addEventListener("change", (event) => {
@@ -141,6 +162,7 @@ document.getElementById("backgroundFile").addEventListener("change", (event) => 
         pendingBackgroundImage = reader.result;
         document.getElementById("backgroundImage").value = "";
         updatePreview(reader.result);
+        saveSettings();
     };
     reader.readAsDataURL(file);
 });
@@ -150,9 +172,7 @@ document.getElementById("clearBackground").onclick = () => {
     document.getElementById("backgroundFile").value = "";
     pendingBackgroundImage = "";
     updatePreview("");
-    chrome.storage.local.remove("backgroundImage", () => {
-        alert("Background image cleared.");
-    });
+    saveSettings();
 };
 
 function updatePreview(url) {

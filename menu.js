@@ -4,8 +4,14 @@ const openOptions = document.getElementById("openOptions");
 const textColourToggle = document.getElementById("textColourToggle");
 const textColourPicker = document.getElementById("textColourPicker");
 const textColourValue = document.getElementById("textColourValue");
+const navbarColourToggle = document.getElementById("navbarColourToggle");
+const navbarColourPicker = document.getElementById("navbarColourPicker");
+const navbarColourValue = document.getElementById("navbarColourValue");
 const backgroundBlur = document.getElementById("backgroundBlur");
 const blurValue = document.getElementById("blurValue");
+const pageZoom = document.getElementById("pageZoom");
+const pageZoomToggle = document.getElementById("pageZoomToggle");
+const zoomValue = document.getElementById("zoomValue");
 const subjectRuleList = document.getElementById("subjectRuleList");
 const addRuleButton = document.getElementById("addRule");
 const saveRulesButton = document.getElementById("saveRules");
@@ -91,9 +97,122 @@ function updateBlurValue(value) {
     blurValue.textContent = `${value}px`;
 }
 
+function updateZoomValue(value) {
+    zoomValue.textContent = `${value}%`;
+}
+
+function isCompassTab(tab) {
+    return tab && typeof tab.url === "string" && tab.url.includes("compass.education");
+}
+
+function getTabOrigin(tab) {
+    try {
+        return new URL(tab.url).origin;
+    } catch {
+        return null;
+    }
+}
+
+function getActiveCompassTab(callback) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tab = tabs[0];
+        callback(isCompassTab(tab) && tab.id ? tab : null);
+    });
+}
+
+function applyBrowserZoom(value, callback) {
+    getActiveCompassTab((tab) => {
+        if (!tab) {
+            callback?.();
+            return;
+        }
+
+        chrome.tabs.setZoom(tab.id, Number(value) / 100, callback);
+    });
+}
+
+function setPageZoomEnabled(enabled) {
+    pageZoomToggle.checked = enabled;
+    pageZoom.disabled = !enabled;
+}
+
+function restoreSavedBrowserZoom(callback) {
+    getActiveCompassTab((tab) => {
+        if (!tab) {
+            callback?.();
+            return;
+        }
+
+        const origin = getTabOrigin(tab);
+        chrome.storage.local.get(["pageZoomUserPreferences"], (settings) => {
+            const preferences = settings.pageZoomUserPreferences || {};
+            const preference = origin ? preferences[origin] : undefined;
+            if (typeof preference !== "number") {
+                chrome.tabs.getZoomSettings(tab.id, (zoomSettings) => {
+                    const defaultZoom = Number(zoomSettings?.defaultZoomFactor);
+                    if (defaultZoom > 0) {
+                        chrome.tabs.setZoom(tab.id, defaultZoom, callback);
+                    } else {
+                        callback?.();
+                    }
+                });
+                return;
+            }
+
+            chrome.tabs.setZoom(tab.id, preference, callback);
+        });
+    });
+}
+
+function captureBrowserZoomPreference(tab, callback) {
+    const origin = getTabOrigin(tab);
+    if (!origin) {
+        callback?.();
+        return;
+    }
+
+    chrome.storage.local.get(["pageZoomUserPreferences"], (settings) => {
+        const preferences = settings.pageZoomUserPreferences || {};
+        if (typeof preferences[origin] === "number") {
+            callback?.();
+            return;
+        }
+
+        chrome.tabs.getZoomSettings(tab.id, (zoomSettings) => {
+            const defaultZoom = Number(zoomSettings?.defaultZoomFactor);
+            if (!(defaultZoom > 0)) {
+                callback?.();
+                return;
+            }
+
+            preferences[origin] = defaultZoom;
+            chrome.storage.local.set({ pageZoomUserPreferences: preferences }, callback);
+        });
+    });
+}
+
+function loadBrowserZoom(callback) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tab = tabs[0];
+        if (!isCompassTab(tab) || !tab.id) {
+            callback(null);
+            return;
+        }
+
+        chrome.tabs.getZoom(tab.id, (zoomFactor) => {
+            callback(Math.round(zoomFactor * 100));
+        });
+    });
+}
+
 function updateTextColourValue(value) {
     if (!textColourValue) return;
     textColourValue.textContent = value || "#000000";
+}
+
+function updateNavbarColourValue(value) {
+    if (!navbarColourValue) return;
+    navbarColourValue.textContent = value || "#000000";
 }
 
 chrome.storage.sync.get(["editorModeEnabled"], (settings) => {
@@ -102,10 +221,28 @@ chrome.storage.sync.get(["editorModeEnabled"], (settings) => {
     updateStatus(enabled);
 });
 
-chrome.storage.local.get(["backgroundBlur", "customTextColourEnabled", "customTextColour"], (settings) => {
+chrome.storage.local.get([
+    "backgroundBlur",
+    "customTextColourEnabled",
+    "customTextColour",
+    "customNavbarColourEnabled",
+    "customNavbarColour",
+    "pageZoom",
+    "pageZoomEnabled"
+], (settings) => {
     const blur = Number(settings.backgroundBlur) || 0;
     backgroundBlur.value = blur;
     updateBlurValue(blur);
+
+    const zoom = Number(settings.pageZoom) || 100;
+    pageZoom.value = zoom;
+    updateZoomValue(zoom);
+    setPageZoomEnabled(settings.pageZoomEnabled !== false);
+    loadBrowserZoom((activeTabZoom) => {
+        if (activeTabZoom === null) return;
+        pageZoom.value = activeTabZoom;
+        updateZoomValue(activeTabZoom);
+    });
 
     const textEnabled = settings.customTextColourEnabled === true;
     const textColour = settings.customTextColour || "#000000";
@@ -116,6 +253,16 @@ chrome.storage.local.get(["backgroundBlur", "customTextColourEnabled", "customTe
         textColourPicker.value = textColour;
     }
     updateTextColourValue(textColour);
+
+    const navbarEnabled = settings.customNavbarColourEnabled === true;
+    const navbarColour = settings.customNavbarColour || "#000000";
+    if (navbarColourToggle) {
+        navbarColourToggle.checked = navbarEnabled;
+    }
+    if (navbarColourPicker) {
+        navbarColourPicker.value = navbarColour;
+    }
+    updateNavbarColourValue(navbarColour);
 });
 
 editorModeToggle.addEventListener("change", () => {
@@ -139,10 +286,58 @@ if (textColourPicker) {
     });
 }
 
+if (navbarColourToggle) {
+    navbarColourToggle.addEventListener("change", () => {
+        chrome.storage.local.set({ customNavbarColourEnabled: navbarColourToggle.checked });
+    });
+}
+
+if (navbarColourPicker) {
+    navbarColourPicker.addEventListener("input", () => {
+        const value = navbarColourPicker.value || "#000000";
+        updateNavbarColourValue(value);
+        chrome.storage.local.set({ customNavbarColour: value });
+    });
+}
+
 backgroundBlur.addEventListener("input", () => {
     const value = Number(backgroundBlur.value) || 0;
     updateBlurValue(value);
     chrome.storage.local.set({ backgroundBlur: value });
+});
+
+pageZoom.addEventListener("input", () => {
+    const value = Number(pageZoom.value) || 100;
+    updateZoomValue(value);
+    chrome.storage.local.set({ pageZoom: value });
+    applyBrowserZoom(value);
+});
+
+pageZoomToggle.addEventListener("change", () => {
+    const enabled = pageZoomToggle.checked;
+    setPageZoomEnabled(enabled);
+
+    if (!enabled) {
+        chrome.storage.local.set({ pageZoomEnabled: false }, () => {
+            restoreSavedBrowserZoom();
+        });
+        return;
+    }
+
+    getActiveCompassTab((tab) => {
+        const applyZoom = () => {
+            chrome.storage.local.set({ pageZoomEnabled: true }, () => {
+                applyBrowserZoom(Number(pageZoom.value) || 100);
+            });
+        };
+
+        if (!tab) {
+            applyZoom();
+            return;
+        }
+
+        captureBrowserZoomPreference(tab, applyZoom);
+    });
 });
 
 if (addRuleButton) {

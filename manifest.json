@@ -1,14 +1,13 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 4,
   "name": "Better Compass Superior",
-  "version": "1.8.5",
+  "version": "1.9.0",
   "icons": {
     "128": "icon-128.png"
   },
   "description": "Compass QOL overhaul. Compass like never seen before. www.github.com/eaDC22mn",
   "permissions": [
     "storage",
-    "scripting",
 	"tabs"
   ],
   "background": {
@@ -29,7 +28,7 @@
     },
     {
       "matches": [
-        "<all_urls>"
+        "https://*.compass.education/*"
       ],
       "js": [
         "saml-autoclick.js"
@@ -46,7 +45,7 @@
          "bcslogo.png"
       ],
       "matches": [
-        "<all_urls>"
+        "https://*.compass.education/*"
       ]
     }
   ],
