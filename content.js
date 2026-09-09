@@ -13,15 +13,56 @@ function applyTextColourOverride() {
     });
 }
 
+let rainbowNavbarTimer;
+let rainbowNavbarRetryTimer;
+let navbarOverrideRequest = 0;
+
+function stopRainbowNavbar() {
+    if (rainbowNavbarTimer) {
+        clearInterval(rainbowNavbarTimer);
+        rainbowNavbarTimer = null;
+    }
+    if (rainbowNavbarRetryTimer) {
+        clearTimeout(rainbowNavbarRetryTimer);
+        rainbowNavbarRetryTimer = null;
+    }
+}
+
 function applyNavbarColourOverride() {
-    chrome.storage.local.get(["customNavbarColourEnabled", "customNavbarColour"], (settings) => {
-        const navbar = document.querySelector("#productNavBar.newLNF");
-        if (!navbar) return;
+    stopRainbowNavbar();
+    const requestId = ++navbarOverrideRequest;
+    chrome.storage.local.get(["customNavbarColourEnabled", "customNavbarColour", "rainbowNavbarEnabled"], (settings) => {
+        if (requestId !== navbarOverrideRequest) return;
+
+        const findNavbars = () => Array.from(document.querySelectorAll("#productNavBar.newLNF, #productNavBar"));
+        const navbars = findNavbars();
+        if (navbars.length === 0) {
+            if (settings.rainbowNavbarEnabled === true || settings.customNavbarColourEnabled === true) {
+                rainbowNavbarRetryTimer = setTimeout(applyNavbarColourOverride, 500);
+            }
+            return;
+        }
+
+        if (settings.rainbowNavbarEnabled === true) {
+            let hue = 0;
+            const applyRainbowColour = () => {
+                findNavbars().forEach((currentNavbar) => {
+                    currentNavbar.style.setProperty("background-color", `hsl(${hue}, 85%, 45%)`, "important");
+                });
+                hue = (hue + 3) % 360;
+            };
+
+            applyRainbowColour();
+            rainbowNavbarTimer = setInterval(applyRainbowColour, 100);
+            return;
+        }
 
         if (settings.customNavbarColourEnabled === true) {
-            navbar.style.setProperty("background-color", settings.customNavbarColour || "#000000", "important");
+            navbars.forEach((navbar) => {
+                navbar.style.setProperty("background-color", settings.customNavbarColour || "#000000", "important");
+            });
         } else {
-            navbar.style.removeProperty("background-color");
+            navbars.forEach((navbar) => navbar.style.removeProperty("background-color"));
         }
     });
 }
@@ -417,7 +458,7 @@ createZIndexControl();
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
     if ((areaName === "sync" && changes.theme) ||
-        (areaName === "local" && (changes.backgroundImage || changes.customTextColourEnabled || changes.customTextColour || changes.customNavbarColourEnabled || changes.customNavbarColour))) {
+        (areaName === "local" && (changes.backgroundImage || changes.customTextColourEnabled || changes.customTextColour || changes.customNavbarColourEnabled || changes.customNavbarColour || changes.rainbowNavbarEnabled))) {
         applyThemeAndBackground();
     }
     if (areaName === "local" && changes.backgroundBlur) {
@@ -827,7 +868,7 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
         if (changes.backgroundImage) {
             applyBackgroundImage(changes.backgroundImage.newValue);
         }
-        if (changes.customTextColourEnabled || changes.customTextColour || changes.customNavbarColourEnabled || changes.customNavbarColour) {
+        if (changes.customTextColourEnabled || changes.customTextColour || changes.customNavbarColourEnabled || changes.customNavbarColour || changes.rainbowNavbarEnabled) {
             applyTextColourOverride();
             applyNavbarColourOverride();
         }

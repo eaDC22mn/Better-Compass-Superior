@@ -7,6 +7,7 @@ const textColourValue = document.getElementById("textColourValue");
 const navbarColourToggle = document.getElementById("navbarColourToggle");
 const navbarColourPicker = document.getElementById("navbarColourPicker");
 const navbarColourValue = document.getElementById("navbarColourValue");
+const rainbowNavbarToggle = document.getElementById("rainbowNavbarToggle");
 const backgroundBlur = document.getElementById("backgroundBlur");
 const blurValue = document.getElementById("blurValue");
 const pageZoom = document.getElementById("pageZoom");
@@ -227,6 +228,7 @@ chrome.storage.local.get([
     "customTextColour",
     "customNavbarColourEnabled",
     "customNavbarColour",
+    "rainbowNavbarEnabled",
     "pageZoom",
     "pageZoomEnabled"
 ], (settings) => {
@@ -263,6 +265,9 @@ chrome.storage.local.get([
         navbarColourPicker.value = navbarColour;
     }
     updateNavbarColourValue(navbarColour);
+    if (rainbowNavbarToggle) {
+        rainbowNavbarToggle.checked = settings.rainbowNavbarEnabled === true;
+    }
 });
 
 editorModeToggle.addEventListener("change", () => {
@@ -297,6 +302,12 @@ if (navbarColourPicker) {
         const value = navbarColourPicker.value || "#000000";
         updateNavbarColourValue(value);
         chrome.storage.local.set({ customNavbarColour: value });
+    });
+}
+
+if (rainbowNavbarToggle) {
+    rainbowNavbarToggle.addEventListener("change", () => {
+        chrome.storage.local.set({ rainbowNavbarEnabled: rainbowNavbarToggle.checked });
     });
 }
 

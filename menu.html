@@ -99,6 +99,34 @@
             gap: 8px;
             margin-top: 8px;
         }
+        .rainbow-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+            margin-left: 50px;
+        }
+        .rainbow-switch {
+            height: 18px;
+        }
+        .rainbow-switch .slider {
+            height: 18px;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #eab308, #22c55e, #06b6d4, #3b82f6, #a855f7, #ef4444);
+            background-size: 200% 100%;
+            animation: rainbow-slide 5s linear infinite;
+        }
+        .rainbow-switch .slider::before {
+            width: 12px;
+            height: 12px;
+            top: 3px;
+        }
+        .rainbow-switch input:checked + .slider::before {
+            transform: translateX(24px);
+        }
+        @keyframes rainbow-slide {
+            from { background-position: 0 0; }
+            to { background-position: 200% 0; }
+        }
         #textColourPicker {
             width: 42px;
             height: 28px;
@@ -203,6 +231,13 @@
             <input id="navbarColourPicker" type="color" value="#000000" />
             <span id="navbarColourValue">#000000</span>
         </div>
+        <label class="rainbow-row">
+            <span class="switch rainbow-switch">
+                <input id="rainbowNavbarToggle" type="checkbox" />
+                <span class="slider"></span>
+            </span>
+            <span>Rainbow navigation bar</span>
+        </label>
     </div>
     <div class="row">
         <label for="backgroundBlur">

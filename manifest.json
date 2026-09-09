@@ -1,7 +1,7 @@
 {
   "manifest_version": 4,
   "name": "Better Compass Superior",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "icons": {
     "128": "icon-128.png"
   },
