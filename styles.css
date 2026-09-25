@@ -7,8 +7,47 @@
     --branding-background-color: #F0F2F5;
     --branding-community-banner-color: #006DCE;
     --branding-community-banner-font-color: #FFFFFF;
+    background-color: #4a4a4a !important;
 }
 
+.bcs-website-shortcuts {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+.bcs-website-shortcut {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.bcs-website-shortcut:hover,
+.bcs-website-shortcut:focus-visible {
+  background-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.bcs-website-shortcut img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.newLNF body.greyBody {
+    background-color: #4a4a4a !important;
+}
 
 .theme-Default
 body.theme-Default .newLNF
@@ -691,24 +730,52 @@ body.theme-aus .css-szig0z .css-dt2n38 {
     filter: invert(1) hue-rotate(180deg);
 }
 
+body.theme-invert :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+    filter: invert(1) hue-rotate(180deg) !important;
+}
+
 .theme-invertG {
     filter: invert(1) hue-rotate(90deg);
+}
+
+body.theme-invertG :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent, .MuiBox-root css-0, .ext-cal-day-col-inner) {
+    filter: invert(1) hue-rotate(270deg) !important;
 }
 
 .theme-Dark3 {
     filter: invert(1) hue-rotate(20deg);
 }
 
+body.theme-Dark3 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+    filter: invert(1) hue-rotate(340deg) !important;
+}
+
 .theme-Dark4 {
     filter: invert(1) hue-rotate(0deg);
+}
+
+body.theme-Dark4 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+    filter: invert(1) !important;
 }
 
 .theme-Dark5 {
     filter: invert(1) hue-rotate(250deg);
 }
 
+body.theme-Dark5 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+    filter: invert(1) hue-rotate(110deg) !important;
+}
+
 .theme-Dark6 {
     filter: invert(1) hue-rotate(320deg);
+}
+
+body.theme-Dark6 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+    filter: invert(1) hue-rotate(40deg) !important;
+}
+
+body[class*="theme-"] :where(.DayViewEvent-event, .EventTile-root, .CalendarEvent) :where(img, video, canvas, svg) {
+    filter: none !important;
 }
 /*
 .has-custom-background {

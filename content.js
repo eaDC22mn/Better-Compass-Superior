@@ -34,7 +34,7 @@ function applyNavbarColourOverride() {
     chrome.storage.local.get(["customNavbarColourEnabled", "customNavbarColour", "rainbowNavbarEnabled"], (settings) => {
         if (requestId !== navbarOverrideRequest) return;
 
-        const findNavbars = () => Array.from(document.querySelectorAll("#productNavBar.newLNF, #productNavBar"));
+            const findNavbars = () => Array.from(document.querySelectorAll("#productNavBar.newLNF, #productNavBar, #ProductNavBar.newLNF, #ProductNavBar"));
         const navbars = findNavbars();
         if (navbars.length === 0) {
             if (settings.rainbowNavbarEnabled === true || settings.customNavbarColourEnabled === true) {
@@ -1001,6 +1001,119 @@ function insertCompassActionButton(button, buttonContainer, anchorElement) {
     }
 }
 
+let websiteShortcuts = [];
+
+function renderWebsiteShortcuts(shortcuts) {
+    if (!Array.isArray(shortcuts)) return;
+
+    const optionsButton = document.getElementById("openOptionsBtn");
+    const searchContainer = document.querySelector("#productNavBar.newLNF .mnu_autosuggestContainer, #productNavBar .mnu_autosuggestContainer, #ProductNavBar.newLNF .mnu_autosuggestContainer, #ProductNavBar .mnu_autosuggestContainer, [id$='_pnlSearch']");
+    const anchor = optionsButton || searchContainer;
+    const targetContainer = anchor?.parentElement;
+    if (!targetContainer) return;
+
+    targetContainer.style.display = targetContainer.style.display || "flex";
+    targetContainer.style.alignItems = targetContainer.style.alignItems || "center";
+
+    let shortcutBar = document.querySelector(".bcs-website-shortcuts");
+    if (!shortcutBar) {
+        shortcutBar = document.createElement("div");
+        shortcutBar.className = "bcs-website-shortcuts";
+    }
+    targetContainer.insertBefore(shortcutBar, anchor);
+
+    shortcutBar.replaceChildren();
+    shortcutBar.hidden = shortcuts.length === 0;
+
+    shortcuts.forEach((shortcut) => {
+            if (!shortcut || typeof shortcut.url !== "string") return;
+
+            let parsedUrl;
+            try {
+                const shortcutUrl = shortcut.url.trim();
+                parsedUrl = new URL(/^https?:\/\//i.test(shortcutUrl) ? shortcutUrl : `https://${shortcutUrl}`);
+            } catch {
+                return;
+            }
+            if (!/^https?:$/.test(parsedUrl.protocol)) return;
+
+            const link = document.createElement("a");
+            link.className = "bcs-website-shortcut";
+            link.href = parsedUrl.href;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.title = parsedUrl.href;
+            link.setAttribute("aria-label", `Open ${parsedUrl.href}`);
+
+            const icon = document.createElement("img");
+            icon.src = `${parsedUrl.origin}/favicon.ico`;
+            icon.alt = "";
+            icon.addEventListener("error", () => {
+                icon.replaceWith(document.createTextNode("↗"));
+            }, { once: true });
+            link.appendChild(icon);
+        shortcutBar.appendChild(link);
+    });
+}
+
+function loadWebsiteShortcuts() {
+    chrome.storage.local.get(["websiteShortcuts"], (settings) => {
+        if (Array.isArray(settings.websiteShortcuts) && settings.websiteShortcuts.length > 0) {
+            websiteShortcuts = settings.websiteShortcuts;
+            renderWebsiteShortcuts(websiteShortcuts);
+            return;
+        }
+
+        chrome.storage.sync.get(["websiteShortcuts"], (syncSettings) => {
+            websiteShortcuts = Array.isArray(syncSettings.websiteShortcuts) ? syncSettings.websiteShortcuts : [];
+            renderWebsiteShortcuts(websiteShortcuts);
+            if (websiteShortcuts.length > 0) {
+                chrome.storage.local.set({ websiteShortcuts });
+            }
+        });
+    });
+}
+
+loadWebsiteShortcuts();
+chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName === "local" && changes.websiteShortcuts) {
+        websiteShortcuts = changes.websiteShortcuts.newValue || [];
+        renderWebsiteShortcuts(websiteShortcuts);
+    }
+});
+
+function addAlternateMenuButton() {
+    if (document.getElementById("bcsAlternateMenuBtn")) return;
+
+    const optionsButton = document.getElementById("openOptionsBtn");
+    if (!optionsButton) return;
+
+    const btn = createCompassActionButton("bcsAlternateMenuBtn", "", () => {
+        window.BCSAltMenu?.open();
+    });
+    const icon = document.createElement("img");
+    icon.src = chrome.runtime.getURL("altmenu-icon.png");
+    icon.alt = "";
+    icon.addEventListener("error", () => {
+        icon.remove();
+        btn.textContent = "⚙";
+    });
+    btn.appendChild(icon);
+    btn.setAttribute("aria-label", "Open Better Compass alternate menu");
+    btn.title = "Open alternate menu";
+    btn.style.width = "40px";
+    btn.style.minWidth = "40px";
+    btn.style.maxWidth = "40px";
+    btn.style.padding = "6px";
+    btn.style.fontSize = "16px";
+    btn.style.marginLeft = "0";
+    btn.style.marginRight = "8px";
+    icon.style.width = "26px";
+    icon.style.height = "26px";
+    icon.style.display = "block";
+    insertCompassActionButton(btn, optionsButton.parentElement, optionsButton);
+}
+
 function addOpenOptionsButton() {
     const topBarSelectors = [
         '#productNavBar.newLNF',
@@ -1067,6 +1180,9 @@ function addOpenOptionsButton() {
         });
         insertCompassActionButton(btn, buttonContainer, anchorElement);
     }
+
+    addAlternateMenuButton();
+    renderWebsiteShortcuts(websiteShortcuts);
 }
 
 
@@ -1109,3 +1225,4 @@ function addOpenOptionsButton() {
 
 addOpenOptionsButton();
 setInterval(addOpenOptionsButton, 2000);
+setInterval(() => renderWebsiteShortcuts(websiteShortcuts), 2000);

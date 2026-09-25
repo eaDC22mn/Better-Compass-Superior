@@ -32,6 +32,19 @@ h5 {
   color: #a8c7e8;
 }
 
+.popup-help {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.popup-help img {
+  width: 88px;
+  height: 88px;
+  flex: 0 0 88px;
+  object-fit: contain;
+}
+
 label {
   display: flex;
   align-items: center;
@@ -42,6 +55,7 @@ label {
 }
 
 input[type="text"],
+input[type="url"],
 input[type="file"],
 select,
 textarea {
@@ -111,6 +125,59 @@ button:active {
   align-items: end;
 }
 
+#websiteShortcutsSection {
+  margin: 16px 0 18px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.04);
+}
+
+.settings-help {
+  margin: -4px 0 10px;
+  color: #a9bdd7;
+  font-size: 0.86rem;
+}
+
+.website-shortcut-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.website-shortcut-row input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.website-shortcut-remove {
+  width: auto;
+  white-space: nowrap;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #7c2626, #401313);
+  color: #fff;
+}
+
+#addWebsiteShortcut {
+  margin-top: 4px;
+}
+
+#websiteShortcutsStatus {
+  min-height: 18px;
+  margin-top: 6px;
+  color: #8fd7bd;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 620px) {
+  .website-shortcut-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 #background-row {
   padding: 16px;
   border-radius: 18px;
@@ -121,6 +188,39 @@ button:active {
 #background-row label,
 #background-row span {
   color: #c6d8ff;
+}
+
+#backgroundPresets {
+  margin-top: 14px;
+}
+
+.background-presets-title {
+  margin-bottom: 8px;
+  color: #c6d8ff;
+  font-size: 0.92rem;
+}
+
+.background-preset {
+  width: 120px;
+  min-height: 104px;
+  margin: 0 8px 8px 0;
+  padding: 6px;
+  gap: 4px;
+  flex-direction: column;
+  background: rgba(255,255,255,0.08);
+  color: #d8e8ff;
+  border: 2px solid transparent;
+}
+
+.background-preset img {
+  width: 104px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+.background-preset.selected {
+  border-color: #58c7b4;
 }
 
 #backgroundPreview {
@@ -134,9 +234,33 @@ button:active {
 }
 
 #colorBackupBox {
-  width: 100%;
-  min-height: 120px;
+  width: min(100%, 480px) !important;
+  max-width: 1000px;
+  min-height: 90px;
+  height: 90px !important;
+  box-sizing: border-box;
+  padding: 6px 8px;
   resize: vertical;
+}
+
+.color-config-controls {
+  margin-bottom: 18px;
+}
+
+.color-config-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+#backupColors,
+#restoreColors {
+  width: auto !important;
+  min-height: 38px;
+  margin-bottom: 6px;
+  margin-right: 0;
+  padding: 8px 14px;
 }
 
 #subjectColors {

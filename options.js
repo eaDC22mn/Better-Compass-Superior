@@ -2,6 +2,56 @@
 
 let pendingBackgroundImage = "";
 
+const backgroundPresets = [
+    { label: "Theater", path: "backgrounds/campus.jpg" },
+    { label: "Sunset", path: "backgrounds/sunset.jpg" },
+    { label: "Forest", path: "backgrounds/forest.jpg" },
+    { label: "Ocean", path: "backgrounds/ocean.jpg" },
+    { label: "City", path: "backgrounds/city.jpg" },
+    { label: "Industrial", path: "backgrounds/industry.jpg" },
+    { label: "Galaxy", path: "backgrounds/galaxy.jpg" }
+];
+
+const backgroundPresetsContainer = document.getElementById("backgroundPresets");
+const websiteShortcutsContainer = document.getElementById("websiteShortcuts");
+const addWebsiteShortcutButton = document.getElementById("addWebsiteShortcut");
+const websiteShortcutsStatus = document.getElementById("websiteShortcutsStatus");
+
+function renderBackgroundPresets() {
+    if (!backgroundPresetsContainer) return;
+
+    backgroundPresets.forEach((preset) => {
+        const url = chrome.runtime.getURL(preset.path);
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "background-preset";
+        button.dataset.backgroundUrl = url;
+        button.title = `Use ${preset.label} background`;
+
+        const image = document.createElement("img");
+        image.src = url;
+        image.alt = preset.label;
+
+        const label = document.createElement("span");
+        label.textContent = preset.label;
+
+        button.appendChild(image);
+        button.appendChild(label);
+        button.addEventListener("click", () => selectBackground(url));
+        backgroundPresetsContainer.appendChild(button);
+    });
+}
+
+function selectBackground(url) {
+    pendingBackgroundImage = url;
+    document.getElementById("backgroundImage").value = "";
+    document.getElementById("backgroundFile").value = "";
+    updatePreview(url);
+    saveSettings();
+}
+
+renderBackgroundPresets();
+
 chrome.storage.sync.get(["theme", "colorPickerEnabled"], (settings) => {
     if (settings.theme) {
         document.getElementById("themeSelect").value = settings.theme;
@@ -21,6 +71,64 @@ chrome.storage.local.get(["backgroundImage"], (localSettings) => {
         updatePreview(localSettings.backgroundImage);
     }
 });
+
+function createWebsiteShortcutRow(shortcut = {}) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "website-shortcut-row";
+
+    const url = document.createElement("input");
+    url.type = "url";
+    url.className = "website-shortcut-url";
+    url.placeholder = "https://example.com";
+    url.value = shortcut.url || "";
+
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "website-shortcut-remove";
+    remove.textContent = "Remove";
+    remove.addEventListener("click", () => {
+        wrapper.remove();
+           saveWebsiteShortcuts();
+    });
+
+    url.addEventListener("input", saveWebsiteShortcuts);
+    wrapper.append(url, remove);
+    return wrapper;
+}
+
+function addWebsiteShortcut(shortcut = {}) {
+    if (websiteShortcutsContainer) {
+        websiteShortcutsContainer.appendChild(createWebsiteShortcutRow(shortcut));
+    }
+}
+
+function loadWebsiteShortcuts(shortcuts = []) {
+    if (!websiteShortcutsContainer) return;
+    websiteShortcutsContainer.innerHTML = "";
+    shortcuts.forEach(addWebsiteShortcut);
+}
+
+chrome.storage.local.get(["websiteShortcuts"], (settings) => {
+    if (Array.isArray(settings.websiteShortcuts) && settings.websiteShortcuts.length > 0) {
+        loadWebsiteShortcuts(settings.websiteShortcuts);
+        return;
+    }
+
+    chrome.storage.sync.get(["websiteShortcuts"], (syncSettings) => {
+        const shortcuts = Array.isArray(syncSettings.websiteShortcuts) ? syncSettings.websiteShortcuts : [];
+        loadWebsiteShortcuts(shortcuts);
+        if (shortcuts.length > 0) {
+            chrome.storage.local.set({ websiteShortcuts: shortcuts });
+        }
+    });
+});
+
+if (addWebsiteShortcutButton) {
+    addWebsiteShortcutButton.addEventListener("click", () => {
+        addWebsiteShortcut();
+        saveWebsiteShortcuts();
+    });
+}
 
 const subjectPatternRulesContainer = document.getElementById("subjectPatternRules");
 const addSubjectPatternRuleButton = document.getElementById("addSubjectPatternRule");
@@ -122,19 +230,39 @@ function getSettingsPayload() {
     };
 }
 
+function getWebsiteShortcuts() {
+    const shortcutRows = document.querySelectorAll("#websiteShortcuts .website-shortcut-row");
+    const websiteShortcuts = [];
+    shortcutRows.forEach(row => {
+        const urlInput = row.querySelector(".website-shortcut-url");
+        if (!urlInput) return;
+
+        const url = urlInput.value.trim();
+        if (url) websiteShortcuts.push({ url });
+    });
+    return websiteShortcuts;
+}
+
+function saveWebsiteShortcuts() {
+    const shortcuts = getWebsiteShortcuts();
+    chrome.storage.local.set({ websiteShortcuts: shortcuts }, () => {
+        if (websiteShortcutsStatus) {
+            websiteShortcutsStatus.textContent = chrome.runtime.lastError
+                ? `Shortcut save failed: ${chrome.runtime.lastError.message}`
+                : "Shortcuts saved";
+        }
+    });
+}
+
 function saveSettings() {
     const payload = getSettingsPayload();
 
-    chrome.storage.sync.set(payload.sync, () => {
-        const finish = () => {
-        };
-
-        if (payload.backgroundImage) {
-            chrome.storage.local.set({ backgroundImage: payload.backgroundImage }, finish);
-        } else {
-            chrome.storage.local.remove("backgroundImage", finish);
-        }
-    });
+    chrome.storage.sync.set(payload.sync);
+    if (payload.backgroundImage) {
+        chrome.storage.local.set({ backgroundImage: payload.backgroundImage });
+    } else {
+        chrome.storage.local.remove("backgroundImage");
+    }
 }
 
 function scheduleSaveSettings() {
@@ -175,8 +303,13 @@ document.getElementById("clearBackground").onclick = () => {
     saveSettings();
 };
 
+window.addEventListener("beforeunload", saveWebsiteShortcuts);
+
 function updatePreview(url) {
     const preview = document.getElementById("backgroundPreview");
+    document.querySelectorAll(".background-preset").forEach((button) => {
+        button.classList.toggle("selected", button.dataset.backgroundUrl === url);
+    });
     if (url) {
         preview.src = url;
         preview.style.display = "block";

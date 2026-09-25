@@ -8,9 +8,6 @@ https://chromewebstore.google.com/detail/njaifefbcpkgcokocfheeafogibmhnbf?utm_so
 
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/njaifefbcpkgcokocfheeafogibmhnbf)](https://chromewebstore.google.com/detail/better-compass-superior/njaifefbcpkgcokocfheeafogibmhnbf/reviews)
 
-[![Github All Releases](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total.svg)]()
-
-![Stars](https://img.shields.io/github/stars/eaDC22mn/Better-Compass-Superior?style=social)
 
 An extension that makes compass better, but it's superior to its counterparts. 
 
@@ -21,11 +18,17 @@ Now with a on-site options/settings button, and popup extension menu!
 - Many site colour themes (and more coming) 
 - Autologin, merged in by github.com/Ashton20271 who stole all my code for his version. All themes and background function are mine, not his.
 - Custom background images (Works best with the light or Dark Clear themes)
-To change theme, you must go into "extension options", or now, use the button "BCS settings" in the top right of the website. and select the chosen theme. 
+To change theme, you must go into "extension options", or now, use the button "BCS settings" in the top right of the website. and select the chosen theme. Click "save" (button next to the theme picker).
 
 You can load/save (recall) colour configs for your timetable in extension options (to copy/reload configs, copy/paste the json from the config (backup) box, in JSON.
 
 Timetable colours are changed on the actual Compass page using sliders, or with the rule function in options or the popup.
+
+Downloads counter kinda cooked and unreliable it seems.
+
+[![Github All Releases](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total.svg)]()
+
+![Stars](https://img.shields.io/github/stars/eaDC22mn/Better-Compass-Superior?style=social)
 
 
 1. Download the ZIP

@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Better Compass Superior",
-  "version": "1.9.1",
+  "version": "1.9.4",
   "icons": {
     "128": "icon-128.png"
   },
-  "description": "Compass QOL overhaul. Compass like never seen before. www.github.com/eaDC22mn",
+  "description": "Compass QOL overhaul. Compass like never seen before.",
   "permissions": [
     "storage",
 	"tabs"
@@ -20,10 +20,12 @@
       ],
       "all_frames": true,
       "js": [
-        "content.js"
+        "content.js",
+        "altmenu.js"
       ],
       "css": [
-        "styles.css"
+        "styles.css",
+        "altmenu.css"
       ]
     },
     {
@@ -42,7 +44,14 @@
       "resources": [
         "game/index.html",
         "options.html",
-         "bcslogo.png"
+        "altmenu.html",
+        "altmenu.css",
+        "altmenu.js",
+        "altmenu-icon.png",
+        "icon-128.png",
+        "info.png",
+        "bcslogo.png",
+        "backgrounds/*"
       ],
       "matches": [
         "https://*.compass.education/*"
