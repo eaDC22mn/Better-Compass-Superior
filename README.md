@@ -1,6 +1,7 @@
 # Better-Compass-Superior
 
 Now on the Chrome webstore!
+
 Install here:
 https://chromewebstore.google.com/detail/njaifefbcpkgcokocfheeafogibmhnbf?utm_source=item-share-cb
 
