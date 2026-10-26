@@ -32,6 +32,12 @@
   transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
+
+.surfacePanel__lessonPlan--content{
+
+  background-color: #000000;
+}
+
 .bcs-website-shortcut:hover,
 .bcs-website-shortcut:focus-visible {
   background-color: rgba(255, 255, 255, 0.18);
@@ -844,6 +850,53 @@ body.has-custom-background .CalendarEvent {
     filter: brightness(0.9);
 }
 
+body.bcs-custom-lesson-plan-column-colour .x-grid-panel,
+body.bcs-custom-lesson-plan-column-colour .x-tree-panel,
+body.bcs-custom-lesson-plan-column-colour .x-grid-panel .x-panel-body,
+body.bcs-custom-lesson-plan-column-colour .x-tree-panel .x-panel-body,
+body.bcs-custom-lesson-plan-column-colour .x-grid-body,
+body.bcs-custom-lesson-plan-column-colour .x-grid-view,
+body.bcs-custom-lesson-plan-column-colour .x-grid-item-container,
+body.bcs-custom-lesson-plan-column-colour .x-grid-table,
+body.bcs-custom-lesson-plan-column-colour .x-grid-row,
+body.bcs-custom-lesson-plan-column-colour .x-grid-cell,
+body.bcs-custom-lesson-plan-column-colour .x-grid-cell-inner,
+body.bcs-custom-lesson-plan-column-colour .x-column-header,
+body.bcs-custom-lesson-plan-column-colour .x-column-header-inner {
+  background-color: var(--bcs-lesson-plan-column-colour) !important;
+}
+
+body.bcs-custom-lesson-plan-column-colour [id^="wikibrowserpanel-"].x-container.x-border-layout-ct,
+body.bcs-custom-lesson-plan-column-colour [id^="wikibrowserpanel-"] > .x-panel,
+body.bcs-custom-lesson-plan-column-colour [id^="wikibrowserpanel-"] .x-panel-body,
+body.bcs-custom-lesson-plan-column-colour [id^="wikibrowserpanel-"] > .x-splitter {
+  background-color: color-mix(in srgb, var(--bcs-lesson-plan-column-colour) 88%, #000000) !important;
+}
+
+body.bcs-custom-tab-bar-colour a.x-tab,
+body.bcs-custom-tab-bar-colour a.x-tab::before,
+body.bcs-custom-tab-bar-colour a.x-tab::after {
+  background: var(--bcs-tab-bar-colour) !important;
+  background-image: none !important;
+  border-color: var(--bcs-tab-bar-colour) !important;
+}
+
+body.bcs-custom-tab-bar-colour a.x-tab .x-tab-wrap,
+body.bcs-custom-tab-bar-colour a.x-tab .x-tab-button {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+body.bcs-custom-class-label-colour label.x-component.x-box-item.x-toolbar-item.x-component-default {
+  background-color: var(--bcs-class-label-colour) !important;
+  background-image: none !important;
+}
+
+body.bcs-custom-timetable-background-colour .ext-cal-day-col-gutter,
+body.bcs-custom-timetable-background-colour .ext-cal-day-time-inner {
+  background-color: var(--bcs-timetable-background-colour) !important;
+  background-image: none !important;
+}
 
 body.theme-pastelpink2 #productNavBar.newLNF ~ #c_bar {
   background-color: #ebbff9 !important;
@@ -870,5 +923,3 @@ table#ext-gen1200.ext-cal-bg-tbl > tbody > tr > td {
   background: transparent !important;
 }
 */
-
-

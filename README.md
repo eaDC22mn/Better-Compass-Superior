@@ -2,8 +2,6 @@
 
 Now on the Chrome webstore!
 
-Install here:
-
 https://chromewebstore.google.com/detail/njaifefbcpkgcokocfheeafogibmhnbf?utm_source=item-share-cb
 
 [![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/njaifefbcpkgcokocfheeafogibmhnbf?logo=chromewebstore&logoColor=%234285F4&label=Chrome%20Web%20Store%20Users)](https://chromewebstore.google.com/detail/better-compass-superior/njaifefbcpkgcokocfheeafogibmhnbf)
@@ -17,10 +15,7 @@ Now with a on-site options/settings button, and popup extension menu!
 
 - Customisable timetable colours (disablable)
 - Timetable Colour loader/saver (json) 
-- Many site colour themes (and more coming)
-- Preset images for use as background image.
-- An additional quick features menu with the most useful features.
-- Shortcut favicon badges that can be pinned to the navbar.
+- Many site colour themes (and more coming) 
 - Autologin, merged in by github.com/Ashton20271 who stole all my code for his version. All themes and background function are mine, not his.
 - Custom background images (Works best with the light or Dark Clear themes)
 To change theme, you must go into "extension options", or now, use the button "BCS settings" in the top right of the website. and select the chosen theme. Click "save" (button next to the theme picker).
@@ -29,6 +24,7 @@ You can load/save (recall) colour configs for your timetable in extension option
 
 Timetable colours are changed on the actual Compass page using sliders, or with the rule function in options or the popup.
 
+Downloads counter kinda cooked and unreliable it seems.
 
 [![Github All Releases](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total.svg)]()
 

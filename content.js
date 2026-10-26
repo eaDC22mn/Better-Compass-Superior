@@ -67,6 +67,82 @@ function applyNavbarColourOverride() {
     });
 }
 
+function applyLessonPlanColumnColourOverride() {
+    chrome.storage.local.get(["lessonPlanColumnColourEnabled", "lessonPlanColumnColour"], (settings) => {
+        const enabled = settings.lessonPlanColumnColourEnabled === true;
+        const colour = settings.lessonPlanColumnColour || "#e8f2ff";
+
+        document.body.style.setProperty("--bcs-lesson-plan-column-colour", colour);
+        document.body.classList.toggle("bcs-custom-lesson-plan-column-colour", enabled);
+    });
+}
+
+function applyTabBarColourOverride() {
+    chrome.storage.local.get(["tabBarColourEnabled", "tabBarColour"], (settings) => {
+        const enabled = settings.tabBarColourEnabled === true;
+        const colour = settings.tabBarColour || "#e8f2ff";
+
+        document.body.style.setProperty("--bcs-tab-bar-colour", colour);
+        document.body.classList.toggle("bcs-custom-tab-bar-colour", enabled);
+    });
+}
+
+function applyClassLabelColourOverride() {
+    chrome.storage.local.get(["classLabelColourEnabled", "classLabelColour"], (settings) => {
+        const enabled = settings.classLabelColourEnabled === true;
+        const colour = settings.classLabelColour || "#e8f2ff";
+
+        document.body.style.setProperty("--bcs-class-label-colour", colour);
+        document.body.classList.toggle("bcs-custom-class-label-colour", enabled);
+    });
+}
+
+function applyTimetableBackgroundColourOverride() {
+    chrome.storage.local.get(["timetableBackgroundColourEnabled", "timetableBackgroundColour"], (settings) => {
+        const enabled = settings.timetableBackgroundColourEnabled === true;
+        const colour = settings.timetableBackgroundColour || "#e8f2ff";
+
+        document.body.style.setProperty("--bcs-timetable-background-colour", colour);
+        document.body.classList.toggle("bcs-custom-timetable-background-colour", enabled);
+    });
+}
+
+const ICON_COLOUR_OVERRIDES = [
+    { id: "homeIcon", path: "M20.3325 9.0534" },
+    { id: "calendarIcon", path: "M22 20.1255" },
+    { id: "messageIcon", path: "M14.7255 13.8348" },
+    { id: "editIcon", path: "M2 16.5078" },
+    { id: "gridIcon", path: "M2 7H7V2H2V7Z" },
+    { id: "peopleIcon", path: "M16.3637 11.2849" },
+    { id: "starIcon", path: "M10.9267 2.69574" }
+];
+
+function applyIconColourOverrides() {
+    const storageKeys = ICON_COLOUR_OVERRIDES.flatMap(({ id }) => [`${id}ColourEnabled`, `${id}Colour`]);
+
+    chrome.storage.local.get(storageKeys, (settings) => {
+        const styleId = "bcs-icon-colour-overrides";
+        let style = document.getElementById(styleId);
+
+        if (!style) {
+            style = document.createElement("style");
+            style.id = styleId;
+            style.textContent = ICON_COLOUR_OVERRIDES.map(({ id, path }) => {
+                const className = `bcs-${id.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}-colour`;
+                const variable = `--bcs-${id.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}-colour`;
+                return `body.${className} path[d^="${path}"] { fill: var(${variable}) !important; }`;
+            }).join("\n");
+            document.head.appendChild(style);
+        }
+
+        ICON_COLOUR_OVERRIDES.forEach(({ id }) => {
+            const name = id.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+            document.body.style.setProperty(`--bcs-${name}-colour`, settings[`${id}Colour`] || "#000000");
+            document.body.classList.toggle(`bcs-${name}-colour`, settings[`${id}ColourEnabled`] === true);
+        });
+    });
+}
+
 function disableAllThemeClasses() {
     document.body.classList.forEach((cls) => {
         if (cls.startsWith("theme-")) {
@@ -270,6 +346,11 @@ function applyBackgroundImage(url) {
 }
 
 applyThemeAndBackground();
+applyLessonPlanColumnColourOverride();
+applyTabBarColourOverride();
+applyClassLabelColourOverride();
+applyTimetableBackgroundColourOverride();
+applyIconColourOverrides();
 
 const PERMANENT_Z_INDEX_SELECTORS = [
     ".x-box-inner",
@@ -488,7 +569,7 @@ let colorPickerElement = null;
 let savedTimetableColors = null;
 let subjectColorRules = null;
 let timetableColorDataLoading = false;
-const TIMETABLE_BLOCK_SELECTORS = '[class*="timetable"], [class*="calendar"], .event';
+const TIMETABLE_BLOCK_SELECTORS = '.event, .ext-cal-evt, [class*="timetable-event"], [class*="calendar-event"]';
 
 function getKey(el) {
     if (!el) return null;
@@ -801,14 +882,14 @@ function initTimetableColorPicker() {
             e.target.closest(".x-box-inner, .x-box-target") ||
             e.target.closest(".menu-svg-icon.menu-svg-icon-calendar")
         ) return;
-        const block = e.target.closest('[class*="timetable"], [class*="calendar"], .event');
+        const block = e.target.closest(TIMETABLE_BLOCK_SELECTORS);
         if (!block) return;
         show(block);
     });
 
     document.addEventListener("mouseout", e => {
         if (!timetableColorPickerEnabled || !timetableEditorModeEnabled) return;
-        if (!e.relatedTarget || !e.relatedTarget.closest?.('[class*="timetable"], [class*="calendar"], .event')) {
+        if (!e.relatedTarget || !e.relatedTarget.closest?.(TIMETABLE_BLOCK_SELECTORS)) {
             hideDelayed();
         }
     });
@@ -819,7 +900,7 @@ function initTimetableColorPicker() {
             e.target.closest(".x-box-inner, .x-box-target") ||
             e.target.closest(".menu-svg-icon.menu-svg-icon-calendar")
         ) return;
-        const block = e.target.closest('[class*="timetable"], [class*="calendar"], .event');
+        const block = e.target.closest(TIMETABLE_BLOCK_SELECTORS);
         if (!block) return;
         e.preventDefault();
         pinnedBlock = block;
@@ -871,6 +952,21 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
         if (changes.customTextColourEnabled || changes.customTextColour || changes.customNavbarColourEnabled || changes.customNavbarColour || changes.rainbowNavbarEnabled) {
             applyTextColourOverride();
             applyNavbarColourOverride();
+        }
+        if (changes.lessonPlanColumnColourEnabled || changes.lessonPlanColumnColour) {
+            applyLessonPlanColumnColourOverride();
+        }
+        if (changes.tabBarColourEnabled || changes.tabBarColour) {
+            applyTabBarColourOverride();
+        }
+        if (changes.classLabelColourEnabled || changes.classLabelColour) {
+            applyClassLabelColourOverride();
+        }
+        if (changes.timetableBackgroundColourEnabled || changes.timetableBackgroundColour) {
+            applyTimetableBackgroundColourOverride();
+        }
+        if (ICON_COLOUR_OVERRIDES.some(({ id }) => changes[`${id}ColourEnabled`] || changes[`${id}Colour`])) {
+            applyIconColourOverrides();
         }
     }
 });
@@ -1004,10 +1100,13 @@ function insertCompassActionButton(button, buttonContainer, anchorElement) {
 let websiteShortcuts = [];
 
 function renderWebsiteShortcuts(shortcuts) {
-    if (!Array.isArray(shortcuts)) return;
+    if (window !== window.top || !Array.isArray(shortcuts)) return;
 
-    const optionsButton = document.getElementById("openOptionsBtn");
-    const searchContainer = document.querySelector("#productNavBar.newLNF .mnu_autosuggestContainer, #productNavBar .mnu_autosuggestContainer, #ProductNavBar.newLNF .mnu_autosuggestContainer, #ProductNavBar .mnu_autosuggestContainer, [id$='_pnlSearch']");
+    const navbar = document.querySelector("#productNavBar.newLNF, #productNavBar, #ProductNavBar.newLNF, #ProductNavBar");
+    if (!navbar) return;
+
+    const optionsButton = navbar.querySelector("#openOptionsBtn");
+    const searchContainer = navbar.querySelector(".mnu_autosuggestContainer");
     const anchor = optionsButton || searchContainer;
     const targetContainer = anchor?.parentElement;
     if (!targetContainer) return;
@@ -1083,6 +1182,8 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 });
 
 function addAlternateMenuButton() {
+    if (window !== window.top) return;
+
     if (document.getElementById("bcsAlternateMenuBtn")) return;
 
     const optionsButton = document.getElementById("openOptionsBtn");
@@ -1115,38 +1216,12 @@ function addAlternateMenuButton() {
 }
 
 function addOpenOptionsButton() {
-    const topBarSelectors = [
-        '#productNavBar.newLNF',
-        '.newLNF #c_bar',
-        '.x-toolbar',
-        '.topbar',
-        '.header',
-        '.masthead',
-        'header',
-        '.navbar',
-        '.navigation',
-        '.app-bar'
-    ];
+    if (window !== window.top) return;
 
-    const topBar = topBarSelectors
-        .map(sel => document.querySelector(sel))
-        .find(el => el !== null);
+    const topBar = document.querySelector("#productNavBar.newLNF, #productNavBar, #ProductNavBar.newLNF, #ProductNavBar");
+    if (!topBar) return;
 
-    const rightGroupSelectors = [
-        '#mnuMenuContainer.newLNF > #mnu_right',
-        '#mnu_right',
-        '.mnu-right',
-        '.nav-right',
-        '.topbar-right',
-        '.header-right',
-        '.actions-right',
-        '.right-menu',
-        '.toolbar-right'
-    ];
-
-    const rightGroup = rightGroupSelectors
-        .map(sel => document.querySelector(sel))
-        .find(el => el !== null);
+    const rightGroup = document.querySelector("#mnuMenuContainer.newLNF > #mnu_right, #mnuMenuContainer > #mnu_right");
 
     const profileSelectors = [
         '.user-avatar',
