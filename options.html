@@ -74,6 +74,20 @@
             <button id="restoreColors">Push colours (cfg)</button>
         </div>
     </div>
+
+    <section class="bcs-settings-transfer" aria-labelledby="settingsTransferTitle">
+        <h5 id="settingsTransferTitle">Settings file backup</h5>
+        <p class="settings-help">Export or import timetable colours only, or all settings except the background image.</p>
+        <div class="settings-transfer-actions">
+            <button type="button" data-settings-export="timetable-colours">Export timetable colours</button>
+            <button type="button" data-settings-import-trigger="timetable-colours">Import timetable colours</button>
+            <input type="file" accept=".json,application/json" data-settings-import="timetable-colours" hidden>
+            <button type="button" data-settings-export="full-settings">Export full settings</button>
+            <button type="button" data-settings-import-trigger="full-settings">Import full settings</button>
+            <input type="file" accept=".json,application/json" data-settings-import="full-settings" hidden>
+        </div>
+        <div data-settings-transfer-status role="status" aria-live="polite"></div>
+    </section>
   
     
     <div id="subjectPatternRulesSection" style="margin-top:16px;">
@@ -85,6 +99,7 @@
       <button id="addSubjectPatternRule" type="button" style="padding:6px 12px;margin-top:8px;">Add rule</button>
     </div>
 
+    <script src="settings-transfer.js"></script>
     <script src="options.js"></script>
 </body>
 </html>

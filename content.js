@@ -34,7 +34,9 @@ function applyNavbarColourOverride() {
     chrome.storage.local.get(["customNavbarColourEnabled", "customNavbarColour", "rainbowNavbarEnabled"], (settings) => {
         if (requestId !== navbarOverrideRequest) return;
 
-            const findNavbars = () => Array.from(document.querySelectorAll("#productNavBar.newLNF, #productNavBar, #ProductNavBar.newLNF, #ProductNavBar"));
+        document.body.classList.toggle("bcs-custom-navbar-colour-enabled", settings.customNavbarColourEnabled === true);
+
+        const findNavbars = () => Array.from(document.querySelectorAll("#productNavBar.newLNF, #productNavBar, #ProductNavBar.newLNF, #ProductNavBar"));
         const navbars = findNavbars();
         if (navbars.length === 0) {
             if (settings.rainbowNavbarEnabled === true || settings.customNavbarColourEnabled === true) {
@@ -155,6 +157,11 @@ function disableAllThemeClasses() {
 
 }
 
+function applyInversionBlackLift(value) {
+    const blackLift = Math.min(20, Math.max(0, Number(value) || 0));
+    document.documentElement.style.setProperty("--bcs-invert-black-lift", `${blackLift}%`);
+}
+
 function applyThemeAndBackground() {
     chrome.storage.sync.get(["theme"], (settings) => {
         const theme = String(settings.theme || "default").trim();
@@ -167,8 +174,9 @@ function applyThemeAndBackground() {
         }
     });
 
-    chrome.storage.local.get(["backgroundImage", "backgroundBlur"], (localSettings) => {
+    chrome.storage.local.get(["backgroundImage", "backgroundBlur", "invertBlackLift"], (localSettings) => {
         backgroundBlur = Number(localSettings.backgroundBlur) || 0;
+        applyInversionBlackLift(localSettings.invertBlackLift);
         applyBackgroundImage(localSettings.backgroundImage);
     });
 
@@ -272,8 +280,7 @@ function restorePageBackgroundBlockers() {
 
 const TRANSPARENT_WITH_CUSTOM_BACKGROUND_SELECTORS = [
     ".x-box-inner",
-    ".x-box-target",
-    "--card"
+    ".x-box-target"
 ];
 
 function applyBackgroundTransparencyState(isActive) {
@@ -284,32 +291,51 @@ function applyBackgroundTransparencyState(isActive) {
         if (!element) return;
 
         if (isActive) {
-            if (element.dataset.bcsOriginalOpacity === undefined) {
-                element.dataset.bcsOriginalOpacity = element.style.opacity || "";
-            }
-            if (element.dataset.bcsOriginalVisibility === undefined) {
-                element.dataset.bcsOriginalVisibility = element.style.visibility || "";
-            }
-
-            element.style.setProperty("opacity", "0", "!important");
-            element.style.setProperty("visibility", "visible", "important");
-            element.style.setProperty("pointer-events", "auto", "important");
-        } else {
             if (element.dataset.bcsOriginalOpacity !== undefined) {
                 element.style.opacity = element.dataset.bcsOriginalOpacity;
                 delete element.dataset.bcsOriginalOpacity;
-            } else {
-                element.style.removeProperty("opacity");
+                if (element.dataset.bcsOriginalVisibility !== undefined) {
+                    element.style.visibility = element.dataset.bcsOriginalVisibility;
+                    delete element.dataset.bcsOriginalVisibility;
+                }
+                element.style.removeProperty("pointer-events");
             }
 
+            ["background-color", "background-image"].forEach((property) => {
+                const key = property === "background-color" ? "bcsOriginalBackgroundColor" : "bcsOriginalBackgroundImage";
+                const priorityKey = `${key}Priority`;
+                if (element.dataset[key] === undefined) {
+                    element.dataset[key] = element.style.getPropertyValue(property);
+                    element.dataset[priorityKey] = element.style.getPropertyPriority(property);
+                }
+            });
+
+            element.style.setProperty("background-color", "transparent", "important");
+            element.style.setProperty("background-image", "none", "important");
+        } else {
+            ["background-color", "background-image"].forEach((property) => {
+                const key = property === "background-color" ? "bcsOriginalBackgroundColor" : "bcsOriginalBackgroundImage";
+                const priorityKey = `${key}Priority`;
+                if (element.dataset[key] !== undefined) {
+                    if (element.dataset[key]) {
+                        element.style.setProperty(property, element.dataset[key], element.dataset[priorityKey] || "");
+                    } else {
+                        element.style.removeProperty(property);
+                    }
+                    delete element.dataset[key];
+                    delete element.dataset[priorityKey];
+                }
+            });
+
+            if (element.dataset.bcsOriginalOpacity !== undefined) {
+                element.style.opacity = element.dataset.bcsOriginalOpacity;
+                delete element.dataset.bcsOriginalOpacity;
+                element.style.removeProperty("pointer-events");
+            }
             if (element.dataset.bcsOriginalVisibility !== undefined) {
                 element.style.visibility = element.dataset.bcsOriginalVisibility;
                 delete element.dataset.bcsOriginalVisibility;
-            } else {
-                element.style.removeProperty("visibility");
             }
-
-            element.style.removeProperty("pointer-events");
         }
     });
 }
@@ -319,7 +345,7 @@ let backgroundBlur = 0;
 function applyBackgroundBlur(value) {
     backgroundBlur = Number(value) || 0;
     if (customBackgroundLayer) {
-        customBackgroundLayer.style.filter = `blur(${backgroundBlur}px)`;
+        customBackgroundLayer.style.filter = `blur(${backgroundBlur}px) var(--bcs-background-counter-filter, )`;
     }
 }
 
@@ -544,6 +570,10 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
     }
     if (areaName === "local" && changes.backgroundBlur) {
         applyBackgroundBlur(changes.backgroundBlur.newValue);
+    }
+    if (areaName === "local" && changes.invertBlackLift) {
+        applyInversionBlackLift(changes.invertBlackLift.newValue);
+        applyBackgroundBlur(backgroundBlur);
     }
     /* Handle z-index selection changes */
 
@@ -928,6 +958,9 @@ function initTimetableColorPicker() {
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "sync") {
+        if (Object.keys(changes).some(key => key.startsWith("compass-color-"))) {
+            applySavedColors();
+        }
         if (changes.theme) {
             applyThemeAndBackground();
         }
@@ -943,6 +976,9 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
     }
 
     if (areaName === "local") {
+        if (Object.keys(changes).some(key => key.startsWith("compass-color-"))) {
+            applySavedColors();
+        }
         if (changes.backgroundBlur) {
             applyBackgroundBlur(changes.backgroundBlur.newValue);
         }

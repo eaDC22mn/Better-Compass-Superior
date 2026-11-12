@@ -256,7 +256,7 @@
         const overlay = document.createElement("div");
         overlay.id = "altmenu";
         overlay.setAttribute("role", "presentation");
-        document.body.appendChild(overlay);
+        document.documentElement.appendChild(overlay);
 
         try {
             overlay.innerHTML = await loadTemplate();
@@ -275,6 +275,7 @@
         const exampleButton = overlay.querySelector(".bcs-alternate-menu-example-button");
         const exampleStatus = overlay.querySelector(".bcs-alternate-menu-example-status");
 
+        window.BCSSettingsTransfer.initialize(overlay);
         closeButton?.addEventListener("click", close);
         exampleButton?.addEventListener("click", () => {
             if (exampleStatus) {

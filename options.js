@@ -51,6 +51,7 @@ function selectBackground(url) {
 }
 
 renderBackgroundPresets();
+window.BCSSettingsTransfer.initialize(document);
 
 chrome.storage.sync.get(["theme", "colorPickerEnabled"], (settings) => {
     if (settings.theme) {

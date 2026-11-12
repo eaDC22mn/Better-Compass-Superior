@@ -732,52 +732,211 @@ body.theme-aus .css-szig0z .css-dt2n38 {
 
 
 
-.theme-invert {
+body.theme-invert {
+    --bcs-background-counter-filter: invert(1) hue-rotate(180deg);
     filter: invert(1) hue-rotate(180deg);
 }
 
-body.theme-invert :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+body.theme-invert :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent, .event, .ext-cal-evt, [class*="timetable-event"], [class*="calendar-event"], .teacherContainer__profileImage) {
     filter: invert(1) hue-rotate(180deg) !important;
 }
 
-.theme-invertG {
+body.theme-invertG {
+    --bcs-background-counter-filter: invert(1) hue-rotate(270deg);
     filter: invert(1) hue-rotate(90deg);
 }
 
-body.theme-invertG :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent, .MuiBox-root css-0, .ext-cal-day-col-inner) {
+body.theme-invertG :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent, .event, .ext-cal-evt, [class*="timetable-event"], [class*="calendar-event"], .MuiBox-root css-0, .ext-cal-day-col-inner, .teacherContainer__profileImage) {
     filter: invert(1) hue-rotate(270deg) !important;
 }
 
-.theme-Dark3 {
+body.theme-Dark3 {
+    --bcs-background-counter-filter: invert(1) hue-rotate(340deg);
     filter: invert(1) hue-rotate(20deg);
 }
 
-body.theme-Dark3 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+body.theme-Dark3 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent, .event, .ext-cal-evt, [class*="timetable-event"], [class*="calendar-event"], .teacherContainer__profileImage) {
     filter: invert(1) hue-rotate(340deg) !important;
 }
 
-.theme-Dark4 {
+body.theme-Dark4 {
+    --bcs-background-counter-filter: invert(1);
     filter: invert(1) hue-rotate(0deg);
 }
 
-body.theme-Dark4 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+body.theme-Dark4 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent, .event, .ext-cal-evt, [class*="timetable-event"], [class*="calendar-event"], .teacherContainer__profileImage) {
     filter: invert(1) !important;
 }
 
-.theme-Dark5 {
+body.theme-Dark5 {
+    --bcs-background-counter-filter: invert(1) hue-rotate(110deg);
     filter: invert(1) hue-rotate(250deg);
 }
 
-body.theme-Dark5 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+body.theme-Dark5 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent, .event, .ext-cal-evt, [class*="timetable-event"], [class*="calendar-event"], .teacherContainer__profileImage) {
     filter: invert(1) hue-rotate(110deg) !important;
 }
 
-.theme-Dark6 {
+body.theme-Dark6 {
+    --bcs-background-counter-filter: invert(1) hue-rotate(40deg);
     filter: invert(1) hue-rotate(320deg);
 }
 
-body.theme-Dark6 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent) {
+body.theme-Dark6 :where(img, video, canvas, svg, .DayViewEvent-event, .EventTile-root, .CalendarEvent, .event, .ext-cal-evt, [class*="timetable-event"], [class*="calendar-event"], .teacherContainer__profileImage) {
     filter: invert(1) hue-rotate(40deg) !important;
+}
+
+body:is(.theme-invert, .theme-invertG, .theme-Dark3, .theme-Dark4, .theme-Dark5, .theme-Dark6) .home-schoolLogo {
+    display: none !important;
+}
+
+body.theme-invert .postTitle,
+body.theme-invert .postTitle *,
+body.theme-invertG .postTitle,
+body.theme-invertG .postTitle *,
+body.theme-Dark3 .postTitle,
+body.theme-Dark3 .postTitle *,
+body.theme-Dark4 .postTitle,
+body.theme-Dark4 .postTitle *,
+body.theme-Dark5 .postTitle,
+body.theme-Dark5 .postTitle *,
+body.theme-Dark6 .postTitle,
+body.theme-Dark6 .postTitle * {
+    color: #f2f2f2 !important;
+    -webkit-text-fill-color: #f2f2f2 !important;
+}
+
+body.theme-invert .postTitle {
+    filter: invert(1) hue-rotate(180deg) !important;
+}
+
+body.theme-invertG .postTitle {
+    filter: invert(1) hue-rotate(270deg) !important;
+}
+
+body.theme-Dark3 .postTitle {
+    filter: invert(1) hue-rotate(340deg) !important;
+}
+
+body.theme-Dark4 .postTitle {
+    filter: invert(1) !important;
+}
+
+body.theme-Dark5 .postTitle {
+    filter: invert(1) hue-rotate(110deg) !important;
+}
+
+body.theme-Dark6 .postTitle {
+    filter: invert(1) hue-rotate(40deg) !important;
+}
+
+body:is(.theme-invert, .theme-invertG, .theme-Dark3, .theme-Dark4, .theme-Dark5, .theme-Dark6) :is(
+    .MuiPaper-root,
+    .MuiCard-root,
+    .MuiAccordion-root,
+    .MuiContainer-root,
+    .x-panel-body,
+    .x-calendar-list,
+    .newLNF .home-schoolNameContainer,
+    .css-szig0z .css-dt2n38,
+    .css-1dpvdu2,
+    .css-iqppun,
+    #aspnetForm,
+    #c_bar
+) {
+    background-color: color-mix(in srgb, #fff calc(100% - var(--bcs-invert-black-lift, 0%)), #000 var(--bcs-invert-black-lift, 0%)) !important;
+}
+
+body:is(.theme-invert, .theme-invertG, .theme-Dark3, .theme-Dark4, .theme-Dark5, .theme-Dark6).greyBody {
+    background-color: color-mix(in srgb, #4a4a4a calc(100% - var(--bcs-invert-black-lift, 0%)), #000 var(--bcs-invert-black-lift, 0%)) !important;
+}
+
+body.bcs-custom-navbar-colour-enabled:is(.theme-invert, .theme-invertG, .theme-Dark3, .theme-Dark4, .theme-Dark5, .theme-Dark6) :is(#productNavBar, #ProductNavBar) {
+    filter: var(--bcs-background-counter-filter) !important;
+}
+
+body.bcs-custom-navbar-colour-enabled:is(.theme-invert, .theme-invertG, .theme-Dark3, .theme-Dark4, .theme-Dark5, .theme-Dark6) :is(#productNavBar, #ProductNavBar) * {
+    filter: none !important;
+}
+
+body.theme-invert:not(.bcs-custom-navbar-colour-enabled) :is(#productNavBar, #ProductNavBar) {
+    background: linear-gradient(135deg, #1e1e1e, #222b38) !important;
+    filter: var(--bcs-background-counter-filter) !important;
+}
+
+body.theme-invert:not(.bcs-custom-navbar-colour-enabled) :is(#productNavBar, #ProductNavBar) * {
+    filter: none !important;
+}
+
+body.theme-invert .MuiBox-root:has(> [data-testid="feed-toolbar"]) {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+body.theme-invertG .MuiBox-root:has(> [data-testid="feed-toolbar"]) {
+    filter: invert(1) hue-rotate(270deg);
+}
+
+body.theme-Dark3 .MuiBox-root:has(> [data-testid="feed-toolbar"]) {
+    filter: invert(1) hue-rotate(340deg);
+}
+
+body.theme-Dark4 .MuiBox-root:has(> [data-testid="feed-toolbar"]) {
+    filter: invert(1);
+}
+
+body.theme-Dark5 .MuiBox-root:has(> [data-testid="feed-toolbar"]) {
+    filter: invert(1) hue-rotate(110deg);
+}
+
+body.theme-Dark6 .MuiBox-root:has(> [data-testid="feed-toolbar"]) {
+    filter: invert(1) hue-rotate(40deg);
+}
+
+body.theme-invert [data-better-compass-replaced="1"] {
+    filter: invert(1) hue-rotate(180deg) !important;
+}
+
+body.theme-invertG [data-better-compass-replaced="1"] {
+    filter: invert(1) hue-rotate(270deg) !important;
+}
+
+body.theme-Dark3 [data-better-compass-replaced="1"] {
+    filter: invert(1) hue-rotate(340deg) !important;
+}
+
+body.theme-Dark4 [data-better-compass-replaced="1"] {
+    filter: invert(1) !important;
+}
+
+body.theme-Dark5 [data-better-compass-replaced="1"] {
+    filter: invert(1) hue-rotate(110deg) !important;
+}
+
+body.theme-Dark6 [data-better-compass-replaced="1"] {
+    filter: invert(1) hue-rotate(40deg) !important;
+}
+
+body:is(.theme-invert, .theme-invertG, .theme-Dark3, .theme-Dark4, .theme-Dark5, .theme-Dark6):has(> embed[type="application/pdf"]) {
+    filter: none !important;
+}
+
+:root:has(> body > embed[type="application/pdf"]),
+body:has(> embed[type="application/pdf"]) {
+    background: #fff !important;
+    background-color: #fff !important;
+}
+
+body:has(> embed[type="application/pdf"]) #betterCompassBackgroundLayer {
+    display: none !important;
+}
+
+body:has(> embed[type="application/pdf"]) > embed[type="application/pdf"] {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: block !important;
+    z-index: 2147483647 !important;
 }
 
 body[class*="theme-"] :where(.DayViewEvent-event, .EventTile-root, .CalendarEvent) :where(img, video, canvas, svg) {

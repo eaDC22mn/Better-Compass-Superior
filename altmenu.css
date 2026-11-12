@@ -136,15 +136,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .bcs-theme-box[data-theme="clear"] {
-  background: linear-gradient(135deg, rgba(60, 70, 80, 0.86) 0%, rgba(15, 18, 22, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(60, 70, 80, 0.86) 0%, rgba(93, 93, 93, 0.9) 100%);
 }
 
 .bcs-theme-box[data-theme="clearl"] {
-  background: linear-gradient(135deg, #ffffff 0%, #b2e7ff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #405863 100%);
 }
 
 .bcs-theme-box[data-theme="invert"] {
-  background: linear-gradient(135deg, #f4f4f4 0%, #7c7c7c 100%);
+  background: linear-gradient(135deg, #2b2b2b 0%, #3e586f 100%);
 }
 
 .bcs-theme-box[data-theme="tdark"] {
@@ -244,6 +244,40 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(124, 180, 208, 0.35);
   border-radius: 10px;
   background: rgba(18, 20, 26, 0.72);
+}
+
+.bcs-settings-transfer {
+  margin-top: 8px;
+  padding: 12px 20px 16px;
+  border: 1px solid rgba(124, 180, 208, 0.35);
+  border-radius: 10px;
+  background: rgba(18, 20, 26, 0.72);
+}
+
+.bcs-settings-transfer .themes-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.settings-transfer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 8px;
+}
+
+.settings-transfer-actions button {
+  padding: 7px 10px;
+}
+
+[data-settings-transfer-status] {
+  min-height: 18px;
+  color: #88adca;
+  font-size: 12px;
+}
+
+[data-settings-transfer-status][data-state="error"] {
+  color: #ff9a9a;
 }
 
 #background-row label {

@@ -24,6 +24,8 @@ You can load/save (recall) colour configs for your timetable in extension option
 
 Timetable colours are changed on the actual Compass page using sliders, or with the rule function in options or the popup.
 
+The extension options page and on-site settings menu also support exporting and importing timetable-colour-only backups or full settings backups as JSON files. Full-settings backups exclude the background image, and importing them leaves the current background image unchanged.
+
 Downloads counter kinda cooked and unreliable it seems.
 
 [![Github All Releases](https://img.shields.io/github/downloads/eaDC22mn/Better-Compass-Superior/total.svg)]()
@@ -44,5 +46,4 @@ Or from releases, the latest release.
 
 Discord -->
 [![Discord](https://shields.io)](https://discord.gg/GY58mMGYjw)
-
 

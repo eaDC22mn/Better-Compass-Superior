@@ -247,6 +247,31 @@ button:active {
   margin-bottom: 18px;
 }
 
+.bcs-settings-transfer {
+  margin: 16px 0 18px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.04);
+}
+
+.settings-transfer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+[data-settings-transfer-status] {
+  min-height: 18px;
+  color: #8fd7bd;
+  font-size: 0.85rem;
+}
+
+[data-settings-transfer-status][data-state="error"] {
+  color: #ff9a9a;
+}
+
 .color-config-buttons {
   display: flex;
   flex-wrap: wrap;

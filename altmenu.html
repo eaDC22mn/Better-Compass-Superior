@@ -51,6 +51,20 @@
       <img id="backgroundPreview" alt="Selected background preview" />
     </div>
 
+    <section class="bcs-settings-transfer" aria-labelledby="alternateSettingsTransferTitle">
+      <div class="themes-title" id="alternateSettingsTransferTitle">Settings file backup</div>
+      <p class="bcs-alternate-menu-help">Export or import timetable colours only, or all settings except the background image.</p>
+      <div class="settings-transfer-actions">
+        <button type="button" data-settings-export="timetable-colours">Export timetable colours</button>
+        <button type="button" data-settings-import-trigger="timetable-colours">Import timetable colours</button>
+        <input type="file" accept=".json,application/json" data-settings-import="timetable-colours" hidden>
+        <button type="button" data-settings-export="full-settings">Export full settings</button>
+        <button type="button" data-settings-import-trigger="full-settings">Import full settings</button>
+        <input type="file" accept=".json,application/json" data-settings-import="full-settings" hidden>
+      </div>
+      <div data-settings-transfer-status role="status" aria-live="polite"></div>
+    </section>
+
     <section id="alternateMenuShortcuts" class="bcs-alternate-menu-shortcuts" hidden>
       <div class="themes-title">Website shortcuts</div>
         <div id="alternateMenuShortcutEditor" class="bcs-alternate-menu-shortcut-editor"></div>

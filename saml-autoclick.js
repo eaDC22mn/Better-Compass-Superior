@@ -1,6 +1,7 @@
 (function () {
     function clickButton() {
-        const btn = document.getElementById("SamlLoginButton");
+        const btn = document.querySelector('[data-test="sso-button"]')
+            || document.getElementById("SamlLoginButton");
         if (btn) {
             btn.click();
             return true;

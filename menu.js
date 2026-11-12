@@ -29,6 +29,8 @@ const iconColourControls = [
     { id: "starIcon" }
 ];
 const rainbowNavbarToggle = document.getElementById("rainbowNavbarToggle");
+const invertBlackLift = document.getElementById("invertBlackLift");
+const invertBlackLiftValue = document.getElementById("invertBlackLiftValue");
 const backgroundBlur = document.getElementById("backgroundBlur");
 const blurValue = document.getElementById("blurValue");
 const pageZoom = document.getElementById("pageZoom");
@@ -264,6 +266,7 @@ chrome.storage.sync.get(["editorModeEnabled"], (settings) => {
 });
 
 chrome.storage.local.get([
+    "invertBlackLift",
     "backgroundBlur",
     "customTextColourEnabled",
     "customTextColour",
@@ -281,6 +284,10 @@ chrome.storage.local.get([
     "pageZoom",
     "pageZoomEnabled"
 ], (settings) => {
+    const blackLift = Math.min(20, Math.max(0, Number(settings.invertBlackLift) || 0));
+    invertBlackLift.value = blackLift;
+    invertBlackLiftValue.textContent = `${blackLift}%`;
+
     const blur = Number(settings.backgroundBlur) || 0;
     backgroundBlur.value = blur;
     updateBlurValue(blur);
@@ -490,6 +497,12 @@ backgroundBlur.addEventListener("input", () => {
     const value = Number(backgroundBlur.value) || 0;
     updateBlurValue(value);
     chrome.storage.local.set({ backgroundBlur: value });
+});
+
+invertBlackLift.addEventListener("input", () => {
+    const value = Number(invertBlackLift.value) || 0;
+    invertBlackLiftValue.textContent = `${value}%`;
+    chrome.storage.local.set({ invertBlackLift: value });
 });
 
 pageZoom.addEventListener("input", () => {
