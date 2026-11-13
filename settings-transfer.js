@@ -3,6 +3,18 @@
     const FILE_VERSION = 1;
     const BACKGROUND_IMAGE_KEY = "backgroundImage";
     const TIMETABLE_COLOUR_PREFIX = "compass-color-";
+    const BUNDLED_BACKGROUND_PATHS = [
+        "backgrounds/campus.jpg",
+        "backgrounds/sunset.jpg",
+        "backgrounds/forest.jpg",
+        "backgrounds/ocean.jpg",
+        "backgrounds/city.jpg",
+        "backgrounds/tech.jpg",
+        "backgrounds/galaxy.jpg",
+        "backgrounds/hk.jpg",
+        "backgrounds/mc.jpg",
+        "backgrounds/other.jpg"
+    ];
 
     function storageCall(area, method, argument) {
         return new Promise((resolve, reject) => {
@@ -31,6 +43,29 @@
         return Object.fromEntries(Object.entries(values).filter(([key]) =>
             key !== BACKGROUND_IMAGE_KEY
         ));
+    }
+
+    function getBundledBackgroundPath(backgroundImage) {
+        if (typeof backgroundImage !== "string") return null;
+        return BUNDLED_BACKGROUND_PATHS.find(path =>
+            backgroundImage === path || backgroundImage === chrome.runtime.getURL(path)
+        ) || null;
+    }
+
+    function includeBundledBackgroundPath(values) {
+        const filtered = excludeBackgroundImage(values);
+        const backgroundPath = getBundledBackgroundPath(values[BACKGROUND_IMAGE_KEY]);
+        if (backgroundPath) filtered[BACKGROUND_IMAGE_KEY] = backgroundPath;
+        return filtered;
+    }
+
+    function restoreBundledBackgroundImage(values) {
+        const filtered = excludeBackgroundImage(values);
+        const backgroundPath = getBundledBackgroundPath(values[BACKGROUND_IMAGE_KEY]);
+        if (backgroundPath) {
+            filtered[BACKGROUND_IMAGE_KEY] = chrome.runtime.getURL(backgroundPath);
+        }
+        return filtered;
     }
 
     function setStatus(section, message, isError = false) {
@@ -67,7 +102,7 @@
             type,
             createdAt: new Date().toISOString(),
             data: {
-                local: excludeBackgroundImage(local),
+                local: includeBundledBackgroundPath(local),
                 sync: excludeBackgroundImage(sync)
             }
         };
@@ -116,7 +151,9 @@
         }
 
         return {
-            local: excludeBackgroundImage(backup.data.local),
+            local: expectedType === "full-settings"
+                ? restoreBundledBackgroundImage(backup.data.local)
+                : excludeBackgroundImage(backup.data.local),
             sync: excludeBackgroundImage(backup.data.sync)
         };
     }
@@ -145,15 +182,19 @@
         }
     }
 
-    async function importBackup(file, type) {
-        const backup = parseBackup(await file.text(), type);
+    async function importBackupText(text, type, sourceLabel = "backup") {
+        const backup = parseBackup(text, type);
         if (type === "full-settings" &&
-            !window.confirm("Importing full settings will replace current extension settings. Your background image will remain unchanged. Continue?")) {
+            !window.confirm(`Importing ${sourceLabel} will replace current extension settings. A bundled preset background will be restored; otherwise, your current background will remain unchanged. Continue?`)) {
             return false;
         }
         await replaceStorageArea("local", backup.local, type);
         await replaceStorageArea("sync", backup.sync, type);
         return true;
+    }
+
+    async function importBackup(file, type) {
+        return await importBackupText(await file.text(), type);
     }
 
     function initialize(root) {
@@ -195,6 +236,34 @@
                     setStatus(section, `Import failed: ${error.message}`, true);
                 } finally {
                     input.value = "";
+                }
+            });
+        });
+
+        root.querySelectorAll("[data-settings-preset]").forEach((button) => {
+            button.addEventListener("click", async () => {
+                const section = button.closest(".bcs-settings-transfer");
+                const preset = button.dataset.settingsPreset;
+                if (!["1", "2", "3", "4"].includes(preset)) {
+                    setStatus(section, "Unknown settings preset.", true);
+                    return;
+                }
+
+                try {
+                    setStatus(section, `Loading preset ${preset}...`);
+                    const response = await fetch(chrome.runtime.getURL(`presets/${preset}.json`));
+                    if (!response.ok) {
+                        throw new Error(`Could not load preset ${preset} (${response.status}).`);
+                    }
+                    const imported = await importBackupText(
+                        await response.text(),
+                        "full-settings",
+                        `settings preset ${preset}`
+                    );
+                    setStatus(section, imported ? `Preset ${preset} loaded.` : "Preset loading cancelled.");
+                } catch (error) {
+                    console.error(`Settings preset ${preset} load failed:`, error);
+                    setStatus(section, `Preset ${preset} failed: ${error.message}`, true);
                 }
             });
         });

@@ -270,6 +270,13 @@ h1, h2, h3, h4, h5, h6 {
   padding: 7px 10px;
 }
 
+.settings-preset-title {
+  margin-top: 12px;
+  color: #c6d8ff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 [data-settings-transfer-status] {
   min-height: 18px;
   color: #88adca;

@@ -24,7 +24,7 @@ You can load/save (recall) colour configs for your timetable in extension option
 
 Timetable colours are changed on the actual Compass page using sliders, or with the rule function in options or the popup.
 
-The extension options page and on-site settings menu also support exporting and importing timetable-colour-only backups or full settings backups as JSON files. Full-settings backups exclude the background image, and importing them leaves the current background image unchanged.
+The extension options page and on-site settings menu also support exporting and importing full settings backups as JSON files. Full-settings backups include the selected bundled background preset, if any, but exclude custom background images. Importing a backup without a bundled preset leaves the current background image unchanged. Four bundled settings presets can be loaded from `presets/1.json` through `presets/4.json`; each file must use the full-settings backup JSON format.
 
 Downloads counter kinda cooked and unreliable it seems.
 
@@ -46,4 +46,3 @@ Or from releases, the latest release.
 
 Discord -->
 [![Discord](https://shields.io)](https://discord.gg/GY58mMGYjw)
-

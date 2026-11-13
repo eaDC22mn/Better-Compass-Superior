@@ -53,14 +53,19 @@
 
     <section class="bcs-settings-transfer" aria-labelledby="alternateSettingsTransferTitle">
       <div class="themes-title" id="alternateSettingsTransferTitle">Settings file backup</div>
-      <p class="bcs-alternate-menu-help">Export or import timetable colours only, or all settings except the background image.</p>
+      <p class="bcs-alternate-menu-help">Full settings backups include a selected bundled background preset, but exclude custom background images.</p>
       <div class="settings-transfer-actions">
-        <button type="button" data-settings-export="timetable-colours">Export timetable colours</button>
-        <button type="button" data-settings-import-trigger="timetable-colours">Import timetable colours</button>
-        <input type="file" accept=".json,application/json" data-settings-import="timetable-colours" hidden>
-        <button type="button" data-settings-export="full-settings">Export full settings</button>
-        <button type="button" data-settings-import-trigger="full-settings">Import full settings</button>
+        <button type="button" data-settings-export="full-settings">📤 Export full settings</button>
+        <button type="button" data-settings-import-trigger="full-settings">📥 Import full settings</button>
         <input type="file" accept=".json,application/json" data-settings-import="full-settings" hidden>
+      </div>
+      <div class="settings-preset-title">Bundled preset settings</div>
+      <div class="bcs-alternate-menu-help">Choose between 4 different pre-made configurations. Have a pretty good set of settings yourself? Submit them on the discord or email me, and I'll add them.</div>
+      <div class="settings-transfer-actions">
+        <button type="button" data-settings-preset="1">1</button>
+        <button type="button" data-settings-preset="2">2</button>
+        <button type="button" data-settings-preset="3">3</button>
+        <button type="button" data-settings-preset="4">4</button>
       </div>
       <div data-settings-transfer-status role="status" aria-live="polite"></div>
     </section>

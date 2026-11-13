@@ -8,8 +8,11 @@ const backgroundPresets = [
     { label: "Forest", path: "backgrounds/forest.jpg" },
     { label: "Ocean", path: "backgrounds/ocean.jpg" },
     { label: "City", path: "backgrounds/city.jpg" },
-    { label: "Industrial", path: "backgrounds/industry.jpg" },
-    { label: "Galaxy", path: "backgrounds/galaxy.jpg" }
+    { label: "Tech", path: "backgrounds/tech.jpg" },
+    { label: "Galaxy", path: "backgrounds/galaxy.jpg" },
+    { label: "HK", path: "backgrounds/hk.jpg" },
+    { label: "MC", path: "backgrounds/mc.jpg" },
+    { label: "Orbit", path: "backgrounds/other.jpg" }
 ];
 
 const backgroundPresetsContainer = document.getElementById("backgroundPresets");

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Better Compass Superior",
-  "version": "1.10.1",
+  "version": "1.10.4",
   "icons": {
     "128": "icon-128.png"
   },
@@ -52,7 +52,8 @@
         "icon-128.png",
         "info.png",
         "bcslogo.png",
-        "backgrounds/*"
+        "backgrounds/*",
+        "presets/*.json"
       ],
       "matches": [
         "https://*.compass.education/*"

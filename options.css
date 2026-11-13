@@ -262,6 +262,12 @@ button:active {
   margin-bottom: 8px;
 }
 
+.settings-preset-title {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 [data-settings-transfer-status] {
   min-height: 18px;
   color: #8fd7bd;
