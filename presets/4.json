@@ -1,0 +1,52 @@
+{
+  "format": "better-compass-settings",
+  "version": 1,
+  "type": "full-settings",
+  "createdAt": "2026-11-13T05:13:57.215Z",
+  "data": {
+    "local": {
+      "backgroundBlur": 4,
+      "betterCompassZIndexSelection": {
+        "selector": "h3",
+        "value": -4
+      },
+      "calendarIconColour": "#a4e8fe",
+      "calendarIconColourEnabled": true,
+      "classLabelColour": "#ededed",
+      "classLabelColourEnabled": false,
+      "customNavbarColour": "#008f77",
+      "customNavbarColourEnabled": true,
+      "customTextColour": "#ee00ff",
+      "customTextColourEnabled": false,
+      "editIconColour": "#42d0ff",
+      "editIconColourEnabled": true,
+      "gridIconColour": "#2ecbff",
+      "gridIconColourEnabled": true,
+      "homeIconColour": "#d2f3fe",
+      "homeIconColourEnabled": true,
+      "invertBlackLift": 9,
+      "lessonPlanColumnColour": "#58d5cd",
+      "lessonPlanColumnColourEnabled": true,
+      "messageIconColour": "#72dafd",
+      "messageIconColourEnabled": true,
+      "peopleIconColour": "#0ec0fb",
+      "peopleIconColourEnabled": true,
+      "rainbowNavbarEnabled": false,
+      "starIconColour": "#009dd1",
+      "starIconColourEnabled": true,
+      "tabBarColour": "#28e2cc",
+      "tabBarColourEnabled": true,
+      "websiteShortcuts": [
+        {
+          "url": "https://chromewebstore.google.com/detail/better-compass-superior/njaifefbcpkgcokocfheeafogibmhnbf"
+        }
+      ]
+    },
+    "sync": {
+      "colorPickerEnabled": true,
+      "editorModeEnabled": false,
+      "theme": "invert",
+      "websiteShortcuts": []
+    }
+  }
+}
